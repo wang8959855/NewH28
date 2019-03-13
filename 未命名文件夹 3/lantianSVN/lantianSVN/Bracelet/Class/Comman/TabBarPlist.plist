@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>class</key>
+		<string>HeartRateViewController</string>
+		<key>selectImageName</key>
+		<string>xinlv-hou</string>
+		<key>imageName</key>
+		<string>xinlv-qian</string>
+		<key>title</key>
+		<string>心率</string>
+	</dict>
+	<dict>
+		<key>class</key>
+		<string>HealtPoliceViewController</string>
+		<key>selectImageName</key>
+		<string>yujing-hou</string>
+		<key>imageName</key>
+		<string>yujing-qian</string>
+		<key>title</key>
+		<string>预警</string>
+	</dict>
+	<dict>
+		<key>class</key>
+		<string>NewSportViewController</string>
+		<key>selectImageName</key>
+		<string>yundong-hou</string>
+		<key>imageName</key>
+		<string>yundong-qian</string>
+		<key>title</key>
+		<string>运动</string>
+	</dict>
+	<dict>
+		<key>class</key>
+		<string>MainSleepViewController</string>
+		<key>selectImageName</key>
+		<string>shuimian-hou</string>
+		<key>imageName</key>
+		<string>shuimian-qian</string>
+		<key>title</key>
+		<string>睡眠</string>
+	</dict>
+</array>
+</plist>

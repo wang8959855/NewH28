@@ -1,0 +1,15 @@
+/* 
+  InfoPlist.strings
+  Bracelet
+
+  Created by panzheng on 2017/6/14.
+  Copyright © 2017年 com.czjk.www. All rights reserved.
+*/
+"CFBundleDisplayName" = "心率监护";
+
+"NSAppleMusicUsageDescription" = "请允许APP访问音乐来实现手环控制音乐播放";
+"NSBluetoothPeripheralUsageDescription" = "请允许app使用蓝牙来连接手环";
+"NSCameraUsageDescription" = "请允许访问相机来拍摄照片";
+"NSLocationAlwaysUsageDescription" = "请允许APP后台访问您的地理位置来实现轨迹跑以及手环一键SOS求救功能";
+"NSLocationWhenInUseUsageDescription" = "请允许访问地理位置实现轨迹跑功能";
+"NSPhotoLibraryUsageDescription" = "请允许访问相册来存储照片或选择照片";

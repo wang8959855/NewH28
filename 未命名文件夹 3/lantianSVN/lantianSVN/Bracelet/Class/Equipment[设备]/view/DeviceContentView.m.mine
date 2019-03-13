@@ -1,0 +1,251 @@
+//
+//  DeviceContentView.m
+//  Bracelet
+//
+//  Created by SZCE on 16/1/18.
+//  Copyright © 2016年 xiaoxia liu. All rights reserved.
+//
+
+#import "DeviceContentView.h"
+#import "DeviceHeadView.h"
+#import "DeviceCell.h"
+#import "EquipmentViewController.h"
+#import "AddDeviceViewController.h"
+#import "XXDeviceInfomation.h"
+#import "Command_SetReleaseBoundingEquipment.h"
+
+#define KDEVICECELL @"DeviceCell"
+
+@interface DeviceContentView ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
+
+/**
+ *  表视图
+ */
+@property (nonatomic,weak) UITableView *tableView;
+
+/**
+ *  头视图
+ */
+@property (nonatomic,weak) DeviceHeadView *headView;
+
+/**
+ *  绑定设备按钮
+ */
+@property (nonatomic,weak) UIButton *bindBtn;
+
+@end
+
+@implementation DeviceContentView
+
+#pragma mark - 懒加载
+-(DeviceHeadView *)headView
+{
+    if (!_headView) {
+        
+        DeviceHeadView *headView = [[NSBundle mainBundle]loadNibNamed:@"DeviceHeadView" owner:self options:nil][0];
+        headView.size = CGSizeMake([UIScreen mainScreen].bounds.size.width,180);
+        [self addSubview:headView];
+        
+        _headView = headView;
+    }
+    return _headView;
+}
+
+-(UITableView *)tableView
+{
+    if (!_tableView) {
+        
+        UITableView *tableView = [[UITableView alloc]init];
+        tableView.frame = CGRectMake(0, self.headView.maxY, self.width, self.height - 315);
+        tableView.backgroundColor = kSETBACKGROUNDCOLOR;
+        tableView.tableFooterView = [[UIView alloc] init];
+        
+        //        设置代理
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        
+        
+        //        设置cell属性
+        [tableView registerNib:[UINib nibWithNibName:@"DeviceCell" bundle:nil] forCellReuseIdentifier:KDEVICECELL];
+        tableView.rowHeight = 56;
+        [tableView setSeparatorColor:kRGBCOLOR(74, 116, 139, 1.0)];
+        [tableView setSeparatorInset:UIEdgeInsetsMake(0, 9, 0, 9)];
+        
+        [self addSubview:tableView];
+        
+        _tableView = tableView;
+    }
+    return _tableView;
+}
+
+- (UIButton *)bindBtn
+{
+    if (!_bindBtn) {
+        
+        UIButton *bindBtn = [[UIButton alloc]initWithFrame:CGRectMake(9, self.bounds.size.height - 120, self.bounds.size.width - 18, 50)];
+        [bindBtn setBackgroundColor:kRGBCOLOR(36, 146, 197, 1.0)];
+        bindBtn.layer.cornerRadius = 5;
+        [bindBtn setTitle:NSLocalizedString(@"Bind", nil) forState:UIControlStateNormal];
+        [bindBtn setTitle:NSLocalizedString(@"Unbind", nil) forState:UIControlStateSelected];
+        [bindBtn addTarget:self action:@selector(bindButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:bindBtn];
+        _bindBtn = bindBtn;
+    }
+    return _bindBtn;
+}
+
+#pragma mark - 初始化方法
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        self.backgroundColor = kSETBACKGROUNDCOLOR;
+        
+        [self tableView];
+        [self bindBtn];
+        
+    }
+    return self;
+}
+
+-(void)layoutIfNeeded
+{
+    [super layoutIfNeeded];
+    
+    [self tableView];
+    self.bindBtn.selected = [XXDeviceInfomation isBindDevice];
+}
+
+#pragma mark - Setter
+-(void)setSupportArray:(NSArray *)supportArray
+{
+    _supportArray = supportArray;
+    
+    [self.tableView reloadData];
+}
+
+-(void)setBasicInfo:(Command_GetEquipmentBasicInformation *)basicInfo
+{
+    _basicInfo = basicInfo;
+    
+    self.headView.basicInfo = basicInfo;
+    
+    [self.headView reloadInputViews];
+}
+
+#pragma mark - datasource代理方法
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.supportArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:KDEVICECELL forIndexPath:indexPath];
+    
+    [cell setBackgroundColor:kSETCONTENTBACKGROUNDCOLOR];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.infoDict = self.supportArray[indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dict = self.supportArray[indexPath.row];
+    //判断是否正在更新数据
+    if([XXDeviceInfomation deviceIsUpdating])
+    {
+        if ([dict[@"image"] isEqualToString:@"TakePhoto"] || [dict[@"image"] isEqualToString:@"Music"]) {
+            
+            [self makeToast:NSLocalizedString(@"device is updating", nil) duration:1 position:[NSValue valueWithCGPoint:self.center]];
+            return;
+        }
+    }
+    
+    
+    Class someClass = NSClassFromString([NSString stringWithFormat:@"%@ViewController",dict[@"image"]]);
+    UIViewController *vc = [[someClass alloc]init];
+    vc.title = dict[@"title"];
+    [vc.view setBackgroundColor:kSETBACKGROUNDCOLOR];
+    
+    EquipmentViewController *equipmentVC = (EquipmentViewController *)self.superview.nextResponder;
+    [equipmentVC.navigationController pushViewController:vc animated:YES];
+}
+
+/**
+ *  根据cell个数判断是否有反弹效果
+ *
+ *  @param scrollView <#scrollView description#>
+ */
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.supportArray.count * self.tableView.rowHeight > self.tableView.height) {
+        
+        scrollView.bounces = YES;
+    }
+    else
+    {
+        scrollView.bounces = NO;
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+//点击选择按钮
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+        [XXDeviceInfomation setIsBindDevice:NO];
+        self.bindBtn.selected = NO;
+        
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"EquipmentSupport"];
+#warning 取消绑定代码已经完成
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                Command_SetReleaseBoundingEquipment *release = [[Command_SetReleaseBoundingEquipment alloc]init];
+//                
+//                [[Bracelet sharedInstance]writeCommandBase:release completion:^(Command_Base *commandBase, NSString *hexString) {
+                    [[Bracelet sharedInstance]disConnectPeripheral:[Bracelet sharedInstance].connectedPeripheral];
+//                } fail:^(BraceletState state, NSError *error) {
+//        
+//                }];
+//            });
+    }
+    
+}
+
+#pragma mark - action
+- (void)bindButtonClick:(UIButton *)button
+{
+    //判断是否正在更新
+    if([XXDeviceInfomation deviceIsUpdating])
+    {
+        [self makeToast:NSLocalizedString(@"device is updating", nil) duration:1 position:[NSValue valueWithCGPoint:self.                                                                                                         center]];
+        return;
+    }
+    
+    button.selected = [XXDeviceInfomation isBindDevice];
+    
+    if(button.selected)
+    {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:NSLocalizedString(@"unbindTitle", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"cancle", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"unbindOtherButton", nil), nil];
+        [actionSheet showInView:self];
+        [self addSubview:actionSheet];
+    }
+    else
+    {
+        AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc]init];
+        
+        [addDeviceVC setBlock:^(BOOL isSkip){
+            self.isSkip = isSkip;
+        }];
+        
+        EquipmentViewController *equipmentVC = (EquipmentViewController *)self.superview.nextResponder;
+        
+        [equipmentVC.navigationController pushViewController:addDeviceVC animated:YES];
+        
+    }
+}
+@end

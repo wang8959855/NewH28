@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PZMusicStateSetViewController1">
+            <connections>
+                <outlet property="switchC" destination="AFl-xJ-7FK" id="xHv-c7-rDr"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0t8-e5-T3q">
+                    <rect key="frame" x="12" y="134" width="351" height="1"/>
+                    <color key="backgroundColor" red="0.82085037230000002" green="0.82102966310000003" blue="0.82081985469999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="a1N-ti-YXR"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音乐控制" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xvy-zx-lQs">
+                    <rect key="frame" x="12" y="84" width="61.5" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="q1d-3x-Fig"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AFl-xJ-7FK">
+                    <rect key="frame" x="314" y="93.5" width="51" height="31"/>
+                    <color key="onTintColor" red="0.0" green="0.62745098040000002" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
+                    <connections>
+                        <action selector="switchAction:" destination="-1" eventType="valueChanged" id="WjK-YA-Ynj"/>
+                    </connections>
+                </switch>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="0t8-e5-T3q" firstAttribute="top" secondItem="Xvy-zx-lQs" secondAttribute="bottom" id="BHE-Fe-rqC"/>
+                <constraint firstAttribute="trailing" secondItem="0t8-e5-T3q" secondAttribute="trailing" constant="12" id="E87-Jd-dMw"/>
+                <constraint firstItem="AFl-xJ-7FK" firstAttribute="centerY" secondItem="Xvy-zx-lQs" secondAttribute="centerY" id="UyE-GC-TkR"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="AFl-xJ-7FK" secondAttribute="trailing" constant="12" id="Vg6-ZY-sYj"/>
+                <constraint firstItem="Xvy-zx-lQs" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="ex5-Pz-CGy"/>
+                <constraint firstItem="Xvy-zx-lQs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="gfb-hF-zgf"/>
+                <constraint firstItem="0t8-e5-T3q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="kNc-7T-jAG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+</document>

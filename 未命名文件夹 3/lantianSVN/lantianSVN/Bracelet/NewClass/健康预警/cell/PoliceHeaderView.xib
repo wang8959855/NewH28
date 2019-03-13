@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="PoliceHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您目前正处于自动检测模式（14:00—16:40）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfc-We-hIm">
+                    <rect key="frame" x="7" y="55" width="307" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.62745098039215685" blue="0.9137254901960784" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击下方检测模式，选择定制监测" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORH-IM-oud">
+                    <rect key="frame" x="61" y="83" width="199" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.62745098040000002" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HE-Jx-pxZ">
+                    <rect key="frame" x="40" y="114" width="110" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="NAo-jK-RpH"/>
+                        <constraint firstAttribute="height" constant="35" id="bEQ-ev-PkQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="  SOS呼叫" image="sos-">
+                        <color key="titleColor" red="0.0" green="0.62745098040000002" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <real key="value" value="17.5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="sosAction:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="6ve-Qo-sLk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7o-Mc-My3">
+                    <rect key="frame" x="160" y="114" width="120" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="HHJ-Jd-5di"/>
+                        <constraint firstAttribute="height" constant="35" id="qIF-8z-5og"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="  定位关闭" image="dingwei-guan">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <state key="selected" title="  定位开启" image="dingwei-kai">
+                        <color key="titleColor" red="0.0" green="0.62745098040000002" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <real key="value" value="17.5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="locationAction:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="u46-dE-3kS"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLZ-ak-GoY">
+                    <rect key="frame" x="80" y="10" width="160" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="S4a-nh-BYs"/>
+                        <constraint firstAttribute="width" constant="160" id="cXF-9u-djf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title=" 免费预订预警通知" image="dingzhi-icon">
+                        <color key="titleColor" red="0.0" green="0.62745098040000002" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <real key="value" value="17.5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="yjAction:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="sku-rd-fjS"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ORH-IM-oud" firstAttribute="top" secondItem="hfc-We-hIm" secondAttribute="bottom" constant="10" id="20t-PY-vPW"/>
+                <constraint firstItem="3HE-Jx-pxZ" firstAttribute="top" secondItem="ORH-IM-oud" secondAttribute="bottom" constant="15" id="3c3-Gh-DIq"/>
+                <constraint firstItem="H7o-Mc-My3" firstAttribute="leading" secondItem="3HE-Jx-pxZ" secondAttribute="trailing" constant="10" id="AWl-2i-ZlW"/>
+                <constraint firstItem="XLZ-ak-GoY" firstAttribute="centerX" secondItem="9Gg-ye-v9C" secondAttribute="centerX" id="Rrx-tP-n5u"/>
+                <constraint firstItem="ORH-IM-oud" firstAttribute="centerX" secondItem="9Gg-ye-v9C" secondAttribute="centerX" id="XuZ-6s-hH4"/>
+                <constraint firstItem="3HE-Jx-pxZ" firstAttribute="centerX" secondItem="9Gg-ye-v9C" secondAttribute="centerX" constant="-65" id="ZYi-eq-y04"/>
+                <constraint firstItem="XLZ-ak-GoY" firstAttribute="top" secondItem="9Gg-ye-v9C" secondAttribute="top" constant="10" id="j5x-3d-IfQ"/>
+                <constraint firstItem="H7o-Mc-My3" firstAttribute="centerY" secondItem="3HE-Jx-pxZ" secondAttribute="centerY" id="nsC-cg-YT9"/>
+                <constraint firstItem="hfc-We-hIm" firstAttribute="centerX" secondItem="9Gg-ye-v9C" secondAttribute="centerX" id="qVn-3A-aQf"/>
+                <constraint firstItem="hfc-We-hIm" firstAttribute="top" secondItem="XLZ-ak-GoY" secondAttribute="bottom" constant="10" id="wRR-UH-hPq"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="9Gg-ye-v9C"/>
+            <connections>
+                <outlet property="locationButton" destination="H7o-Mc-My3" id="V1b-qp-yei"/>
+                <outlet property="policeState" destination="hfc-We-hIm" id="onK-gO-GCu"/>
+                <outlet property="sosButton" destination="3HE-Jx-pxZ" id="5Tn-yM-5gX"/>
+                <outlet property="yjButton" destination="XLZ-ak-GoY" id="6yf-hH-Rdq"/>
+            </connections>
+            <point key="canvasLocation" x="40" y="93.5"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="dingwei-guan" width="20" height="20"/>
+        <image name="dingwei-kai" width="20" height="20"/>
+        <image name="dingzhi-icon" width="16" height="16"/>
+        <image name="sos-" width="15" height="17"/>
+    </resources>
+</document>

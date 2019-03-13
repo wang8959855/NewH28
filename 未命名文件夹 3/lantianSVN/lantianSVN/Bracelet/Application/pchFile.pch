@@ -1,0 +1,101 @@
+//
+//  pchFile.pch
+//  Bracelet
+//
+//  Created by SZCE on 16/1/11.
+//  Copyright © 2016年 xiaoxia liu. All rights reserved.
+//
+
+#ifndef pchFile_pch
+#define pchFile_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#pragma mark - 重定义
+#define kRGBCOLOR(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+
+#define intToString(x)   [NSString stringWithFormat:@"%d",x]
+
+/**
+ *  适配
+ */
+#define isDevice4S [UIScreen mainScreen].bounds.size.height == 480
+#define isDevice5S [UIScreen mainScreen].bounds.size.height == 568
+#define isDevice6 [UIScreen mainScreen].bounds.size.height == 667
+#define isDevice6Plus [UIScreen mainScreen].bounds.size.height == 736
+#define iPhoneX        (ScreenWidth == 375 && ScreenHeight == 812)
+
+#define KONEDAYSECONDS 86400
+
+#define CurrentDeviceCenter [[GMHeader getInstance] getCurrentDevieceCenter]
+#define CurrentDeviceBounds [[GMHeader getInstance] getCurrentDevieceBounds]
+#define CurrentDeviceSize [[GMHeader getInstance] getCurrentDevieceSize]
+#define CurrentDeviceWidth [[GMHeader getInstance] getCurrentDevieceWidth]
+#define CurrentDeviceHeight [[GMHeader getInstance] getCurrentDevieceHeight]
+
+#define  allColorRed  [UIColor redColor];
+#define  allColorWhite  [UIColor whiteColor];
+#define kColor(x,y,z) [UIColor colorWithRed:x/255.0 green:y/255.0 blue:z/255.0 alpha:1]
+
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define appVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define showAppVersion [NSString stringWithFormat:@"@lantianyihaov%@",appVersion]
+
+#pragma mark - 第三方库
+//define this constant if you want to use Masonry without the 'mas_' prefix
+//#define MAS_SHORTHAND
+//define this constant if you want to enable auto-boxing for default syntax
+#define MAS_SHORTHAND_GLOBALS
+#import <AFNetworking/AFNetworking.h>
+#import "UIView+Toast.h"
+
+#pragma mark - 自定义文件
+#import "Common.h"
+#import "UIView+ViewFrameExt.h"
+#import "MJExtension.h"
+#import "XXDeviceInfomation.h"
+#import "XXUserInformation.h"
+#import "TimeCallManager.h"
+#import "HCHCommonManager.h"
+#import "WHC_ModelSqlite.h"
+#import "SDAutoLayout.h"
+#import "PZSaveDefaluts.h"
+#import "MBProgressHUD.h"
+#import "AFAppDotNetAPIClient.h"
+#import "UnityTool.h"
+#import "UserInfoModel.h"
+#import "PZBlueToothHeader.h"
+#import "EirogaBlueToothManager.h"
+#import "GMHeader.h"
+#import "AllTool.h"
+#import "PSDrawerManager.h"
+
+
+//获取用户的USERID和TOKEN
+#define TOKEN [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]
+
+#define USERID [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"]
+
+
+
+#define LastLoginUser_Info  @"LastLoginUser_Info"
+#define kHCH [HCHCommonManager getInstance]
+
+#define kWEAKSELF __weak typeof(self) weakSelf = self;
+#define kMainColor kColor(0, 160, 233)
+
+#import "API.h"
+
+#ifdef DEBUG // 调试状态, 打开LOG功能
+#define adaLog(...) NSLog(@"%s 第%d行 \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])//NSLog(__VA_ARGS__)
+#else // 发布状态, 关闭LOG功能
+#define adaLog(...)
+#endif
+
+#endif /* pchFile_pch */
+
+

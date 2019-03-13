@@ -1,0 +1,7 @@
+framework module FBSDKLoginKit {
+    umbrella header "FBSDKLoginKit.h"
+
+    export *
+    module * { export * }
+}
+                                                  

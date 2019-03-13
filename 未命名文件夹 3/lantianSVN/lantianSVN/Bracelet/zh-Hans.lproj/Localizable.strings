@@ -1,0 +1,657 @@
+/* 
+  Bracelet.strings
+  Bracelet
+
+  Created by 潘峥的MacBook on 2017/6/12.
+  Copyright © 2017年 com.czjk.www. All rights reserved.
+*/
+/* No comment provided by engineer. */
+"APP提醒" = "APP提醒";
+
+/* No comment provided by engineer. */
+"facebook" = "facebook";
+
+/* No comment provided by engineer. */
+"GPS:" = "GPS:";
+
+/* No comment provided by engineer. */
+"h" = "h";
+
+/* No comment provided by engineer. */
+"km" = "km";
+
+/* No comment provided by engineer. */
+"min" = "min";
+
+/* No comment provided by engineer. */
+"QQ" = "QQ";
+
+/* No comment provided by engineer. */
+"title" = "title";
+
+/* No comment provided by engineer. */
+"twitter" = "twitter";
+
+/* No comment provided by engineer. */
+"一" = "一";
+
+/* No comment provided by engineer. */
+"七" = "七";
+
+/* No comment provided by engineer. */
+"三" = "三";
+
+/* No comment provided by engineer. */
+"下一步" = "下一步";
+
+/* No comment provided by engineer. */
+"下拉可以刷新" = "下拉可以刷新";
+
+/* No comment provided by engineer. */
+"下拉同步数据" = "下拉同步数据";
+
+/* No comment provided by engineer. */
+"下载失败" = "下载失败";
+
+/* No comment provided by engineer. */
+"不可用" = "不可用";
+
+/* No comment provided by engineer. */
+"两次密码输入不一致" = "两次密码输入不一致";
+
+/* No comment provided by engineer. */
+"个人目标" = "个人目标";
+
+/* No comment provided by engineer. */
+"久坐" = "久坐";
+
+/* No comment provided by engineer. */
+"久坐提醒" = "久坐提醒";
+
+/* No comment provided by engineer. */
+"九" = "九";
+
+/* No comment provided by engineer. */
+"二" = "二";
+
+/* No comment provided by engineer. */
+"五" = "五";
+
+/* No comment provided by engineer. */
+"今天" = "今天";
+
+/* No comment provided by engineer. */
+"今日步数" = "今日步数";
+
+/* No comment provided by engineer. */
+"今日消耗" = "今日消耗";
+
+/* No comment provided by engineer. */
+"今日睡眠" = "今日睡眠";
+
+/* No comment provided by engineer. */
+"今日路程" = "今日路程";
+
+/* No comment provided by engineer. */
+"从不" = "从不";
+
+/* No comment provided by engineer. */
+"从相册选择" = "从相册选择";
+
+/* No comment provided by engineer. */
+"体重" = "体重";
+
+/* No comment provided by engineer. */
+"修改失败" = "修改失败";
+
+/* No comment provided by engineer. */
+"修改成功" = "修改成功";
+
+/* No comment provided by engineer. */
+"储存" = "储存";
+
+/* No comment provided by engineer. */
+"八" = "八";
+
+/* No comment provided by engineer. */
+"公制" = "公制";
+
+/* No comment provided by engineer. */
+"六" = "六";
+
+/* No comment provided by engineer. */
+"关" = "关";
+
+/* No comment provided by engineer. */
+"关于" = "关于";
+
+/* No comment provided by engineer. */
+"分钟后开始震动" = "分钟后开始震动";
+
+/* No comment provided by engineer. */
+"删除" = "删除";
+
+/* No comment provided by engineer. */
+"刷新超时" = "刷新超时";
+
+/* No comment provided by engineer. */
+"勿扰" = "勿扰";
+
+/* No comment provided by engineer. */
+"勿扰模式" = "勿扰模式";
+
+/* No comment provided by engineer. */
+"十" = "十";
+
+/* No comment provided by engineer. */
+"十一" = "十一";
+
+/* No comment provided by engineer. */
+"十二" = "十二";
+
+/* No comment provided by engineer. */
+"升级" = "升级";
+
+/* No comment provided by engineer. */
+"单位" = "单位";
+
+/* HUD cancel button title */
+"取消" = "取消";
+
+/* No comment provided by engineer. */
+"可更新" = "可更新";
+
+/* No comment provided by engineer. */
+"可用" = "可用";
+
+/* No comment provided by engineer. */
+"号码" = "号码";
+
+/* No comment provided by engineer. */
+"同步个人数据" = "同步个人数据";
+
+/* No comment provided by engineer. */
+"周" = "周";
+
+/* No comment provided by engineer. */
+"周一" = "周一";
+
+/* No comment provided by engineer. */
+"周三" = "周三";
+
+/* No comment provided by engineer. */
+"周二" = "周二";
+
+/* No comment provided by engineer. */
+"周五" = "周五";
+
+/* No comment provided by engineer. */
+"周六" = "周六";
+
+/* No comment provided by engineer. */
+"周四" = "周四";
+
+/* No comment provided by engineer. */
+"周日" = "周日";
+
+/* No comment provided by engineer. */
+"四" = "四";
+
+/* No comment provided by engineer. */
+"国家码 ▼" = "国家码 ▼";
+
+/* No comment provided by engineer. */
+"地图模式" = "地图模式";
+
+/* No comment provided by engineer. */
+"女" = "女";
+
+/* No comment provided by engineer. */
+"实时心率" = "实时心率";
+
+/* No comment provided by engineer. */
+"密码" = "密码";
+
+/* No comment provided by engineer. */
+"密码重置成功,请重新登录" = "密码重置成功,请重新登录";
+
+/* No comment provided by engineer. */
+"密码长度为6～20，请核对" = "密码长度为6～20，请核对";
+
+/* No comment provided by engineer. */
+"寻找手环" = "寻找手环";
+
+/* No comment provided by engineer. */
+"已绑定" = "已绑定";
+
+/* No comment provided by engineer. */
+"已绑定设备" = "已绑定设备";
+
+/* No comment provided by engineer. */
+"常用手机号码" = "常用手机号码";
+
+/* No comment provided by engineer. */
+"平均心率" = "平均心率";
+
+/* No comment provided by engineer. */
+"年" = "年";
+
+/* No comment provided by engineer. */
+"开" = "开";
+
+/* No comment provided by engineer. */
+"开启勿扰模式" = "开启勿扰模式";
+
+/* No comment provided by engineer. */
+"开启后,可以直接手环控制音乐播放" = "开启后,可以直接手环控制音乐播放";
+
+/* No comment provided by engineer. */
+"开启后,在时间段内,手环不会震动提醒" = "开启后,在时间段内,手环不会震动提醒";
+
+/* No comment provided by engineer. */
+"开启后,手机来电话时,手环会震动提醒" = "开启后,手机来电话时,手环会震动提醒";
+
+/* No comment provided by engineer. */
+"开启后,手机来短信时,手环会震动提醒" = "开启后,手机来短信时,手环会震动提醒";
+
+/* No comment provided by engineer. */
+"开启后,手环会自动检测心率" = "开启后,手环会自动检测心率";
+
+/* No comment provided by engineer. */
+"开启后,抬手腕,手环屏幕会自动点亮" = "开启后,抬手腕,手环屏幕会自动点亮";
+
+/* No comment provided by engineer. */
+"开启手机来电提醒" = "开启手机来电提醒";
+
+/* No comment provided by engineer. */
+"开启手机短信提醒" = "开启手机短信提醒";
+
+/* No comment provided by engineer. */
+"开启手环控制手机音乐" = "开启手环控制手机音乐";
+
+/* No comment provided by engineer. */
+"开启抬腕亮屏" = "开启抬腕亮屏";
+
+/* No comment provided by engineer. */
+"开启自动检测心率" = "开启自动检测心率";
+
+/* No comment provided by engineer. */
+"开始" = "开始";
+
+/* No comment provided by engineer. */
+"开始测试" = "开始测试";
+
+/* No comment provided by engineer. */
+"待绑定设备列表" = "待绑定设备列表";
+
+/* No comment provided by engineer. */
+"微信" = "微信";
+
+/* No comment provided by engineer. */
+"心率" = "心率";
+
+/* No comment provided by engineer. */
+"忘记密码?" = "忘记密码?";
+
+/* No comment provided by engineer. */
+"性别" = "性别";
+
+/* No comment provided by engineer. */
+"总次数(次)" = "总次数(次)";
+
+/* No comment provided by engineer. */
+"总步数" = "总步数";
+
+/* No comment provided by engineer. */
+"总消耗" = "总消耗";
+
+/* No comment provided by engineer. */
+"总消耗(Kcal)" = "总消耗(Kcal)";
+
+/* No comment provided by engineer. */
+"总睡眠" = "总睡眠";
+
+/* No comment provided by engineer. */
+"总路程" = "总路程";
+
+/* No comment provided by engineer. */
+"您的体重" = "您的体重";
+
+/* No comment provided by engineer. */
+"您的联系方式" = "您的联系方式";
+
+/* No comment provided by engineer. */
+"您的身高" = "您的身高";
+
+/* No comment provided by engineer. */
+"您遇到的问题或建议" = "您遇到的问题或建议";
+
+/* No comment provided by engineer. */
+"意见反馈" = "意见反馈";
+
+/* No comment provided by engineer. */
+"感谢您的反馈" = "感谢您的反馈";
+
+/* No comment provided by engineer. */
+"我的设备" = "我的设备";
+
+/* No comment provided by engineer. */
+"我的资料" = "我的资料";
+
+/* No comment provided by engineer. */
+"手机" = "手机";
+
+/* No comment provided by engineer. */
+"手机/邮箱" = "手机/邮箱";
+
+/* No comment provided by engineer. */
+"手机号找回" = "手机号找回";
+
+/* No comment provided by engineer. */
+"手环固件升级" = "手环固件升级";
+
+/* No comment provided by engineer. */
+"找回密码" = "找回密码";
+
+/* No comment provided by engineer. */
+"抬腕亮屏" = "抬腕亮屏";
+
+/* No comment provided by engineer. */
+"拍照" = "拍照";
+
+/* No comment provided by engineer. */
+"授权失败" = "授权失败";
+
+/* No comment provided by engineer. */
+"提交" = "提交";
+
+/* No comment provided by engineer. */
+"提示" = "提示";
+
+/* No comment provided by engineer. */
+"搜索设备" = "搜索设备";
+
+/* No comment provided by engineer. */
+"日" = "日";
+
+/* No comment provided by engineer. */
+"时间" = "时间";
+
+/* No comment provided by engineer. */
+"时间设置" = "时间设置";
+
+/* No comment provided by engineer. */
+"最低心率" = "最低心率";
+
+/* No comment provided by engineer. */
+"最新版" = "最新版";
+
+/* No comment provided by engineer. */
+"最高心率" = "最高心率";
+
+/* No comment provided by engineer. */
+"月" = "月";
+
+/* No comment provided by engineer. */
+"未知" = "未知";
+
+/* No comment provided by engineer. */
+"来电" = "来电";
+
+/* No comment provided by engineer. */
+"来电提醒" = "来电提醒";
+
+/* No comment provided by engineer. */
+"松开立即刷新" = "松开立即刷新";
+
+/* No comment provided by engineer. */
+"标签" = "标签";
+
+/* No comment provided by engineer. */
+"正在下载固件" = "正在下载固件";
+
+/* No comment provided by engineer. */
+"正在修改" = "正在修改";
+
+/* No comment provided by engineer. */
+"正在刷新数据" = "正在刷新数据";
+
+/* No comment provided by engineer. */
+"正在同步数据" = "正在同步数据";
+
+/* No comment provided by engineer. */
+"正在登录" = "正在登录";
+
+/* No comment provided by engineer. */
+"正在连接" = "正在连接";
+
+/* No comment provided by engineer. */
+"步数" = "步数";
+
+/* No comment provided by engineer. */
+"每天" = "每天";
+
+/* No comment provided by engineer. */
+"注册" = "注册";
+
+/* No comment provided by engineer. */
+"浅睡" = "浅睡";
+
+/* No comment provided by engineer. */
+"深睡" = "深睡";
+
+/* No comment provided by engineer. */
+"清醒" = "清醒";
+
+/* No comment provided by engineer. */
+"点击寻找手环,手环会震动提醒" = "点击寻找手环,手环会震动提醒";
+
+/* No comment provided by engineer. */
+"点击绑定" = "点击绑定";
+
+/* No comment provided by engineer. */
+"热量" = "热量";
+
+/* No comment provided by engineer. */
+"生日" = "生日";
+
+/* No comment provided by engineer. */
+"用户已存在" = "用户已存在";
+
+/* No comment provided by engineer. */
+"男" = "男";
+
+/* No comment provided by engineer. */
+"登录" = "登录";
+
+/* No comment provided by engineer. */
+"登录失败" = "登录失败";
+
+/* No comment provided by engineer. */
+"目标:" = "目标:";
+
+/* No comment provided by engineer. */
+"目标编辑" = "目标编辑";
+
+/* No comment provided by engineer. */
+"睡眠" = "睡眠";
+
+/* No comment provided by engineer. */
+"短信提醒" = "短信提醒";
+
+/* No comment provided by engineer. */
+"确定" = "确定";
+
+/* No comment provided by engineer. */
+"确认解绑设备?" = "确认解绑设备?";
+
+/* No comment provided by engineer. */
+"确认退出登录" = "确认退出登录";
+
+/* No comment provided by engineer. */
+"秒后开始震动" = "秒后开始震动";
+
+/* No comment provided by engineer. */
+"立即体验" = "立即体验";
+
+/* No comment provided by engineer. */
+"第三方快速登录" = "第三方快速登录";
+
+/* No comment provided by engineer. */
+"紧急联系人" = "紧急联系人";
+
+/* No comment provided by engineer. */
+"绑定过程中请确保手环点亮" = "绑定过程中请确保手环点亮";
+
+/* No comment provided by engineer. */
+"结束" = "结束";
+
+/* No comment provided by engineer. */
+"结束测试" = "结束测试";
+
+/* No comment provided by engineer. */
+"编辑联系人" = "编辑联系人";
+
+/* No comment provided by engineer. */
+"编辑闹钟" = "编辑闹钟";
+
+/* No comment provided by engineer. */
+"自动" = "自动";
+
+/* No comment provided by engineer. */
+"自动检测心率" = "自动检测心率";
+
+/* No comment provided by engineer. */
+"英制" = "英制";
+
+/* No comment provided by engineer. */
+"蓝牙已断开" = "蓝牙已断开";
+
+/* No comment provided by engineer. */
+"蓝牙已连接" = "蓝牙已连接";
+
+/* No comment provided by engineer. */
+"蓝牙未连接" = "蓝牙未连接";
+
+/* No comment provided by engineer. */
+"血压" = "血压";
+
+/* No comment provided by engineer. */
+"解绑设备" = "解绑设备";
+
+/* No comment provided by engineer. */
+"请保持蓝牙开启,手环与手机处于连接状态" = "请保持蓝牙开启,手环与手机处于连接状态";
+
+/* No comment provided by engineer. */
+"请再次输入密码" = "请再次输入密码";
+
+/* No comment provided by engineer. */
+"请完善信息" = "请完善信息";
+
+/* No comment provided by engineer. */
+"请稍候..." = "请稍候...";
+
+/* No comment provided by engineer. */
+"请输入" = "请输入";
+
+/* No comment provided by engineer. */
+"请输入密码" = "请输入密码";
+
+/* No comment provided by engineer. */
+"请输入正确的手机号码" = "请输入正确的手机号码";
+
+/* No comment provided by engineer. */
+"请输入正确的邮箱或手机号码" = "请输入正确的邮箱或手机号码";
+
+/* No comment provided by engineer. */
+"请输入正确的邮箱账号" = "请输入正确的邮箱账号";
+
+/* No comment provided by engineer. */
+"请输入电话号码" = "请输入电话号码";
+
+/* No comment provided by engineer. */
+"请输入验证码" = "请输入验证码";
+
+/* No comment provided by engineer. */
+"距离" = "距离";
+
+/* No comment provided by engineer. */
+"距离(Km)" = "距离(Km)";
+
+/* No comment provided by engineer. */
+"身高" = "身高";
+
+/* No comment provided by engineer. */
+"轨迹" = "轨迹";
+
+/* No comment provided by engineer. */
+"软件版本" = "软件版本";
+
+/* No comment provided by engineer. */
+"运动" = "运动";
+
+/* No comment provided by engineer. */
+"运动记录" = "运动记录";
+
+/* No comment provided by engineer. */
+"运动轨迹" = "运动轨迹";
+
+/* No comment provided by engineer. */
+"还未开始运动" = "还未开始运动";
+
+/* No comment provided by engineer. */
+"连接超时" = "连接超时";
+
+/* No comment provided by engineer. */
+"退出登录" = "退出登录";
+
+/* No comment provided by engineer. */
+"速度" = "速度";
+
+/* No comment provided by engineer. */
+"邮箱" = "邮箱";
+
+/* No comment provided by engineer. */
+"邮箱找回" = "邮箱找回";
+
+/* No comment provided by engineer. */
+"重复" = "重复";
+
+/* No comment provided by engineer. */
+"长按停止" = "长按停止";
+
+/* No comment provided by engineer. */
+"闹钟" = "闹钟";
+
+/* No comment provided by engineer. */
+"闹钟提醒" = "闹钟提醒";
+
+/* No comment provided by engineer. */
+"闹钟最多可设置8个" = "闹钟最多可设置8个";
+
+/* No comment provided by engineer. */
+"音乐控制" = "音乐控制";
+
+/* No comment provided by engineer. */
+"验证码" = "验证码";
+
+/* No comment provided by engineer. */
+"验证码已发送至您的手机,请注意查收" = "验证码已发送至您的手机,请注意查收";
+
+"主页" = "主页";
+"数据" = "数据";
+"设置" = "设置";
+"我的" = "我的";
+
+"一月" = "一";
+"二月" = "二";
+"三月" = "三";
+"四月" = "四";
+"五月" = "五";
+"六月" = "六";
+"七月" = "七";
+"八月" = "八";
+"九月" = "九";
+"十月" = "十";
+"十一月" = "十一";
+"十二月" = "十二";

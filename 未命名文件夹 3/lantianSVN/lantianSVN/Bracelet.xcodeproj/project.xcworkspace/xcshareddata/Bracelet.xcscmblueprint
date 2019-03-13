@@ -1,0 +1,35 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5fdda82d-9839-4577-9467-a5772a7cecda++6166",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "1a9faf39-e889-cd44-87a3-c44f07b0edb1++8632" : {
+
+    },
+    "5fdda82d-9839-4577-9467-a5772a7cecda++6166" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1a9faf39-e889-cd44-87a3-c44f07b0edb1++8632" : 0,
+    "5fdda82d-9839-4577-9467-a5772a7cecda++6166" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "07F1F09A-EF99-46A6-BA2A-C8F216CBFA14",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1a9faf39-e889-cd44-87a3-c44f07b0edb1++8632" : "Bracelet\/",
+    "5fdda82d-9839-4577-9467-a5772a7cecda++6166" : "Bracelet1\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Bracelet",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Bracelet.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/115.29.100.189\/svn\/chener",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1a9faf39-e889-cd44-87a3-c44f07b0edb1++8632"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/47.90.16.150:1000\/chener",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5fdda82d-9839-4577-9467-a5772a7cecda++6166"
+    }
+  ]
+}

@@ -51,6 +51,10 @@
     kWEAKSELF;
     sos.sosOKBlock = ^{
         self.clickType = 1;
+        if (!weakSelf.locationButton.selected) {
+            [self.vc addActityTextInView:self.vc.view text:@"请先打开定位"  deleyTime:1.5f];
+            return;
+        }
         [weakSelf startLocation];
     };
 }

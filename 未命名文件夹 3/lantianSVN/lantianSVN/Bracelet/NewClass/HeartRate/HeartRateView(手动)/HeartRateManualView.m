@@ -47,13 +47,12 @@
     [self addSubview:backImageView];
     backImageView.frame = CGRectMake(0, 0, CurrentDeviceWidth, CurrentDeviceHeight - 48);
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenH/5*3)];
-    bgView.backgroundColor = KCOLOR(45, 128, 251);
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenH/2)];
+    bgView.backgroundColor = kMainColor;
     [self addSubview:bgView];
     
     self.circleView = [[HeartRateCircleView alloc] init];
-    [self addSubview:self.circleView];
-    self.circleView.frame = CGRectMake(0, 0, MIN(160 * kX, 160 * kDY), MIN(160 * kX, 160 * kDY));
+    self.circleView.frame = CGRectMake(0, 0, MIN(180 * kX, 180 * kDY), MIN(180 * kX, 180 * kDY));
     self.circleView.center = CGPointMake(CurrentDeviceWidth / 2, 40 * kDY + self.circleView.height/2.);
     self.circleView.backgroundColor = [UIColor clearColor];
     
@@ -62,24 +61,31 @@
     self.circleView.startAngle = 3./2 * M_PI + M_PI/3600.;
     self.circleView.endAngle = 3./2 * M_PI;
     //    self.circleView.ringBackgroundColor = kColor(234, 237, 242);
-    self.circleView.valueTextColor = [UIColor whiteColor];
+    self.circleView.valueTextColor = kMainColor;
     self.circleView.ringThickness = MIN(16 * kX, 16 * kDY);
     self.circleView.delegate = self;
     self.circleView.value = 0;
     [self.circleView setNeedsDisplay];
+    
+    UIView *bgView1 = [[UIView alloc] initWithFrame:self.circleView.frame];
+    bgView1.backgroundColor = allColorWhite;
+    bgView1.layer.cornerRadius = bgView1.width/2.0;
+    bgView1.layer.masksToBounds = YES;
+    [self addSubview:bgView1];
+    [self addSubview:self.circleView];
     
     UIButton *detailButton = [[UIButton alloc]init];
     [self.circleView addSubview:detailButton];
     detailButton.backgroundColor = [UIColor clearColor];//detailButton.alpha = 0.5;
     CGFloat detailButtonX = 0;
     CGFloat detailButtonY = 0;
-    CGFloat detailButtonW = MIN(223 * kX, 223 * kDY) * WidthProportion;
-    CGFloat detailButtonH = MIN(223 * kX, 223 * kDY) * HeightProportion;
+    CGFloat detailButtonW = MIN(180 * kX, 180 * kDY) * WidthProportion;
+    CGFloat detailButtonH = MIN(180 * kX, 180 * kDY) * HeightProportion;
     detailButton.frame = CGRectMake(detailButtonX, detailButtonY, detailButtonW, detailButtonH);
     
     self.targetBtn = [[UIButton alloc] init];
-    self.targetBtn.size = CGSizeMake(130 * kX, 34 * kX);
-    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.height - 300*kDY);
+    self.targetBtn.size = CGSizeMake(180 * kX, 34 * kX);
+    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.height - 260*kDY);
     [self addSubview:self.targetBtn];
 //    self.targetBtn.layer.borderColor = kMainColor.CGColor;
 //    self.targetBtn.layer.borderWidth = 1;

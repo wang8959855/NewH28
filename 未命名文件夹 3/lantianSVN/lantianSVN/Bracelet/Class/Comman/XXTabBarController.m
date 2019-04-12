@@ -11,7 +11,9 @@
 #import "HomeView.h"
 
 
-@interface XXTabBarController ()
+@interface XXTabBarController ()<UITabBarControllerDelegate>
+
+@property (nonatomic, assign) NSInteger lastIndex;
 
 @end
 
@@ -19,8 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     // Do any additional setup after loading the view.
+    self.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,11 +69,11 @@
  */
 - (void)initTabBar{
     //设置tabbar文字颜色
-    self.tabBar.tintColor = [UIColor whiteColor];
+    self.tabBar.tintColor = kMainColor;
     
     //设置tabBar是否透明
-    self.tabBar.backgroundImage = [self imageWithColor:kmainBackgroundColor];
-    [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}   forState:UIControlStateNormal];
+    self.tabBar.backgroundImage = [self imageWithColor:[UIColor whiteColor]];
+//    [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}   forState:UIControlStateNormal];
 
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0.0f, -0.5f, self.tabBar.bounds.size.width, 0.5f)];
     [line setBackgroundColor:[UIColor whiteColor]];
@@ -141,6 +143,16 @@
     }];
     
     //adaLog(@"----    - - - - 点击的关闭侧滑！！");
+}
+
+#pragma mark - UITabBarController protocol methods
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+    if (tabBarController.selectedIndex == 2) {
+        tabBarController.selectedIndex = self.lastIndex;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PushMoreView" object:nil];
+    }else{
+        self.lastIndex = tabBarController.selectedIndex;
+    }
 }
 
 @end

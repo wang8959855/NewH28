@@ -11,8 +11,10 @@
 #import "historyDataModel.h"
 #import "XXPickerView.h"
 #import "MainSleepDetailViewController.h"
+#import "NightCircleView.h"
+#import "HelpSleepViewController.h"
 
-@interface MainSleepViewController ()<UIPickerViewDelegate,UIPickerViewDataSource>
+@interface MainSleepViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,NightCircleViewDelegate>
 
 @property (nonatomic, weak) SleepCircleView *sleepCircle;
 
@@ -31,6 +33,16 @@
 @property (nonatomic, weak) XXPickerView *pickerView;
 @property (nonatomic, weak) UIView *clearBackView;
 
+@property (strong, nonatomic) NightCircleView *circle;
+
+
+//选择显示类型的view
+@property (nonatomic, strong) UIView *selectShowTypeView;
+//睡觉
+@property (nonatomic, strong) UIButton *sleepButton;
+//助眠
+@property (nonatomic, strong) UIButton *helpSleepButton;
+
 @end
 
 @implementation MainSleepViewController
@@ -39,14 +51,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     HistoryDataModel *model = [[HistoryDataModel alloc] init];
-
+    
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight, ScreenWidth, ScreenH/2+42+20)];
+    bgView.backgroundColor = kMainColor;
+    [self.view addSubview:bgView];
+    
     [self loadUI];
     
     kWEAKSELF;
     [model getOneDaySleepWithTimeSeconds:kHCH.todayTimeSeconds Completion:^(oneDaySleepModel *model) {
         if (model)
         {
-            weakSelf.sleepCircle.model = model;
+//            weakSelf.sleepCircle.model = model;
             weakSelf.sleepModel = model;
         }
     }];
@@ -59,105 +75,85 @@
 
 - (void)loadUI {
     [self addnavTittle:NSLocalizedString(@"睡眠",nil) RSSIImageView:YES shareButton:YES];
-    [self sleepCircle];
     [self backView];
     
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 74, ScreenW, 20)];
-    label1.text = @"正常人的睡眠时长为7-8小时";
-    label1.font = [UIFont systemFontOfSize:15];
-    label1.textAlignment = NSTextAlignmentCenter;
-    label1.textColor = kMainColor;
-    [self.view addSubview:label1];
     
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 94, ScreenW, 20)];
-    label2.text = @"其中深睡时长应达到总睡眠时长的25%";
-    label2.font = [UIFont systemFontOfSize:15];
-    label2.textAlignment = NSTextAlignmentCenter;
-    label2.textColor = kMainColor;
-    [self.view addSubview:label2];
+    self.circle = [[NightCircleView alloc] init];
+    [self.view addSubview:self.circle];
+    self.circle.frame = CGRectMake(0, 0, MIN(203 * kX, 203 * kDY), MIN(203 * kX, 203 * kDY));
+    self.circle.center = CGPointMake(CurrentDeviceWidth / 2, SafeAreaTopHeight+42+20+40 * kDY + self.circle.height/2.);
+    self.circle.backgroundColor = [UIColor clearColor];
     
-    UIImageView *sleepImageView = [[UIImageView alloc] init];
-    sleepImageView.contentMode = UIViewContentModeScaleAspectFit;
-    sleepImageView.image = [UIImage imageNamed:@"sleepdetail"];
-    [self.sleepCircle addSubview:sleepImageView];
-    sleepImageView.sd_layout.topSpaceToView(self.sleepCircle, 70 * kX)
-    .centerXIs(self.sleepCircle.width/2.)
-    .widthIs(40 * kX)
-    .heightIs(40 * kX);
+    self.circle.minValue = 0;
+    self.circle.maxValue = [[XXUserInformation userSleepHourTarget] integerValue]*60;
+    self.circle.startAngle = 3./2 * M_PI + M_PI/3600.;
+    self.circle.endAngle = 3./2 * M_PI;
+    self.circle.ringBackgroundColor = [UIColor whiteColor];
+    self.circle.valueTextColor = [UIColor whiteColor];
+    self.circle.ringThickness = MIN(16 * kX, 16 * kDY);
+    self.circle.delegate = self;
+    self.circle.value = 0;
+    [self.circle setNeedsDisplay];
     
-    UILabel *totalLabel = [[UILabel alloc] init];
-    totalLabel.text = @"0h0min";
-    totalLabel.textAlignment = NSTextAlignmentCenter;
-    totalLabel.textColor = [UIColor whiteColor];
-    totalLabel.font = [UIFont systemFontOfSize:25];
-    [self.sleepCircle addSubview:totalLabel];
-    totalLabel.sd_layout.topSpaceToView(sleepImageView, 15 * kX)
-    .centerXIs(self.sleepCircle.width/2.)
-    .widthIs(self.sleepCircle.width)
-    .heightIs(30 * kX);
-    _totalSleepLabel = totalLabel;
+    UIButton *detailButton = [[UIButton alloc]init];
+    [self.circle addSubview:detailButton];
+    detailButton.backgroundColor = [UIColor clearColor];//detailButton.alpha = 0.5;
+    [detailButton addTarget:self action:@selector(detailButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    CGFloat detailButtonX = 0;
+    CGFloat detailButtonY = 0;
+    CGFloat detailButtonW = MIN(203 * kX, 203 * kDY) * WidthProportion;
+    CGFloat detailButtonH = MIN(203 * kX, 203 * kDY) * HeightProportion;
+    detailButton.frame = CGRectMake(detailButtonX, detailButtonY, detailButtonW, detailButtonH);
+    
     
     //    设置目标按钮
     self.targetBtn = [[UIButton alloc] init];
-    self.targetBtn.size = CGSizeMake(130*kX, 35*kDY);
-    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.sleepCircle.bottom + 55 * kX);
+    self.targetBtn.size = CGSizeMake(180*kX, 35*kDY);
+    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.circle.bottom + 30 * kX);
     [self.view addSubview:self.targetBtn];
-    self.targetBtn.layer.borderColor = kMainColor.CGColor;
-    self.targetBtn.layer.borderWidth = 1;
     self.targetBtn.layer.cornerRadius = 8*kDY;
     [self.targetBtn setImage:[UIImage imageNamed:@"target1"] forState:UIControlStateNormal];
-    [self.targetBtn setTitle:[NSString stringWithFormat:@"%@h%@min",[XXUserInformation userSleepHourTarget], [XXUserInformation userSleepMinuteTarget]] forState:UIControlStateNormal];
-    [self.targetBtn setTitleColor:kMainColor forState:UIControlStateNormal];
+    
+    [self.targetBtn setAttributedTitle:[self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%@h",[XXUserInformation userSleepHourTarget]] Unit:@"(目标睡眠)" WithFont:18] forState:UIControlStateNormal];
+    
+    [self.targetBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.targetBtn.titleLabel.textColor = allColorWhite;
     [self.targetBtn addTarget:self action:@selector(targetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    /*NSArray *imageArray = @[@"deepSleep",@"lightSleep",@"awake"];
-    NSArray *titleArray = @[NSLocalizedString(@"深睡",nil),NSLocalizedString(@"浅睡",nil),NSLocalizedString(@"清醒",nil)];
+    //selectShowTypeView
+    _selectShowTypeView = [[UIView alloc] init];
+    _selectShowTypeView.frame = CGRectMake(ScreenWidth/2-100, SafeAreaTopHeight+12+10, 200, 40);
+    _selectShowTypeView.backgroundColor = kColor(214, 241, 251);
+    [self.view addSubview:_selectShowTypeView];
+    //    _selectShowTypeView.layer.borderWidth = 1;
+    //    _selectShowTypeView.layer.borderColor = kColor(210, 210, 210).CGColor;
+    _selectShowTypeView.layer.cornerRadius = 20.f;
+    _selectShowTypeView.layer.masksToBounds = YES;
     
-    for (int i = 0; i <3; i ++)
-    {
-        UIImageView *sleepStateImageView = [[UIImageView alloc] init];
-        sleepStateImageView.contentMode = UIViewContentModeScaleAspectFit;
-        sleepStateImageView.image = [UIImage imageNamed:imageArray[i]];
-        [self.view addSubview:sleepStateImageView];
-        
-        UILabel *label = [[UILabel alloc] init];
-        label.text = titleArray[i];
-        [label sizeToFit];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = kMainColor;
-        label.font = [UIFont systemFontOfSize:15];
-        [self.view addSubview:label];
-        
-        if (i == 0)
-        {
-            sleepStateImageView.frame = CGRectMake(65 * kX, self.sleepCircle.bottom + 28 * kX, 30 * kX, 30 * kX);
-
-            label.sd_layout.topSpaceToView(sleepStateImageView, 8 * kX)
-            .centerXIs(sleepStateImageView.centerX)
-            .widthIs(label.width)
-            .heightIs(20);
-        }else if (i == 1)
-        {
-            sleepStateImageView.sd_layout.topSpaceToView(self.sleepCircle, 28 * kX)
-            .centerXIs(ScreenW / 2.)
-            .widthIs(30 * kX)
-            .heightIs(30 * kX);
-            
-            label.sd_layout.topSpaceToView(sleepStateImageView, 8 * kX)
-            .centerXIs(ScreenW/2.)
-            .widthIs(label.width)
-            .heightIs(20);
-        }else if (i == 2)
-        {
-            sleepStateImageView.frame = CGRectMake(ScreenW - 30 * kX - 65 * kX, self.sleepCircle.bottom + 28 * kX, 30 * kX, 30 * kX);
-            
-            label.sd_layout.topSpaceToView(sleepStateImageView, 8 * kX)
-            .centerXIs(sleepStateImageView.centerX)
-            .widthIs(label.width)
-            .heightIs(20);
-        }
-    }
-     */
+    //selectShowTypeView上的button
+    _sleepButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _sleepButton.frame = CGRectMake(0, 0, 110, 40);
+    [_sleepButton setTitle:@"睡眠" forState:UIControlStateNormal];
+    [_sleepButton setBackgroundColor:kColor(40, 82, 251)];
+    _sleepButton.layer.cornerRadius = 20.f;
+    _sleepButton.layer.masksToBounds = YES;
+    [_sleepButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [_sleepButton setTitleColor:kMainColor forState:UIControlStateNormal];
+    [_sleepButton addTarget:self action:@selector(changeShowView:) forControlEvents:UIControlEventTouchUpInside];
+    _sleepButton.selected = YES;
+    [_selectShowTypeView addSubview:_sleepButton];
+    
+    _helpSleepButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _helpSleepButton.frame = CGRectMake(90, 0, 110, 40);
+    [_helpSleepButton setTitle:@"助眠" forState:UIControlStateNormal];
+    _helpSleepButton.layer.cornerRadius = 20.f;
+    _helpSleepButton.layer.masksToBounds = YES;
+    [_helpSleepButton setBackgroundColor:[UIColor clearColor]];
+    [_helpSleepButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [_helpSleepButton setTitleColor:kMainColor forState:UIControlStateNormal];
+    [_helpSleepButton addTarget:self action:@selector(changeShowView:) forControlEvents:UIControlEventTouchUpInside];
+    [_selectShowTypeView addSubview:_helpSleepButton];
+    
 }
 
 - (void)targetBtnAction:(UIButton *)button{
@@ -226,6 +222,15 @@
     }];
 }
 
+//切换视图
+- (void)changeShowView:(UIButton *)button{
+    if (button == _helpSleepButton) {
+        HelpSleepViewController *sleep = [HelpSleepViewController new];
+        sleep.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:sleep animated:YES];
+    }
+}
+
 - (void)cancelClick
 {
     [UIView animateWithDuration:0.35 animations:^{
@@ -250,6 +255,7 @@
     [XXUserInformation setUserSleepHourTarget:[NSString stringWithFormat:@"%ld",hour]];
     [XXUserInformation setUserSleepMinuteTarget:[NSString stringWithFormat:@"%ld",min]];
     [self.targetBtn setTitle:[NSString stringWithFormat:@"%ldh%ldmin",hour,min] forState:UIControlStateNormal];
+    self.circle.maxValue = hour*60;
 }
 
 
@@ -317,6 +323,7 @@
     self.deepSleepLabel.text = [NSString stringWithFormat:@"%dh%dmin",sleepModel.deepSleepTime/60,sleepModel.deepSleepTime%60];
     self.lightSleepLabel.text = [NSString stringWithFormat:@"%dh%dmin",sleepModel.lightSleepTime/60,sleepModel.lightSleepTime%60];
     self.awakeLabel.text = [NSString stringWithFormat:@"%dh%dmin",sleepModel.awakeSleepTime/60,sleepModel.awakeSleepTime%60];
+    self.circle.value = sleepModel.totalSleepTime+sleepModel.deepSleepTime+sleepModel.awakeSleepTime;
 }
 
 - (SleepCircleView *)sleepCircle
@@ -361,54 +368,73 @@
     if (!_backView)
     {
         UIView *view = [[UIView alloc] init];
-        view.backgroundColor = kmainBackgroundColor;
-        view.layer.borderColor = KCOLOR(160, 202, 196).CGColor;
-        view.layer.borderWidth = 1.0;
-        view.layer.cornerRadius = 3;
-        view.frame = CGRectMake(45 * kX, 400 * kX + 64, ScreenW - 90 * kX, 150 * kX);
+        view.layer.cornerRadius = 10;
+        view.layer.masksToBounds = YES;
+        view.layer.borderColor = kMainColor.CGColor;
+        view.layer.borderWidth = 0.5f;
+        view.backgroundColor = [UIColor whiteColor];
+        view.frame = CGRectMake(10, self.view.height - 338*kDY + 100, ScreenWidth-20 , 180);
         view.layer.cornerRadius = 8;
         view.layer.masksToBounds = YES;
         [self.view addSubview:view];
         _backView = view;
         
+        UIImageView *jiedu = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 20)];
+        jiedu.image = [UIImage imageNamed:@"jiedu"];
+        [view addSubview:jiedu];
+        
+        UILabel *jieduLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 100, 20)];
+        jieduLabel.text = @"睡眠解读";
+        jieduLabel.font = Font_Bold_String(13);
+        [view addSubview:jieduLabel];
+        
+        UILabel *tixing = [[UILabel alloc] initWithFrame:CGRectMake(20, view.height-20, view.width-40, 20)];
+        [view addSubview:tixing];
+        tixing.font = [UIFont systemFontOfSize:11];
+        tixing.text = @"*正常人睡眠时长是7-8小时，其中深睡时长应达到总睡眠时长的25%。";
+        tixing.textColor = kMainColor;
+        
         NSArray *nameArray = @[NSLocalizedString(@"深睡",nil),NSLocalizedString(@"浅睡",nil),NSLocalizedString(@"清醒",nil)];
-        NSArray *imageArray = @[@"deepSleep",@"lightSleep",@"awake"];
+        NSArray *imageArray = @[@"深睡",@"浅睡",@"清醒"];
         for (int i = 0 ; i < 3; i ++)
         {
+            
+            UIImageView *sleepImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 50+i*40, 25,25)];
+            sleepImage.image = [UIImage imageNamed:imageArray[i]];
+            [_backView addSubview:sleepImage];
+            
             UILabel *label = [[UILabel alloc] init];
             label.text = nameArray[i];
             [label sizeToFit];
-            label.textColor = [UIColor whiteColor];
-            label.frame = CGRectMake(13 * kX, 50 * kX * i  , label.width, 50 * kX);
+            label.textColor = kMainColor;
+            label.frame = CGRectMake(sleepImage.right + 3, sleepImage.top , 50, 25);
             [_backView addSubview:label];
             
-            UIImageView *sleepImage = [[UIImageView alloc] init];
-            sleepImage.center = CGPointMake(label.width+20 * kX, label.y+10 * kX);
-            sleepImage.size = CGSizeMake(30 * kX, 30 * kX);
-            sleepImage.image = [UIImage imageNamed:imageArray[i]];
-            [_backView addSubview:sleepImage];
+            if (i == 0) {
+                _deepSleepLabel = [[UILabel alloc] init];
+                _deepSleepLabel.text = @"0h0min";
+                _deepSleepLabel.textColor = kMainColor;
+                _deepSleepLabel.textAlignment = NSTextAlignmentRight;
+                _deepSleepLabel.frame = CGRectMake(_backView.width - 200 * kX, label.center.y-25, 187 * kX, 50 *kX);
+                [_backView addSubview:_deepSleepLabel];
+            }else if (i == 1){
+                _lightSleepLabel = [[UILabel alloc] init];
+                _lightSleepLabel.text = @"0h0min";
+                _lightSleepLabel.textColor = kMainColor;
+                _lightSleepLabel.textAlignment = NSTextAlignmentRight;
+                _lightSleepLabel.frame = CGRectMake(_backView.width - 200 * kX, label.center.y-25 *kX, 187 * kX, 50 *kX);
+                [_backView addSubview:_lightSleepLabel];
+            }else if (i == 2){
+                _awakeLabel = [[UILabel alloc] init];
+                _awakeLabel.text = @"0h0min";
+                _awakeLabel.textColor = kMainColor;
+                _awakeLabel.textAlignment = NSTextAlignmentRight;
+                _awakeLabel.frame = CGRectMake(_backView.width - 200 * kX, label.center.y-25  * kX, 187 * kX, 50 *kX);
+                [_backView addSubview:_awakeLabel];
+            }
+            
         }
         
-        _deepSleepLabel = [[UILabel alloc] init];
-        _deepSleepLabel.text = @"0h0min";
-        _deepSleepLabel.textColor = [UIColor whiteColor];
-        _deepSleepLabel.textAlignment = NSTextAlignmentRight;
-        _deepSleepLabel.frame = CGRectMake(_backView.width - 200 * kX, 0, 187 * kX, 50 *kX);
-        [_backView addSubview:_deepSleepLabel];
-        
-        _lightSleepLabel = [[UILabel alloc] init];
-        _lightSleepLabel.text = @"0h0min";
-        _lightSleepLabel.textColor = [UIColor whiteColor];
-        _lightSleepLabel.textAlignment = NSTextAlignmentRight;
-        _lightSleepLabel.frame = CGRectMake(_backView.width - 200 * kX, 50 *kX, 187 * kX, 50 *kX);
-        [_backView addSubview:_lightSleepLabel];
-        
-        _awakeLabel = [[UILabel alloc] init];
-        _awakeLabel.text = @"0h0min";
-        _awakeLabel.textColor = [UIColor whiteColor];
-        _awakeLabel.textAlignment = NSTextAlignmentRight;
-        _awakeLabel.frame = CGRectMake(_backView.width - 200 * kX, 100  * kX, 187 * kX, 50 *kX);
-        [_backView addSubview:_awakeLabel];
     }
     return _backView;
 }
@@ -417,6 +443,17 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//获取属性字符串
+- (NSMutableAttributedString *)makeAttributedStringWithnumBer:(NSString *)number Unit:(NSString *)unit WithFont:(int)font
+{
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:number];
+    [attributeString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:font] range:NSMakeRange(0, attributeString.length)];
+    NSMutableAttributedString *unitString = [[NSMutableAttributedString alloc] initWithString:unit];
+    [unitString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:font - 5] range:NSMakeRange(0, unitString.length)];
+    [attributeString appendAttributedString:unitString];
+    return attributeString;
 }
 
 /*

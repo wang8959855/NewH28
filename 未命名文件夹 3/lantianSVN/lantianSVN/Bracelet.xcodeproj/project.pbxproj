@@ -249,6 +249,39 @@
 		18AD4AA121527EC10018A3CB /* DisturbViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD4A8A21527EC00018A3CB /* DisturbViewController1.m */; };
 		18AD4AA221527EC10018A3CB /* DisturbViewController1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18AD4A8C21527EC00018A3CB /* DisturbViewController1.xib */; };
 		18AD4AA621528CC80018A3CB /* HistoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD4AA521528CC70018A3CB /* HistoryDataModel.m */; };
+		18D1C6C1225ECC790023F76F /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C6BF225ECC790023F76F /* MoreView.m */; };
+		18D1C6CE225ECD180023F76F /* RobotSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C6C6225ECD170023F76F /* RobotSwitchView.m */; };
+		18D1C6CF225ECD180023F76F /* VoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C6C7225ECD170023F76F /* VoiceCell.m */; };
+		18D1C6D0225ECD180023F76F /* RobotSwitchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6C9225ECD180023F76F /* RobotSwitchView.xib */; };
+		18D1C6D1225ECD180023F76F /* VoiceBroadcastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6CA225ECD180023F76F /* VoiceBroadcastView.xib */; };
+		18D1C6D2225ECD180023F76F /* VoiceBroadcastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C6CB225ECD180023F76F /* VoiceBroadcastView.m */; };
+		18D1C6D3225ECD180023F76F /* VoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6CC225ECD180023F76F /* VoiceCell.xib */; };
+		18D1C6D4225ECD180023F76F /* RhythmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C6CD225ECD180023F76F /* RhythmViewController.m */; };
+		18D1C6D8225ECE3E0023F76F /* DirtyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C6D6225ECE3E0023F76F /* DirtyView.m */; };
+		18D1C6EC225ED6340023F76F /* weishi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6DB225ED6340023F76F /* weishi.mp3 */; };
+		18D1C6ED225ED6340023F76F /* shenshi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6DC225ED6340023F76F /* shenshi.mp3 */; };
+		18D1C6EE225ED6340023F76F /* choushi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6DD225ED6340023F76F /* choushi.mp3 */; };
+		18D1C6EF225ED6340023F76F /* xushi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6DE225ED6340023F76F /* xushi.mp3 */; };
+		18D1C6F0225ED6340023F76F /* zishi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6DF225ED6340023F76F /* zishi.mp3 */; };
+		18D1C6F1225ED6340023F76F /* sishi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E0225ED6340023F76F /* sishi.mp3 */; };
+		18D1C6F2225ED6340023F76F /* chenshi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E1225ED6340023F76F /* chenshi.mp3 */; };
+		18D1C6F3225ED6340023F76F /* haishi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E2225ED6340023F76F /* haishi.mp3 */; };
+		18D1C6F4225ED6340023F76F /* youshi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E3225ED6340023F76F /* youshi.mp3 */; };
+		18D1C6F5225ED6340023F76F /* wushi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E4225ED6340023F76F /* wushi.mp3 */; };
+		18D1C6F6225ED6340023F76F /* yinshi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E5225ED6340023F76F /* yinshi.mp3 */; };
+		18D1C6F7225ED6340023F76F /* moushi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E6225ED6340023F76F /* moushi.mp3 */; };
+		18D1C6F8225ED6340023F76F /* woxihuanni.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E8225ED6340023F76F /* woxihuanni.mp3 */; };
+		18D1C6F9225ED6340023F76F /* yuxiang.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6E9225ED6340023F76F /* yuxiang.mp3 */; };
+		18D1C6FA225ED6340023F76F /* huguangsheng.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6EA225ED6340023F76F /* huguangsheng.mp3 */; };
+		18D1C6FB225ED6340023F76F /* bunengshuodemimi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6EB225ED6340023F76F /* bunengshuodemimi.mp3 */; };
+		18D1C700225ED79C0023F76F /* HelpSleepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C6FD225ED79B0023F76F /* HelpSleepViewController.xib */; };
+		18D1C701225ED79C0023F76F /* HelpSleepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C6FE225ED79B0023F76F /* HelpSleepViewController.m */; };
+		18D1C709225ED8AD0023F76F /* JXPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C706225ED8AD0023F76F /* JXPopoverView.m */; };
+		18D1C70A225ED8AD0023F76F /* JXPopoverViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C707225ED8AD0023F76F /* JXPopoverViewCell.m */; };
+		18D1C70B225ED8AD0023F76F /* JXPopoverAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C708225ED8AD0023F76F /* JXPopoverAction.m */; };
+		18D1C710225EDFD40023F76F /* SetBloodOxygenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D1C70D225EDFD30023F76F /* SetBloodOxygenView.xib */; };
+		18D1C711225EDFD40023F76F /* SetBloodOxygenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C70E225EDFD40023F76F /* SetBloodOxygenView.m */; };
+		18D1C715225F12540023F76F /* NightCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1C714225F12540023F76F /* NightCircleView.m */; };
 		18DD9670214F8536001FC7EF /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DD966F214F8536001FC7EF /* NSString+AES256.m */; };
 		18E56A8E2122AF40007840D7 /* NewSportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E56A8D2122AF40007840D7 /* NewSportViewController.m */; };
 		18E56ABD2122D875007840D7 /* WorkOutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E56ABC2122D875007840D7 /* WorkOutView.m */; };
@@ -904,6 +937,51 @@
 		18AD4A8C21527EC00018A3CB /* DisturbViewController1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisturbViewController1.xib; sourceTree = "<group>"; };
 		18AD4AA421528CC70018A3CB /* HistoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataModel.h; sourceTree = "<group>"; };
 		18AD4AA521528CC70018A3CB /* HistoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataModel.m; sourceTree = "<group>"; };
+		18D1C6BF225ECC790023F76F /* MoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
+		18D1C6C0225ECC790023F76F /* MoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
+		18D1C6C3225ECD170023F76F /* VoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceCell.h; sourceTree = "<group>"; };
+		18D1C6C4225ECD170023F76F /* RobotSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobotSwitchView.h; sourceTree = "<group>"; };
+		18D1C6C5225ECD170023F76F /* VoiceBroadcastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceBroadcastView.h; sourceTree = "<group>"; };
+		18D1C6C6225ECD170023F76F /* RobotSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RobotSwitchView.m; sourceTree = "<group>"; };
+		18D1C6C7225ECD170023F76F /* VoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceCell.m; sourceTree = "<group>"; };
+		18D1C6C8225ECD180023F76F /* RhythmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RhythmViewController.h; sourceTree = "<group>"; };
+		18D1C6C9225ECD180023F76F /* RobotSwitchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RobotSwitchView.xib; sourceTree = "<group>"; };
+		18D1C6CA225ECD180023F76F /* VoiceBroadcastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoiceBroadcastView.xib; sourceTree = "<group>"; };
+		18D1C6CB225ECD180023F76F /* VoiceBroadcastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceBroadcastView.m; sourceTree = "<group>"; };
+		18D1C6CC225ECD180023F76F /* VoiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoiceCell.xib; sourceTree = "<group>"; };
+		18D1C6CD225ECD180023F76F /* RhythmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RhythmViewController.m; sourceTree = "<group>"; };
+		18D1C6D6225ECE3E0023F76F /* DirtyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirtyView.m; sourceTree = "<group>"; };
+		18D1C6D7225ECE3E0023F76F /* DirtyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirtyView.h; sourceTree = "<group>"; };
+		18D1C6DB225ED6340023F76F /* weishi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = weishi.mp3; sourceTree = "<group>"; };
+		18D1C6DC225ED6340023F76F /* shenshi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shenshi.mp3; sourceTree = "<group>"; };
+		18D1C6DD225ED6340023F76F /* choushi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = choushi.mp3; sourceTree = "<group>"; };
+		18D1C6DE225ED6340023F76F /* xushi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xushi.mp3; sourceTree = "<group>"; };
+		18D1C6DF225ED6340023F76F /* zishi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = zishi.mp3; sourceTree = "<group>"; };
+		18D1C6E0225ED6340023F76F /* sishi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sishi.mp3; sourceTree = "<group>"; };
+		18D1C6E1225ED6340023F76F /* chenshi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = chenshi.mp3; sourceTree = "<group>"; };
+		18D1C6E2225ED6340023F76F /* haishi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = haishi.mp3; sourceTree = "<group>"; };
+		18D1C6E3225ED6340023F76F /* youshi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = youshi.mp3; sourceTree = "<group>"; };
+		18D1C6E4225ED6340023F76F /* wushi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wushi.mp3; sourceTree = "<group>"; };
+		18D1C6E5225ED6340023F76F /* yinshi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = yinshi.mp3; sourceTree = "<group>"; };
+		18D1C6E6225ED6340023F76F /* moushi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = moushi.mp3; sourceTree = "<group>"; };
+		18D1C6E8225ED6340023F76F /* woxihuanni.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = woxihuanni.mp3; sourceTree = "<group>"; };
+		18D1C6E9225ED6340023F76F /* yuxiang.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = yuxiang.mp3; sourceTree = "<group>"; };
+		18D1C6EA225ED6340023F76F /* huguangsheng.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = huguangsheng.mp3; sourceTree = "<group>"; };
+		18D1C6EB225ED6340023F76F /* bunengshuodemimi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bunengshuodemimi.mp3; sourceTree = "<group>"; };
+		18D1C6FD225ED79B0023F76F /* HelpSleepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpSleepViewController.xib; sourceTree = "<group>"; };
+		18D1C6FE225ED79B0023F76F /* HelpSleepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpSleepViewController.m; sourceTree = "<group>"; };
+		18D1C6FF225ED79B0023F76F /* HelpSleepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpSleepViewController.h; sourceTree = "<group>"; };
+		18D1C703225ED8AD0023F76F /* JXPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXPopoverView.h; sourceTree = "<group>"; };
+		18D1C704225ED8AD0023F76F /* JXPopoverViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXPopoverViewCell.h; sourceTree = "<group>"; };
+		18D1C705225ED8AD0023F76F /* JXPopoverAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXPopoverAction.h; sourceTree = "<group>"; };
+		18D1C706225ED8AD0023F76F /* JXPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXPopoverView.m; sourceTree = "<group>"; };
+		18D1C707225ED8AD0023F76F /* JXPopoverViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXPopoverViewCell.m; sourceTree = "<group>"; };
+		18D1C708225ED8AD0023F76F /* JXPopoverAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXPopoverAction.m; sourceTree = "<group>"; };
+		18D1C70D225EDFD30023F76F /* SetBloodOxygenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetBloodOxygenView.xib; sourceTree = "<group>"; };
+		18D1C70E225EDFD40023F76F /* SetBloodOxygenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetBloodOxygenView.m; sourceTree = "<group>"; };
+		18D1C70F225EDFD40023F76F /* SetBloodOxygenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetBloodOxygenView.h; sourceTree = "<group>"; };
+		18D1C713225F12540023F76F /* NightCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NightCircleView.h; sourceTree = "<group>"; };
+		18D1C714225F12540023F76F /* NightCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NightCircleView.m; sourceTree = "<group>"; };
 		18DD966E214F8536001FC7EF /* NSString+AES256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+AES256.h"; sourceTree = "<group>"; };
 		18DD966F214F8536001FC7EF /* NSString+AES256.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES256.m"; sourceTree = "<group>"; };
 		18E56A8C2122AF40007840D7 /* NewSportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSportViewController.h; sourceTree = "<group>"; };
@@ -2016,6 +2094,9 @@
 		183A7C0B2119E07600F98016 /* NewClass */ = {
 			isa = PBXGroup;
 			children = (
+				18D1C6FC225ED79B0023F76F /* 助眠 */,
+				18D1C6C2225ECCBA0023F76F /* RhythmViewController */,
+				18D1C6BE225ECC1F0023F76F /* + */,
 				18AD4A6321527EC00018A3CB /* setBand1 */,
 				18DD966A214F84F5001FC7EF /* 加密 */,
 				18A67AB12147A33E00CB9161 /* AboutMy */,
@@ -2133,6 +2214,7 @@
 		185D8689211EF2E2006B7E00 /* HeartRateView(自动) */ = {
 			isa = PBXGroup;
 			children = (
+				18D1C70C225EDFD30023F76F /* SetBloodOxygen */,
 				185D868E211EF2E2006B7E00 /* HeartRateCircleView */,
 				185D868B211EF2E2006B7E00 /* HeartRateView.h */,
 				185D868C211EF2E2006B7E00 /* HeartRateView.m */,
@@ -2352,6 +2434,124 @@
 				18AD4AA521528CC70018A3CB /* HistoryDataModel.m */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		18D1C6BE225ECC1F0023F76F /* + */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C6C0225ECC790023F76F /* MoreView.h */,
+				18D1C6BF225ECC790023F76F /* MoreView.m */,
+			);
+			path = "+";
+			sourceTree = "<group>";
+		};
+		18D1C6C2225ECCBA0023F76F /* RhythmViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C6D5225ECE240023F76F /* DirtyView */,
+				18D1C6C8225ECD180023F76F /* RhythmViewController.h */,
+				18D1C6CD225ECD180023F76F /* RhythmViewController.m */,
+				18D1C6C4225ECD170023F76F /* RobotSwitchView.h */,
+				18D1C6C6225ECD170023F76F /* RobotSwitchView.m */,
+				18D1C6C9225ECD180023F76F /* RobotSwitchView.xib */,
+				18D1C6C5225ECD170023F76F /* VoiceBroadcastView.h */,
+				18D1C6CB225ECD180023F76F /* VoiceBroadcastView.m */,
+				18D1C6CA225ECD180023F76F /* VoiceBroadcastView.xib */,
+				18D1C6C3225ECD170023F76F /* VoiceCell.h */,
+				18D1C6C7225ECD170023F76F /* VoiceCell.m */,
+				18D1C6CC225ECD180023F76F /* VoiceCell.xib */,
+			);
+			path = RhythmViewController;
+			sourceTree = "<group>";
+		};
+		18D1C6D5225ECE240023F76F /* DirtyView */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C6D7225ECE3E0023F76F /* DirtyView.h */,
+				18D1C6D6225ECE3E0023F76F /* DirtyView.m */,
+			);
+			path = DirtyView;
+			sourceTree = "<group>";
+		};
+		18D1C6D9225ED6340023F76F /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C6DA225ED6340023F76F /* 报时 */,
+				18D1C6E7225ED6340023F76F /* 音乐 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		18D1C6DA225ED6340023F76F /* 报时 */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C6DB225ED6340023F76F /* weishi.mp3 */,
+				18D1C6DC225ED6340023F76F /* shenshi.mp3 */,
+				18D1C6DD225ED6340023F76F /* choushi.mp3 */,
+				18D1C6DE225ED6340023F76F /* xushi.mp3 */,
+				18D1C6DF225ED6340023F76F /* zishi.mp3 */,
+				18D1C6E0225ED6340023F76F /* sishi.mp3 */,
+				18D1C6E1225ED6340023F76F /* chenshi.mp3 */,
+				18D1C6E2225ED6340023F76F /* haishi.mp3 */,
+				18D1C6E3225ED6340023F76F /* youshi.mp3 */,
+				18D1C6E4225ED6340023F76F /* wushi.mp3 */,
+				18D1C6E5225ED6340023F76F /* yinshi.mp3 */,
+				18D1C6E6225ED6340023F76F /* moushi.mp3 */,
+			);
+			path = "报时";
+			sourceTree = "<group>";
+		};
+		18D1C6E7225ED6340023F76F /* 音乐 */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C6E8225ED6340023F76F /* woxihuanni.mp3 */,
+				18D1C6E9225ED6340023F76F /* yuxiang.mp3 */,
+				18D1C6EA225ED6340023F76F /* huguangsheng.mp3 */,
+				18D1C6EB225ED6340023F76F /* bunengshuodemimi.mp3 */,
+			);
+			path = "音乐";
+			sourceTree = "<group>";
+		};
+		18D1C6FC225ED79B0023F76F /* 助眠 */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C6FF225ED79B0023F76F /* HelpSleepViewController.h */,
+				18D1C6FE225ED79B0023F76F /* HelpSleepViewController.m */,
+				18D1C6FD225ED79B0023F76F /* HelpSleepViewController.xib */,
+			);
+			path = "助眠";
+			sourceTree = "<group>";
+		};
+		18D1C702225ED8AC0023F76F /* JXPopoverView */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C703225ED8AD0023F76F /* JXPopoverView.h */,
+				18D1C704225ED8AD0023F76F /* JXPopoverViewCell.h */,
+				18D1C705225ED8AD0023F76F /* JXPopoverAction.h */,
+				18D1C706225ED8AD0023F76F /* JXPopoverView.m */,
+				18D1C707225ED8AD0023F76F /* JXPopoverViewCell.m */,
+				18D1C708225ED8AD0023F76F /* JXPopoverAction.m */,
+			);
+			path = JXPopoverView;
+			sourceTree = "<group>";
+		};
+		18D1C70C225EDFD30023F76F /* SetBloodOxygen */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C70F225EDFD40023F76F /* SetBloodOxygenView.h */,
+				18D1C70E225EDFD40023F76F /* SetBloodOxygenView.m */,
+				18D1C70D225EDFD30023F76F /* SetBloodOxygenView.xib */,
+			);
+			path = SetBloodOxygen;
+			sourceTree = "<group>";
+		};
+		18D1C712225F11D20023F76F /* SleepView */ = {
+			isa = PBXGroup;
+			children = (
+				18D1C713225F12540023F76F /* NightCircleView.h */,
+				18D1C714225F12540023F76F /* NightCircleView.m */,
+			);
+			name = SleepView;
 			sourceTree = "<group>";
 		};
 		18DD966A214F84F5001FC7EF /* 加密 */ = {
@@ -2663,6 +2863,7 @@
 		3B6A0D4D1C3B689F00FB76D0 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				18D1C6D9225ED6340023F76F /* Music */,
 				3B6A0D451C3B689F00FB76D0 /* Data[数据] */,
 				BCB1DABF1EC30FBD00EFA3AC /* MJRefresh */,
 				BC1CB6B01EC15B5500D19C6A /* XWCountryCode */,
@@ -2674,6 +2875,7 @@
 				BC04AD351E66A0D0005A1FC6 /* SDAutoLayout */,
 				3B6A0D741C3B689F00FB76D0 /* MBProgressHUD（中间提示视图） */,
 				3B6A0DC61C3B689F00FB76D0 /* Toast(下面提示视图) */,
+				18D1C702225ED8AC0023F76F /* JXPopoverView */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -3673,6 +3875,7 @@
 		DD6F3A841E124E220000B296 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				18D1C712225F11D20023F76F /* SleepView */,
 				DD0295AE1E23255B002423BD /* YHStepTestViewController.h */,
 				DD0295AF1E23255B002423BD /* YHStepTestViewController.m */,
 				BCEBDBA91EC3F80D0039464B /* MainHRViewController.h */,
@@ -3876,7 +4079,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				185D8653211DC96C006B7E00 /* PZ_背景.png in Resources */,
+				18D1C6EC225ED6340023F76F /* weishi.mp3 in Resources */,
 				1892ACC7212E8EC600C03432 /* AUISaveCell.xib in Resources */,
+				18D1C6F4225ED6340023F76F /* youshi.mp3 in Resources */,
 				18072029215CC0540069107F /* loginTakeCare@2x.png in Resources */,
 				185D8654211DC96C006B7E00 /* PZ_frontCamera@2x.png in Resources */,
 				185D865C211DC96C006B7E00 /* 相机.png in Resources */,
@@ -3896,8 +4101,10 @@
 				185D8635211DC267006B7E00 /* qrcode_scan_btn_photo_down@2x.png in Resources */,
 				1809F674212C3E42005EDABA /* 图层-2.png in Resources */,
 				183A7BDC2119DCA100F98016 /* zbar-samples.png in Resources */,
+				18D1C6D1225ECD180023F76F /* VoiceBroadcastView.xib in Resources */,
 				18AD4A9321527EC10018A3CB /* JiuzuoViewController.xib in Resources */,
 				185D865A211DC96C006B7E00 /* 相机@3x.png in Resources */,
+				18D1C6F0225ED6340023F76F /* zishi.mp3 in Resources */,
 				1809F66C212C3E42005EDABA /* 设备未连接.png in Resources */,
 				1805FFD9213026A500CC919D /* NewFriendsViewController.xib in Resources */,
 				1809F675212C3E42005EDABA /* 手环-1.png in Resources */,
@@ -3909,7 +4116,9 @@
 				1809F67B212C3E42005EDABA /* 设备未连接@3x.png in Resources */,
 				1809F689212C3E42005EDABA /* 手表@3x.png in Resources */,
 				1809F567212A72B2005EDABA /* Cities.json in Resources */,
+				18D1C6F8225ED6340023F76F /* woxihuanni.mp3 in Resources */,
 				1805FFD6213026A500CC919D /* FriendListCell.xib in Resources */,
+				18D1C6F5225ED6340023F76F /* wushi.mp3 in Resources */,
 				BCD6F9061EF12DEC004B7D88 /* InfoPlist.strings in Resources */,
 				1809F564212A72B2005EDABA /* AddressTableViewCell.xib in Resources */,
 				18AD4AA021527EC10018A3CB /* HeartRateSetViewController1.xib in Resources */,
@@ -3924,12 +4133,14 @@
 				1809F672212C3E42005EDABA /* deviceType@3x.png in Resources */,
 				1820DE63216B4B0300C66F0C /* SheBeiCell.xib in Resources */,
 				1809F683212C3E42005EDABA /* 设备未连接@2x.png in Resources */,
+				18D1C6ED225ED6340023F76F /* shenshi.mp3 in Resources */,
 				1809F661212C3E42005EDABA /* 组-2@2x.png in Resources */,
 				1809F685212C3E42005EDABA /* deviceTypeA.png in Resources */,
 				1809F663212C3E42005EDABA /* 3@3x.png in Resources */,
 				18AD4A9621527EC10018A3CB /* SMSViewController1.xib in Resources */,
 				1809F68F212C3E42005EDABA /* 图层-2@2x.png in Resources */,
 				185D8642211DC267006B7E00 /* qr_top_left@3x.png in Resources */,
+				18D1C6F1225ED6340023F76F /* sishi.mp3 in Resources */,
 				183A7C142119E08800F98016 /* MineEWMViewController.xib in Resources */,
 				18AD4A9921527EC10018A3CB /* CallViewController1.xib in Resources */,
 				1809F667212C3E42005EDABA /* 2@3x.png in Resources */,
@@ -3950,6 +4161,8 @@
 				18F0BB3221246E8300384AAE /* HeartRateDetailViewController.xib in Resources */,
 				1809F537212A668B005EDABA /* FindPSWViewController.xib in Resources */,
 				1809F67C212C3E42005EDABA /* 寻找设备.png in Resources */,
+				18D1C6EF225ED6340023F76F /* xushi.mp3 in Resources */,
+				18D1C6F7225ED6340023F76F /* moushi.mp3 in Resources */,
 				BCB1DAFC1EC30FBD00EFA3AC /* MJRefresh.bundle in Resources */,
 				185D8643211DC267006B7E00 /* qr_bottom_left@2x.png in Resources */,
 				1892ACD7212E8FB700C03432 /* RegulationViewController.xib in Resources */,
@@ -3963,10 +4176,13 @@
 				1809F686212C3E42005EDABA /* 清除本地数据.png in Resources */,
 				185D8658211DC96C006B7E00 /* 相机选中@2x.png in Resources */,
 				185D8684211DCEDA006B7E00 /* H5ViewController.xib in Resources */,
+				18D1C6EE225ED6340023F76F /* choushi.mp3 in Resources */,
 				3BD722BD1C59B85D0085E149 /* take_camera@3x.png in Resources */,
 				1809F66F212C3E42005EDABA /* 问号@3x.png in Resources */,
+				18D1C6F6225ED6340023F76F /* yinshi.mp3 in Resources */,
 				3BD722C01C59B85D0085E149 /* TakePhotoViewController.xib in Resources */,
 				18AD4A9221527EC10018A3CB /* JiuzuoSetViewController1.xib in Resources */,
+				18D1C700225ED79C0023F76F /* HelpSleepViewController.xib in Resources */,
 				BC8860C91E94812100E722B0 /* UMSocialSDKResources.bundle in Resources */,
 				183A7BDE2119DCA100F98016 /* zbar-back.png in Resources */,
 				1809F548212A669A005EDABA /* EditPersonalInformationViewController.storyboard in Resources */,
@@ -3984,8 +4200,10 @@
 				18072024215CC03A0069107F /* SZ_jiuzuoDurationBg@2x.png in Resources */,
 				1809F671212C3E42005EDABA /* 恢复出厂设置.png in Resources */,
 				1892ACBF212E8EC600C03432 /* AUIAccountCell.xib in Resources */,
+				18D1C6FB225ED6340023F76F /* bunengshuodemimi.mp3 in Resources */,
 				185D8655211DC96C006B7E00 /* 相机选中.png in Resources */,
 				185D863D211DC267006B7E00 /* qrcode_scan_btn_flash_nor@2x.png in Resources */,
+				18D1C6F3225ED6340023F76F /* haishi.mp3 in Resources */,
 				1809F665212C3E42005EDABA /* 1@3x.png in Resources */,
 				182CEC8C2181A730002F0DBC /* AttentionReusableView.xib in Resources */,
 				3BD2BC4F1C9F932C008AC027 /* TabBarPlist.plist in Resources */,
@@ -3996,6 +4214,7 @@
 				1892ACC4212E8EC600C03432 /* AUIPhoneCell.xib in Resources */,
 				18AD4AA221527EC10018A3CB /* DisturbViewController1.xib in Resources */,
 				1809F66E212C3E42005EDABA /* 手环-1@3x.png in Resources */,
+				18D1C710225EDFD40023F76F /* SetBloodOxygenView.xib in Resources */,
 				1809F669212C3E42005EDABA /* 3.png in Resources */,
 				1809F67E212C3E42005EDABA /* 清除本地数据@2x.png in Resources */,
 				1821FE96221D31DC005AC640 /* BMIViewController.xib in Resources */,
@@ -4006,6 +4225,7 @@
 				18072023215CC03A0069107F /* SZ_jiuzuoBtnUnselected@2x.png in Resources */,
 				1809F688212C3E42005EDABA /* 寻找设备@2x.png in Resources */,
 				1809F67A212C3E42005EDABA /* 蓝底@2x.png in Resources */,
+				18D1C6D3225ECD180023F76F /* VoiceCell.xib in Resources */,
 				1809F67D212C3E42005EDABA /* 设备已连接@2x.png in Resources */,
 				185D8636211DC267006B7E00 /* qrcode_scan_btn_myqrcode_nor@2x.png in Resources */,
 				1892ACC0212E8EC600C03432 /* AUIHeaderCell.xib in Resources */,
@@ -4013,13 +4233,16 @@
 				185D8646211DC267006B7E00 /* qrcode_scan_bar@2x.png in Resources */,
 				1809F664212C3E42005EDABA /* 1@2x.png in Resources */,
 				185D8633211DC267006B7E00 /* qr_vc_right@2x.png in Resources */,
+				18D1C6F2225ED6340023F76F /* chenshi.mp3 in Resources */,
 				183A7BDD2119DCA100F98016 /* zbar-help.html in Resources */,
 				185D8639211DC267006B7E00 /* qrcode_scan_btn_flash_down@2x.png in Resources */,
 				1809F68A212C3E42005EDABA /* beCareful@3x.png in Resources */,
 				1809F690212C3E42005EDABA /* beCareful.png in Resources */,
 				1809F579212AA082005EDABA /* LoginViewController.xib in Resources */,
+				18D1C6D0225ECD180023F76F /* RobotSwitchView.xib in Resources */,
 				185D863A211DC267006B7E00 /* qr_bottom_right@3x.png in Resources */,
 				1809F662212C3E42005EDABA /* 组-2.png in Resources */,
+				18D1C6FA225ED6340023F76F /* huguangsheng.mp3 in Resources */,
 				1809F673212C3E42005EDABA /* deviceType@2x.png in Resources */,
 				185D865B211DC96C006B7E00 /* 相机选中@3x.png in Resources */,
 				1809F687212C3E42005EDABA /* 图层-2@3x.png in Resources */,
@@ -4037,6 +4260,7 @@
 				1809F668212C3E42005EDABA /* 2.png in Resources */,
 				1809F677212C3E42005EDABA /* 问号@2x.png in Resources */,
 				185D863C211DC267006B7E00 /* qr_vc_left@2x.png in Resources */,
+				18D1C6F9225ED6340023F76F /* yuxiang.mp3 in Resources */,
 				1809F65D212C3E42005EDABA /* deviceType.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4184,6 +4408,7 @@
 				BC7779D71E85022300CB80B5 /* historyDataHourModel.m in Sources */,
 				1821FE95221D31DC005AC640 /* BMIViewController.m in Sources */,
 				BC4F35A41ED2931E003DF8E2 /* chooseView.m in Sources */,
+				18D1C6D8225ECE3E0023F76F /* DirtyView.m in Sources */,
 				BC0925B11E6E63260087066A /* IQUIWindow+Hierarchy.m in Sources */,
 				1809F53D212A6693005EDABA /* RgistViewController.m in Sources */,
 				1892ACEB212FB24200C03432 /* AFAppDotNetAPIClient1.m in Sources */,
@@ -4195,6 +4420,7 @@
 				18A6B12F212513B300CADADA /* MainSleepDetailViewController.m in Sources */,
 				3B6A0D0D1C3B687D00FB76D0 /* AppDelegate.m in Sources */,
 				BC0925B21E6E63260087066A /* IQKeyboardManager.m in Sources */,
+				18D1C6D4225ECD180023F76F /* RhythmViewController.m in Sources */,
 				182EEB642121B4EF0049687D /* HealtPoliceViewController.m in Sources */,
 				BC6E35171E987B76008A0203 /* SDWebImageManager.m in Sources */,
 				182CEC8B2181A730002F0DBC /* AttentionReusableView.m in Sources */,
@@ -4234,7 +4460,9 @@
 				18AD4A9A21527EC10018A3CB /* CallViewController1.m in Sources */,
 				3BD722BF1C59B85D0085E149 /* TakePhotoViewController.m in Sources */,
 				3B078B411C4DE03B0014899F /* AlarmViewController.m in Sources */,
+				18D1C6D2225ECD180023F76F /* VoiceBroadcastView.m in Sources */,
 				BCB1DAA51EC2C16600EFA3AC /* LMGaugeView.m in Sources */,
+				18D1C715225F12540023F76F /* NightCircleView.m in Sources */,
 				BC9452F51E5C1C3B00AB3398 /* HCHCommonManager.m in Sources */,
 				DD6F3B451E12500E0000B296 /* UILabel+Style.m in Sources */,
 				BC2E3D3D1EF4D99B0078FB12 /* SGPhotoBrowser.m in Sources */,
@@ -4286,6 +4514,8 @@
 				18AD4A8F21527EC10018A3CB /* JiuzuoSetViewController1.m in Sources */,
 				3B6A0D0A1C3B687D00FB76D0 /* main.m in Sources */,
 				BC0925B41E6E63260087066A /* IQSegmentedNextPrevious.m in Sources */,
+				18D1C6C1225ECC790023F76F /* MoreView.m in Sources */,
+				18D1C701225ED79C0023F76F /* HelpSleepViewController.m in Sources */,
 				1833BC472125A9AC00ED4E4B /* SMDetailViewController.m in Sources */,
 				1805FFD5213026A500CC919D /* FriendListCell.m in Sources */,
 				BC6E351F1E987B76008A0203 /* UIView+WebCache.m in Sources */,
@@ -4300,6 +4530,7 @@
 				BC7DAE881E64145000876151 /* ZFConst.m in Sources */,
 				3BD722D31C5A06920085E149 /* WJAsset.m in Sources */,
 				1892ACD6212E8FB700C03432 /* RegulationViewController.m in Sources */,
+				18D1C70A225ED8AD0023F76F /* JXPopoverViewCell.m in Sources */,
 				182CEC8721819917002F0DBC /* AttentionView.m in Sources */,
 				BC0925AE1E6E63260087066A /* IQUITextFieldView+Additions.m in Sources */,
 				BC7DAE961E64145000876151 /* ZFPie.m in Sources */,
@@ -4314,11 +4545,13 @@
 				BCB1DAFF1EC30FBD00EFA3AC /* UIScrollView+MJExtension.m in Sources */,
 				BC7706E31ED55E0A001AEB05 /* PZDataViewController.m in Sources */,
 				BCB1DAF91EC30FBD00EFA3AC /* MJRefreshGifHeader.m in Sources */,
+				18D1C6CE225ECD180023F76F /* RobotSwitchView.m in Sources */,
 				BC2E3D381EF4D99B0078FB12 /* SGAssetModel.m in Sources */,
 				BC7706E01ED535E5001AEB05 /* XXTextView.m in Sources */,
 				BCE9BE9D1ECAB05900CE3BFA /* FindBindViewController.m in Sources */,
 				BC7DAE981E64145000876151 /* ZFTranslucencePath.m in Sources */,
 				BC0925B91E6E63260087066A /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				18D1C6CF225ECD180023F76F /* VoiceCell.m in Sources */,
 				BC6E35191E987B76008A0203 /* UIButton+WebCache.m in Sources */,
 				1892ACBE212E8EC600C03432 /* AUIHeaderCell.m in Sources */,
 				DD88EF771E1B7A3900605901 /* NinaPagerView.m in Sources */,
@@ -4329,17 +4562,20 @@
 				18A6B12C2125137000CADADA /* NewSportDetailViewController.m in Sources */,
 				185D8692211EF2E2006B7E00 /* HeartRateView.m in Sources */,
 				182CEC902181AE89002F0DBC /* AttentionCell.m in Sources */,
+				18D1C711225EDFD40023F76F /* SetBloodOxygenView.m in Sources */,
 				3B6D588D1C86BF3700168F1F /* MJFoundation.m in Sources */,
 				BCD6F9001EF1083C004B7D88 /* WGS84TOGCJ02.m in Sources */,
 				182EEB6A2121BCAC0049687D /* PoliceCell.m in Sources */,
 				183A7BFD2119DD2C00F98016 /* MASConstraintMaker.m in Sources */,
 				BC7DAE9C1E64145000876151 /* ZFWave.m in Sources */,
+				18D1C709225ED8AD0023F76F /* JXPopoverView.m in Sources */,
 				3B078B3C1C4DE01C0014899F /* CallViewController.m in Sources */,
 				BC0925B51E6E63260087066A /* IQTextView.m in Sources */,
 				18AD4A9521527EC10018A3CB /* SMSViewController1.m in Sources */,
 				3B6D58931C86BF3700168F1F /* NSObject+MJKeyValue.m in Sources */,
 				1892ACC8212E8EC600C03432 /* AUIAccountCell.m in Sources */,
 				BC7DAE9D1E64145000876151 /* ZFWaveChart.m in Sources */,
+				18D1C70B225ED8AD0023F76F /* JXPopoverAction.m in Sources */,
 				BC7DAE831E64145000876151 /* ZFPopoverLabel.m in Sources */,
 				1809F546212A669A005EDABA /* EditPersonalInformationOneViewController.m in Sources */,
 				DD6F3B4A1E1250480000B296 /* UnityTool.m in Sources */,

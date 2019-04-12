@@ -10,7 +10,7 @@
 		<key>imageName</key>
 		<string>xinlv-qian</string>
 		<key>title</key>
-		<string>心率</string>
+		<string>体征</string>
 	</dict>
 	<dict>
 		<key>class</key>
@@ -20,7 +20,17 @@
 		<key>imageName</key>
 		<string>yujing-qian</string>
 		<key>title</key>
-		<string>预警</string>
+		<string>报告</string>
+	</dict>
+	<dict>
+		<key>class</key>
+		<string>UIViewController</string>
+		<key>selectImageName</key>
+		<string>yuan-hou</string>
+		<key>imageName</key>
+		<string>yuan</string>
+		<key>title</key>
+		<string></string>
 	</dict>
 	<dict>
 		<key>class</key>

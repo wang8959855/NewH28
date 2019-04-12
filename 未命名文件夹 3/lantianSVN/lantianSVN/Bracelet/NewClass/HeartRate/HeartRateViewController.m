@@ -49,7 +49,7 @@
             }
         }
     });
-    self.view.backgroundColor = KCOLOR(45, 128, 251);
+    self.view.backgroundColor = kMainColor;
     [self setView];
     
 }

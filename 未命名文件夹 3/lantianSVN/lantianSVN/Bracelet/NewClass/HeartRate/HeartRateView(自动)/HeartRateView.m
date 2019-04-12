@@ -13,6 +13,7 @@
 #import "userDataModel.h"
 #import "sportModel.h"
 #import "HeartRateDetailViewController.h"
+#import "SetBloodOxygenView.h"
 
 @interface HeartRateView ()<BlutToothManagerDelegate,BlutToothManagerDelegate,HeartRateCircleViewDelegate>
 
@@ -32,7 +33,6 @@
     CGFloat backScrollViewW = CurrentDeviceWidth;
     CGFloat backScrollViewH = self.frame.size.height;
     self.backScrollView.frame = CGRectMake(0,backScrollViewY,backScrollViewW, backScrollViewH);
-    [self requestGETWarning];
     if (![EirogaBlueToothManager sharedInstance].isconnected) {
         [self childrenTimeSecondChanged];
     }
@@ -81,8 +81,8 @@
     self.backScrollView.showsVerticalScrollIndicator = NO;
     self.backScrollView.backgroundColor  = [UIColor clearColor];
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenH/5*3)];
-    bgView.backgroundColor = KCOLOR(45, 128, 251);
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenH/2)];
+    bgView.backgroundColor = kMainColor;
     [self.backScrollView addSubview:bgView];
     
     kWEAKSELF
@@ -203,44 +203,51 @@
     }
     int avgValue = totalValue/count;
     
-    self.fatigueLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",minValue] Unit:@"bpm" WithFont:18];
-    self.bloodPressureLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",maxValue] Unit:@"bpm" WithFont:18];
-    self.averageHeartRateLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",avgValue] Unit:@"bpm" WithFont:18];
-    self.nowHeartRateLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",currentHR] Unit:@"bpm" WithFont:18];
+//    self.fatigueLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",minValue] Unit:@"bpm" WithFont:18];
+//    self.bloodPressureLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",maxValue] Unit:@"bpm" WithFont:18];
+//    self.averageHeartRateLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",avgValue] Unit:@"bpm" WithFont:18];
+    self.nowHeartRateLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",currentHR] Unit:@"次/分" WithFont:18];
     self.circleView.value = currentHR;
 }
 
 - (void)setBackgroundView
 {
-    NSArray *array = @[@"最高心率",@"最低心率",@"实时心率",@"平均心率"];
+    NSArray *array = @[@"血压",@"血氧",@"实时心率",@"体温"];
+    NSArray *leftImageArr = @[@"xueya",@"xueyang",@"shishi",@"tiwen"];
     
     for (int i = 0; i < 4; i ++)
     {
         UIView *view = [[UIView alloc] init];
-        view.backgroundColor = kMainColor;
+        view.backgroundColor = [UIColor clearColor];
         view.frame = CGRectMake((8 + i % 2 * 181) *kX,
-                                self.backScrollView.height- (29 * kDY)- (84 + 3)*kDY * (i/2 + 1),
-                                178 * kX,
-                                84*kDY);
-        view.layer.borderColor = kColor(240, 240, 240).CGColor;
-        view.layer.borderWidth = 0.5;
+                                self.backScrollView.height- (29 * kDY)- (100 + 3)*kDY * (i/2 + 1)-30,
+                                178 * kX+10,
+                                100*kDY);
         view.layer.cornerRadius = 5;
         view.layer.masksToBounds = YES;
         view.tag = 30+i;
         view.userInteractionEnabled = YES;
         [self.backScrollView addSubview:view];
         
+        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, view.width, view.height)];
+        imageV.image = [UIImage imageNamed:@"xiaokuang"];
+        [view addSubview:imageV];
+        
+        UIImageView *leftImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 20)];
+        leftImage.image = [UIImage imageNamed:leftImageArr[i]];
+        [view addSubview:leftImage];
+        
         UILabel *label = [[UILabel alloc] init];
         //label.backgroundColor = [UIColor redColor];
         label.text = array[i];
         label.font = Font_Normal_String(13);
-        label.textColor = allColorWhite;
+        label.textColor = [UIColor blackColor];
         label.frame = CGRectMake(0, (view.height-30)/2-15, view.width, 30);
         label.textAlignment = NSTextAlignmentCenter;
         [view addSubview:label];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertAtion:)];
-        [view addGestureRecognizer:tap];
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertAtion:)];
+//        [view addGestureRecognizer:tap];
         
         NSAttributedString *string;
         switch (i) {
@@ -249,8 +256,8 @@
                 _bloodPressureLabel = [[UILabel alloc] init];
                 _bloodPressureLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
                 _bloodPressureLabel.textAlignment = NSTextAlignmentCenter;
-                _bloodPressureLabel.text = @"--";
-                _bloodPressureLabel.textColor = allColorWhite;
+                _bloodPressureLabel.text = @"--/--mmHg";
+                _bloodPressureLabel.textColor = kMainColor;
                 [view addSubview:_bloodPressureLabel];
             }
                 break;
@@ -259,8 +266,8 @@
                 _fatigueLabel = [[UILabel alloc] init];
                 _fatigueLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
                 _fatigueLabel.textAlignment = NSTextAlignmentCenter;
-                _fatigueLabel.textColor = allColorWhite;
-                _fatigueLabel.text = @"--";
+                _fatigueLabel.textColor = kMainColor;
+                _fatigueLabel.text = @"--%";
                 [view addSubview:_fatigueLabel];
             }
                 break;
@@ -269,8 +276,8 @@
 //                string = [self makeAttributedStringWithnumBer:@"--" Unit:@"bpm" WithFont:18];
                 _nowHeartRateLabel = [[UILabel alloc] init];
                 _nowHeartRateLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
-                _nowHeartRateLabel.text = @"--";
-                _nowHeartRateLabel.textColor = allColorWhite;
+                _nowHeartRateLabel.text = @"--次/分";
+                _nowHeartRateLabel.textColor = kMainColor;
                 _nowHeartRateLabel.textAlignment = NSTextAlignmentCenter;
                 [view addSubview:_nowHeartRateLabel];
             }
@@ -281,8 +288,8 @@
                 _averageHeartRateLabel = [[UILabel alloc] init];
                 _averageHeartRateLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
                 _averageHeartRateLabel.textAlignment = NSTextAlignmentCenter;
-                _averageHeartRateLabel.text = @"--";
-                _averageHeartRateLabel.textColor = allColorWhite;
+                _averageHeartRateLabel.text = @"--℃";
+                _averageHeartRateLabel.textColor = kMainColor;
                 [view addSubview:_averageHeartRateLabel];
             }
                 break;
@@ -293,7 +300,7 @@
     
     self.circleView = [[HeartRateCircleView alloc] init];
     [self.backScrollView addSubview:self.circleView];
-    self.circleView.frame = CGRectMake(0, 0, MIN(160 * kX, 160 * kDY), MIN(160 * kX, 160 * kDY));
+    self.circleView.frame = CGRectMake(0, 0, MIN(180 * kX, 180 * kDY), MIN(180 * kX, 180 * kDY));
     self.circleView.center = CGPointMake(CurrentDeviceWidth / 2, 40 * kDY + self.circleView.height/2.);
     self.circleView.backgroundColor = [UIColor clearColor];
     
@@ -302,11 +309,18 @@
     self.circleView.startAngle = 3./2 * M_PI + M_PI/3600.;
     self.circleView.endAngle = 3./2 * M_PI;
 //    self.circleView.ringBackgroundColor = kColor(234, 237, 242);
-    self.circleView.valueTextColor = [UIColor whiteColor];
+    self.circleView.valueTextColor = kMainColor;
     self.circleView.ringThickness = MIN(16 * kX, 16 * kDY);
     self.circleView.delegate = self;
     self.circleView.value = 0;
     [self.circleView setNeedsDisplay];
+    
+    UIView *bgView = [[UIView alloc] initWithFrame:self.circleView.frame];
+    bgView.backgroundColor = allColorWhite;
+    bgView.layer.cornerRadius = bgView.width/2.0;
+    bgView.layer.masksToBounds = YES;
+    [self.backScrollView addSubview:bgView];
+    [self.backScrollView addSubview:self.circleView];
     
     UIButton *detailButton = [[UIButton alloc]init];
     [self.circleView addSubview:detailButton];
@@ -319,16 +333,14 @@
     detailButton.frame = CGRectMake(detailButtonX, detailButtonY, detailButtonW, detailButtonH);
     
     self.targetBtn = [[UIButton alloc] init];
-    self.targetBtn.size = CGSizeMake(130*kX, 30*kDY);
-    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.height - 256*kDY);
+    self.targetBtn.size = CGSizeMake(200*kX, 30*kDY);
+    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.height - 286*kDY);
     [self.backScrollView addSubview:self.targetBtn];
-    self.targetBtn.layer.borderColor = kMainColor.CGColor;
-    self.targetBtn.layer.borderWidth = 1;
     self.targetBtn.layer.cornerRadius = 8*kDY;
-    [self.targetBtn setImage:[UIImage imageNamed:@"police"] forState:UIControlStateNormal];
-    [self.targetBtn setTitle:[NSString stringWithFormat:@"警报次数0次"] forState:UIControlStateNormal];
+    [self.targetBtn setTitle:[NSString stringWithFormat:@"血压/血糖校准设置"] forState:UIControlStateNormal];
+    [self.targetBtn setImage:[UIImage imageNamed:@"jiaozhun"] forState:UIControlStateNormal];
     self.targetBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.targetBtn setTitleColor:kMainColor forState:UIControlStateNormal];
+    [self.targetBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.targetBtn addTarget:self action:@selector(targetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -361,7 +373,7 @@
 
 #pragma mark -- button方法
 - (void)targetBtnAction:(UIButton *)button{
-    
+    [SetBloodOxygenView bloodOxygenView];
 }
 - (void)detailButtonAction:(UIButton *)button{
     if ([EirogaBlueToothManager sharedInstance].isconnected) {

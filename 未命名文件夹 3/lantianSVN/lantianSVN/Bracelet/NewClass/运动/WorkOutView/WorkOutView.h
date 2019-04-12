@@ -21,6 +21,8 @@
 
 @property (nonatomic, weak) UILabel *speedLabel;
 
+@property (nonatomic, strong) UILabel *locus;
+
 @property (nonatomic, weak) UIButton *beginBtn;
 
 @property (nonatomic, strong) NSTimer *timer;

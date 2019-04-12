@@ -78,31 +78,43 @@
     self.backScrollView.contentSize = CGSizeMake(self.backScrollView.width, self.backScrollView.height+0.5);
     self.backScrollView.showsVerticalScrollIndicator = NO;
     
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight/2)];
+    bgView.backgroundColor = kMainColor;
+    [self.backScrollView addSubview:bgView];
+    
     //    设置下方4个view
     NSArray *array = @[@"里程",@"卡路里",@"实时心率",@"平均心率"];
-    
+    NSArray *leftImageArr = @[@"xueya",@"xueyang",@"shishi",@"tiwen"];
     for (int i = 0; i < 4; i ++)
     {
         UIView *view = [[UIView alloc] init];
-        view.backgroundColor = kMainColor;
+        view.backgroundColor = [UIColor clearColor];
         view.frame = CGRectMake((8 + i % 2 * 181) *kX,
-                                self.backScrollView.height - (29 * kDY)- (84 + 3)*kDY * (i/2 + 1),
-                                178 * kX,
-                                84*kDY);
+                                self.backScrollView.height - (29 * kDY)- (100 + 3)*kDY * (i/2 + 1)-30,
+                                178 * kX+10,
+                                100*kDY);
         view.layer.cornerRadius = 5;
         view.layer.masksToBounds = YES;
         view.tag = 30+i;
         view.userInteractionEnabled = YES;
         [self.backScrollView addSubview:view];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertAtion:)];
-        [view addGestureRecognizer:tap];
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertAtion:)];
+//        [view addGestureRecognizer:tap];
+        
+        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, view.width, view.height)];
+        imageV.image = [UIImage imageNamed:@"xiaokuang"];
+        [view addSubview:imageV];
+        
+        UIImageView *leftImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 20)];
+        leftImage.image = [UIImage imageNamed:leftImageArr[i]];
+        [view addSubview:leftImage];
         
         UILabel *label = [[UILabel alloc] init];
         //label.backgroundColor = [UIColor redColor];
         label.text = array[i];
         label.font = Font_Normal_String(13);
-        label.textColor = allColorWhite;
+        label.textColor = [UIColor blackColor];
         label.frame = CGRectMake(0, (view.height-30)/2-15, view.width, 30);
         label.textAlignment = NSTextAlignmentCenter;
         [view addSubview:label];
@@ -113,7 +125,7 @@
             {
                 string = [self makeAttributedStringWithnumBer:@"--" Unit:@"km" WithFont:18];
                 _distanceLabel = [[UILabel alloc] init];
-                _distanceLabel.textColor = allColorWhite;
+                _distanceLabel.textColor = kMainColor;
                 _distanceLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
                 _distanceLabel.textAlignment = NSTextAlignmentCenter;
                 _distanceLabel.attributedText = string;
@@ -125,7 +137,7 @@
             {
                 string =  [self makeAttributedStringWithnumBer:@"--" Unit:@"kcal" WithFont:18];
                 _caloriesLabel = [[UILabel alloc] init];
-                _caloriesLabel.textColor = allColorWhite;
+                _caloriesLabel.textColor = kMainColor;
                 _caloriesLabel.textAlignment = NSTextAlignmentCenter;
                 _caloriesLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
                 _caloriesLabel.attributedText = string;
@@ -138,7 +150,7 @@
             {
                 string = [self makeAttributedStringWithnumBer:@"--" Unit:@"bpm" WithFont:18];
                 _heartRateLabel = [[UILabel alloc] init];
-                _heartRateLabel.textColor = allColorWhite;
+                _heartRateLabel.textColor = kMainColor;
                 _heartRateLabel.textAlignment = NSTextAlignmentCenter;
                 _heartRateLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
                 _heartRateLabel.attributedText = string;
@@ -151,7 +163,7 @@
                 string = [self makeAttributedStringWithnumBer:@"--" Unit:@"bpm" WithFont:18];
                 _activeTimeLabel = [[UILabel alloc] init];
                 _activeTimeLabel.textAlignment = NSTextAlignmentCenter;
-                _activeTimeLabel.textColor = allColorWhite;
+                _activeTimeLabel.textColor = kMainColor;
                 _activeTimeLabel.frame = CGRectMake(0, (view.height-30)/2+15, view.width, 30);
                 _activeTimeLabel.attributedText = string;
                 _activeTimeLabel.textAlignment = NSTextAlignmentCenter;
@@ -166,15 +178,16 @@
     
     //    设置目标按钮
     self.targetBtn = [[UIButton alloc] init];
-    self.targetBtn.size = CGSizeMake(110*kX, 35*kDY);
-    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.backScrollView.height - 256*kDY);
+    self.targetBtn.size = CGSizeMake(170*kX, 35*kDY);
+    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.backScrollView.height - 286*kDY);
     [self.backScrollView addSubview:self.targetBtn];
-    self.targetBtn.layer.borderColor = kMainColor.CGColor;
-    self.targetBtn.layer.borderWidth = 1;
+//    self.targetBtn.layer.borderColor = kMainColor.CGColor;
+//    self.targetBtn.layer.borderWidth = 1;
     self.targetBtn.layer.cornerRadius = 8*kDY;
     [self.targetBtn setImage:[UIImage imageNamed:@"target1"] forState:UIControlStateNormal];
-    [self.targetBtn setTitle:[XXUserInformation userSportTarget] forState:UIControlStateNormal];
-    [self.targetBtn setTitleColor:kMainColor forState:UIControlStateNormal];
+    [self.targetBtn setAttributedTitle:[self makeAttributedStringWithnumBer:[XXUserInformation userSportTarget] Unit:@"(目标步数)" WithFont:18] forState:UIControlStateNormal];
+    [self.targetBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.targetBtn.titleLabel.textColor = allColorWhite;
     [self.targetBtn addTarget:self action:@selector(targetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.circle = [[LMGaugeView1 alloc] init];
@@ -187,7 +200,7 @@
     self.circle.maxValue = [XXUserInformation userSportTarget].floatValue;
     self.circle.startAngle = 3./2 * M_PI + M_PI/3600.;
     self.circle.endAngle = 3./2 * M_PI;
-    self.circle.ringBackgroundColor = kMainColor;
+    self.circle.ringBackgroundColor = [UIColor whiteColor];
     self.circle.valueTextColor = [UIColor whiteColor];
     self.circle.ringThickness = MIN(16 * kX, 16 * kDY);
     self.circle.delegate = self;

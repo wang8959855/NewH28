@@ -48,25 +48,30 @@
 
 - (void)loadUI
 {
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight/2)];
+    bgView.backgroundColor = kMainColor;
+    [self addSubview:bgView];
+    
     [self gpsStateLabel];
     [self distanceLabel];
     [self timeLabel];
     [self speedLabel];
+    [self locus];
     
-    UIButton *historyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [historyButton setTitleColor:kmainBackgroundColor forState:UIControlStateNormal];
-    [historyButton setTitle:NSLocalizedString(@"运动轨迹",nil) forState:UIControlStateNormal];
-    [historyButton addTarget:self action:@selector(historyClick) forControlEvents:UIControlEventTouchUpInside];
-    [historyButton sizeToFit];
-    historyButton.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self addSubview:historyButton];
-    historyButton.layer.borderColor = kmainBackgroundColor.CGColor;
-    historyButton.layer.borderWidth = 1;
-    historyButton.layer.cornerRadius = 9;
-    historyButton.sd_layout.topSpaceToView(self, 436 * kX)
-    .centerXIs(self.width/2.)
-    .widthIs(historyButton.width)
-    .heightIs(40 * kX);
+//    UIButton *historyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [historyButton setTitleColor:kmainBackgroundColor forState:UIControlStateNormal];
+//    [historyButton setTitle:NSLocalizedString(@"运动轨迹",nil) forState:UIControlStateNormal];
+//    [historyButton addTarget:self action:@selector(historyClick) forControlEvents:UIControlEventTouchUpInside];
+//    [historyButton sizeToFit];
+//    historyButton.titleLabel.font = [UIFont systemFontOfSize:13];
+//    [self addSubview:historyButton];
+//    historyButton.layer.borderColor = kmainBackgroundColor.CGColor;
+//    historyButton.layer.borderWidth = 1;
+//    historyButton.layer.cornerRadius = 9;
+//    historyButton.sd_layout.topSpaceToView(self, 436 * kX)
+//    .centerXIs(self.width/2.)
+//    .widthIs(historyButton.width)
+//    .heightIs(40 * kX);
     [self beginBtn];
     
 }
@@ -399,7 +404,7 @@
         spreadLayer.bounds = CGRectMake(0,0, diameter, diameter);
         spreadLayer.cornerRadius = diameter/2; //设置圆角变为圆形
         spreadLayer.position = CGPointMake(_beginBtn.width/2, _beginBtn.width/2);
-        spreadLayer.backgroundColor = kmainBackgroundColor.CGColor;
+        spreadLayer.backgroundColor = kMainColorw.CGColor;
         _stopLayer = spreadLayer;
     }
     return _stopLayer;
@@ -426,7 +431,7 @@
         
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:14];
-        label.textColor = KCOLOR(87, 87, 87);
+        label.textColor = allColorWhite;
         label.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"GPS:",nil),[self locationServicesEnabled]?NSLocalizedString(@"可用",nil):NSLocalizedString(@"不可用",nil)];
         [label sizeToFit];
         _gpsStateLabel = label;
@@ -438,7 +443,7 @@
         
         UIButton *mapButton = [UIButton buttonWithType:UIButtonTypeCustom];
         mapButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [mapButton setTitleColor:KCOLOR(87, 87, 87) forState:UIControlStateNormal];
+        [mapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [mapButton setTitle:NSLocalizedString(@"地图模式",nil) forState:UIControlStateNormal];
         [mapButton sizeToFit];
         [mapButton addTarget:self action:@selector(mapModeClick) forControlEvents:UIControlEventTouchUpInside];
@@ -469,7 +474,7 @@
     {
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:38];
-        label.textColor = KCOLOR(87, 87, 87);
+        label.textColor = allColorWhite;
         label.textAlignment = NSTextAlignmentCenter;
         label.text = @"0.00";
         _distanceLabel = label;
@@ -481,8 +486,8 @@
         
         UILabel *unitLabel = [[UILabel alloc] init];
         unitLabel.font = [UIFont systemFontOfSize:14];
-        unitLabel.textColor = KCOLOR(87, 87, 87);
-        unitLabel.text = NSLocalizedString(@"km",nil);
+        unitLabel.textColor = allColorWhite;
+        unitLabel.text = @"公里";
         [unitLabel sizeToFit];
         [self addSubview:unitLabel];
         unitLabel.sd_layout.leftSpaceToView(label, 0)
@@ -498,42 +503,38 @@
 {
     if (!_timeLabel)
     {
+        
+        CGFloat width = ScreenW/3;
+        
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.image = [UIImage imageNamed:@"traTime"];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.frame = CGRectMake(90 * kX, 162 * kX, 43 * kX, 25 * kX);
+        imageView.frame = CGRectMake(width/2-(43 * kX)/2, 155 * kX, 30 * kX, 30 * kX);
         [self addSubview:imageView];
         
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:15];
-        label.textColor = KCOLOR(87, 87, 87);
+        label.font = [UIFont boldSystemFontOfSize:18];
+        label.textColor = allColorWhite;
         label.text = @"0";
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
         _timeLabel = label;
-        _timeLabel.sd_layout.topSpaceToView(imageView, 15 * kX)
+        _timeLabel.sd_layout.topSpaceToView(imageView, 10 * kX)
         .centerXIs(imageView.centerX)
-        .widthIs(150 * kX)
+        .widthIs(width)
         .heightIs(25 * kX);
         
         UILabel *bottomLabel = [[UILabel alloc] init];
         bottomLabel.font = [UIFont systemFontOfSize:13];
-        bottomLabel.textColor = KCOLOR(87, 87, 87);
-        bottomLabel.text = NSLocalizedString(@"时间",nil);
+        bottomLabel.textColor = allColorWhite;
+        bottomLabel.text = @"时间(h)";
         bottomLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:bottomLabel];
-        bottomLabel.sd_layout.topSpaceToView(label, 20 * kX)
+        bottomLabel.sd_layout.topSpaceToView(label, 10 * kX)
         .centerXIs(imageView.centerX)
         .widthIs(80 * kX)
         .heightIs(25 * kX);
         
-        UIView *lineView = [[UIView alloc] init];
-        lineView.backgroundColor = [UIColor lightGrayColor];
-        [self addSubview:lineView];
-        lineView.sd_layout.topEqualToView(imageView)
-        .centerXIs(self.width/2.)
-        .bottomEqualToView(bottomLabel)
-        .widthIs(0.5);
     }
     return _timeLabel;
 }
@@ -542,30 +543,33 @@
 {
     if(!_speedLabel)
     {
+        
+        CGFloat width = ScreenW/3;
+        
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.image = [UIImage imageNamed:@"traDistance"];
         [self addSubview:imageView];
-        imageView.frame = CGRectMake(ScreenW - 90 *  kX - 43 * kX, 162 * kX, 43 * kX, 25 * kX);
+        imageView.frame = CGRectMake(width + width/2-(43 * kX)/2, 155 * kX, 30 * kX, 30 * kX);
         
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:15];
-        label.textColor = KCOLOR(87, 87, 87);
+        label.font = [UIFont boldSystemFontOfSize:18];
+        label.textColor = allColorWhite;
         label.text = @"0";
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
         _speedLabel = label;
-        _speedLabel.sd_layout.topSpaceToView(imageView, 15 * kX)
+        _speedLabel.sd_layout.topSpaceToView(imageView, 10 * kX)
         .centerXIs(imageView.centerX)
-        .widthIs(150 * kX)
+        .widthIs(width)
         .heightIs(25 * kX);
         
         UILabel *bottomLabel = [[UILabel alloc] init];
         bottomLabel.font = [UIFont systemFontOfSize:13];
-        bottomLabel.textColor = KCOLOR(87, 87, 87);
-        bottomLabel.text = NSLocalizedString(@"速度",nil);
+        bottomLabel.textColor = allColorWhite;
+        bottomLabel.text = @"速度(Km/h)";
         bottomLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:bottomLabel];
-        bottomLabel.sd_layout.topSpaceToView(label, 20 * kX)
+        bottomLabel.sd_layout.topSpaceToView(label, 10 * kX)
         .centerXIs(imageView.centerX)
         .widthIs(80 * kX)
         .heightIs(25 * kX);
@@ -574,12 +578,55 @@
     return _speedLabel;
 }
 
+- (UILabel *)locus{
+    if(!_locus)
+    {
+        
+        CGFloat width = ScreenW/3;
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.image = [UIImage imageNamed:@"guiji"];
+        [self addSubview:imageView];
+        imageView.frame = CGRectMake(width*2 + width/2-(43 * kX)/2, 155 * kX, 30 * kX, 30 * kX);
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.font = [UIFont systemFontOfSize:15];
+        label.textColor = allColorWhite;
+        label.text = @"查看";
+        label.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:label];
+        _locus = label;
+        _locus.sd_layout.topSpaceToView(imageView, 10 * kX)
+        .centerXIs(imageView.centerX)
+        .widthIs(width)
+        .heightIs(25 * kX);
+        
+        UILabel *bottomLabel = [[UILabel alloc] init];
+        bottomLabel.font = [UIFont systemFontOfSize:13];
+        bottomLabel.textColor = allColorWhite;
+        bottomLabel.text = @"运动轨迹(缩略图)";
+        bottomLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:bottomLabel];
+        bottomLabel.sd_layout.topSpaceToView(label, 10 * kX)
+        .centerXIs(imageView.centerX)
+        .widthIs(100 * kX)
+        .heightIs(25 * kX);
+        
+        UIButton *lookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self addSubview:lookBtn];
+        lookBtn.frame = CGRectMake(width*2 + width/2-(43 * kX)/2, 162 * kX, width, 85*kX);
+        [lookBtn addTarget:self action:@selector(historyClick) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _locus;
+}
+
 - (UIButton *)beginBtn
 {
     if (!_beginBtn)
     {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = kmainBackgroundColor;
+        button.backgroundColor = KCOLOR(40, 82, 251);
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setTitle:NSLocalizedString(@"开始",nil) forState:UIControlStateNormal];
         [button setTitle:NSLocalizedString(@"长按停止",nil) forState:UIControlStateSelected];

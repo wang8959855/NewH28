@@ -44,9 +44,14 @@
 @property (nonatomic, assign) CGFloat divisionUnitValue;
 
 @property (nonatomic, strong) CAShapeLayer *progressLayer;
+
+@property (nonatomic, strong) CAShapeLayer *backProgressLayer;
+
 @property (nonatomic, strong) UILabel *valueLabel;
 
 @property (nonatomic, strong) UIImageView *sportImage;
+
+@property (nonatomic, strong) CALayer *gradientLayer;
 
 @end
 
@@ -146,15 +151,17 @@
     }
     
     self.progressLayer.strokeEnd = progress;
+    self.backProgressLayer.strokeEnd = progress;
     
     /*!
      *  Set ring stroke color
      */
-    UIColor *ringColor = kDefaultRingColor;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(gaugeView:ringStokeColorForValue:)]) {
-        ringColor = [self.delegate gaugeView:self ringStokeColorForValue:self.value];
-    }
-    self.progressLayer.strokeColor = ringColor.CGColor;
+//    UIColor *ringColor = kDefaultRingColor;
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(gaugeView:ringStokeColorForValue:)]) {
+//        ringColor = [self.delegate gaugeView:self ringStokeColorForValue:self.value];
+//    }
+//    self.progressLayer.strokeColor = ringColor.CGColor;
+    [self.gradientLayer setMask:_progressLayer]; //用progressLayer来截取渐变层
 }
 
 
@@ -192,7 +199,7 @@
     CGContextStrokePath(context);
     
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.ringThickness, self.ringThickness,self.width - 2 * self.ringThickness , self.width - 2* self.ringThickness)];
-    UIColor *fillColor = allColorWhite;
+    UIColor *fillColor = kMainColor;
     [fillColor set];
     [path fill];
     
@@ -210,6 +217,18 @@
     /*!
      *  Progress Layer
      */
+    if (!self.backProgressLayer)
+    {
+        self.backProgressLayer = [CAShapeLayer layer];
+        self.backProgressLayer.contentsScale = [[UIScreen mainScreen] scale];
+        self.backProgressLayer.fillColor = [UIColor clearColor].CGColor;
+        self.backProgressLayer.lineCap = kCALineJoinRound;
+        self.backProgressLayer.lineJoin = kCALineJoinRound;
+        self.backProgressLayer.strokeColor = [UIColor whiteColor].CGColor;
+        [self.layer addSublayer:self.backProgressLayer];
+        self.backProgressLayer.strokeEnd = 0;
+    }
+    
     if (!self.progressLayer)
     {
         self.progressLayer = [CAShapeLayer layer];
@@ -217,19 +236,33 @@
         self.progressLayer.fillColor = [UIColor clearColor].CGColor;
         self.progressLayer.lineCap = kCALineJoinRound;
         self.progressLayer.lineJoin = kCALineJoinRound;
+        self.progressLayer.strokeColor = [UIColor whiteColor].CGColor;
         [self.layer addSublayer:self.progressLayer];
         self.progressLayer.strokeEnd = 0;
     }
+    
+    self.backProgressLayer.frame = CGRectMake(center.x - ringRadius - self.ringThickness/2,
+                                              center.y - ringRadius - self.ringThickness/2,
+                                              (ringRadius + self.ringThickness/2) * 2,
+                                              (ringRadius + self.ringThickness/2) * 2);
+    self.backProgressLayer.bounds = self.backProgressLayer.frame;
+    
     self.progressLayer.frame = CGRectMake(center.x - ringRadius - self.ringThickness/2,
                                           center.y - ringRadius - self.ringThickness/2,
                                           (ringRadius + self.ringThickness/2) * 2,
                                           (ringRadius + self.ringThickness/2) * 2);
     self.progressLayer.bounds = self.progressLayer.frame;
+    
+    
+    
     UIBezierPath *smoothedPath = [UIBezierPath bezierPathWithArcCenter:self.progressLayer.position
                                                                 radius:ringRadius
                                                             startAngle:self.startAngle
                                                               endAngle:self.endAngle
                                                              clockwise:YES];
+    self.backProgressLayer.path = smoothedPath.CGPath;
+    self.backProgressLayer.lineWidth = self.ringThickness;
+    
     self.progressLayer.path = smoothedPath.CGPath;
     self.progressLayer.lineWidth = self.ringThickness;
     
@@ -254,7 +287,7 @@
         self.valueLabel.text = [NSString stringWithFormat:@"%0.f", self.value];
         self.valueLabel.font = self.valueFont;
         self.valueLabel.minimumScaleFactor = 10/self.valueLabel.font.pointSize;
-        self.valueLabel.textColor = kMainColor;
+        self.valueLabel.textColor = self.valueTextColor;
         [self addSubview:self.valueLabel];
         self.valueLabel.size = CGSizeMake(self.width - 2 * self.ringThickness, 40);
         self.valueLabel.center = CGPointMake(self.width/2., self.height/2.);
@@ -268,8 +301,32 @@
         self.comLabel.textAlignment = NSTextAlignmentCenter;
         self.comLabel.frame = CGRectMake(0, self.valueLabel.bottom + 11*kDY, self.width, 20 * kDY);
         self.comLabel.font = Font_Normal_String(14);
-        self.comLabel.textColor = kMainColor;
+        self.comLabel.textColor = self.valueTextColor;
         [self addSubview:self.comLabel];
+    }
+    
+    if (!self.gradientLayer)
+    {
+        self.gradientLayer = [CALayer layer];
+        
+        CAGradientLayer *gradientLayer1 =  [CAGradientLayer layer];
+        gradientLayer1.frame = CGRectMake(0, 0, self.width/2, self.height);
+        [gradientLayer1 setColors:[NSArray arrayWithObjects:(id)kColor(0, 160, 233).CGColor,(id)kColor(0, 160, 233).CGColor, nil]];
+        [gradientLayer1 setLocations:@[@0.5]];
+        [gradientLayer1 setStartPoint:CGPointMake(0.5, 1)];
+        [gradientLayer1 setEndPoint:CGPointMake(0.5, 0)];
+        [self.gradientLayer addSublayer:gradientLayer1];
+        
+        CAGradientLayer *gradientLayer2 =  [CAGradientLayer layer];
+        [gradientLayer2 setLocations:@[@0.5]];
+        gradientLayer2.frame = CGRectMake(self.width/2, 0, self.width/2, self.height);
+        [gradientLayer2 setColors:[NSArray arrayWithObjects:(id)[kColor(0, 160, 233) CGColor],(id)[kColor(0, 160, 233) CGColor], nil]];
+        [gradientLayer2 setStartPoint:CGPointMake(0.5, 0)];
+        [gradientLayer2 setEndPoint:CGPointMake(0.5, 1)];
+        [self.gradientLayer addSublayer:gradientLayer2];
+        [self.gradientLayer setMask:_progressLayer]; //用progressLayer来截取渐变层
+        [self.layer addSublayer:self.gradientLayer];
+        
     }
     
     if (! self.dotView)
@@ -283,9 +340,9 @@
     if (! self.dotImageView)
     {
         self.dotImageView = [[UIImageView alloc] init];
-        self.dotImageView.image = [UIImage imageNamed:@"newbuoy"];
+//        self.dotImageView.image = [UIImage imageNamed:@"newbuoy"];
         self.dotImageView.backgroundColor = allColorWhite;
-        self.dotImageView.size = CGSizeMake(2 * self.ringThickness, 2 * self.ringThickness);
+        self.dotImageView.size = self.dotView.size;
         self.dotImageView.center = CGPointMake(self.width/2., self.ringThickness/2.);
         self.dotImageView.layer.cornerRadius = self.dotImageView.width/2.;
         [self addSubview:self.dotImageView];

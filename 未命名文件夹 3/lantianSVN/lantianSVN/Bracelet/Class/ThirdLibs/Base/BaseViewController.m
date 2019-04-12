@@ -11,6 +11,7 @@
 #import <UShareUI/UShareUI.h>
 #import "AppDelegate.h"
 #import "EditPersonalInformationOneViewController.h"
+#import "MoreView.h"
 
 #define kCOLOR_BaseViewControllerBackground     [UIColor whiteColor]
 #define kNav_BackIcon                           @"nav_back"
@@ -51,6 +52,11 @@
     //开启系统侧滑
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreView) name:@"PushMoreView" object:nil];
+}
+
+- (void)moreView{
+    [MoreView moreView];
 }
 
 - (void)addNavWithTitle:(NSString *)title backButton:(BOOL)backButton shareButton:(BOOL)shareButton
@@ -112,7 +118,7 @@
     [self.view addSubview:statuBarView];
     
     UIView *navView = [[UIView alloc] init];
-    navView.backgroundColor = KCOLOR(44, 128, 251);
+    navView.backgroundColor = kMainColor;
     navView.frame = CGRectMake(0, 20, ScreenW, 44);
     [self.view addSubview:navView];
     
@@ -140,7 +146,7 @@
         _RSSIImageView = [[UIImageView alloc] init];
         _RSSIImageView.userInteractionEnabled  =YES;
         _RSSIImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _RSSIImageView.image = [UIImage imageNamed:@"menuTwo"];
+        _RSSIImageView.image = [UIImage imageNamed:@"caidan"];
         _RSSIImageView.userInteractionEnabled = YES;
         
         UIImageView *click = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50 * kX, 44)];
@@ -186,7 +192,7 @@
     if (shareButton)
     {
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [shareButton setImage:[UIImage imageNamed:@"fenxiang-new"] forState:UIControlStateNormal];
+        [shareButton setImage:[UIImage imageNamed:@"yujing"] forState:UIControlStateNormal];
         shareButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [shareButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [navView addSubview:shareButton];

@@ -11,6 +11,8 @@
 #import "PoliceHeaderView.h"
 #import "SOSView.h"
 
+#import <WebKit/WebKit.h>
+
 static NSString *listCell = @"policeCell";
 static NSString *header = @"header";
 
@@ -27,21 +29,74 @@ static NSString *header = @"header";
 @property (nonatomic, strong) PoliceCell *selectCell;
 @property (nonatomic, assign) NSInteger monitorType;
 
+@property (nonatomic, strong) WKWebView *webView;
+
+@property (nonatomic, copy) NSString *sxiao;
+
 @end
 
 @implementation HealtPoliceViewController
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self getUserClick];
+//    [self getUserClick];
+}
+
+- (void)reloadWebView{
+    //测试
+    NSString *root = @"http://newrulongh5test.lantianfangzhou.com/current";
+    //生产
+    //        NSString *root = @"http://sanguo.lantianfangzhou.com/h28/report/current";
+    
+    if ([BlueToothManager getInstance].isConnected) {
+        if ([BlueToothManager getInstance].deviceName != nil) {
+            self.sxiao = [BlueToothManager getInstance].deviceName;
+            self.sxiao = [self.sxiao lowercaseString];
+        }
+    }
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@/%@/0",root,self.sxiao,USERID,TOKEN]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self addnavTittle:@"预警" RSSIImageView:YES shareButton:YES];
-    [self setSubViews];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserClick) name:@"updateWarn" object:nil];
+    [self addnavTittle:@"健康报告" RSSIImageView:YES shareButton:YES];
+//    [self setSubViews];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserClick) name:@"updateWarn" object:nil];
+    UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:refreshButton];
+    refreshButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 25, 32, 20, 20);
+    [refreshButton setImage:[UIImage imageNamed:@"shuaxin-icon"] forState:UIControlStateNormal];
+    [refreshButton addTarget:self action:@selector(reloadWebView) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //测试
+    NSString *root = @"http://newrulongh5test.lantianfangzhou.com/current";
+    //生产
+    //    NSString *root = @"http://sanguo.lantianfangzhou.com/h28/report/current";
+    
+    self.sxiao = @"h28_";
+    if ([BlueToothManager getInstance].isConnected) {
+        if ([BlueToothManager getInstance].deviceName != nil) {
+            self.sxiao = [BlueToothManager getInstance].deviceName;
+            self.sxiao = [self.sxiao lowercaseString];
+        }
+    }
+    
+    CGFloat backScrollViewY = SafeAreaTopHeight;
+    CGFloat backScrollViewW = CurrentDeviceWidth;
+    CGFloat backScrollViewH = CurrentDeviceHeight - SafeAreaTopHeight - SafeAreaBottomHeight;
+    
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, backScrollViewY, backScrollViewW, backScrollViewH)];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@/%@/0",root,self.sxiao,USERID,TOKEN]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
+    [self.view addSubview:self.webView];
+    
+    
 }
 
 - (void)setSubViews{

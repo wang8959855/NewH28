@@ -86,7 +86,7 @@
 #define kHCH [HCHCommonManager getInstance]
 
 #define kWEAKSELF __weak typeof(self) weakSelf = self;
-#define kMainColor kColor(0, 160, 233)
+#define kMainColor kColor(37 ,124 ,255)
 
 #import "API.h"
 

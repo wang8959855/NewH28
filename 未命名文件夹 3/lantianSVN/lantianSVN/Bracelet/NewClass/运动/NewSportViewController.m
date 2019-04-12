@@ -37,38 +37,42 @@
     // Do any additional setup after loading the view.
     [self addnavTittle:@"运动" RSSIImageView:YES shareButton:YES];
     [self setBackView];
+    self.view.backgroundColor = kMainColor;
 }
 
 - (void)setBackView{
     _selectShowTypeView = [[UIView alloc] init];
-    _selectShowTypeView.frame = CGRectMake(ScreenWidth/2-50, 64+12, 100, 30);
     [self.view addSubview:_selectShowTypeView];
-    _selectShowTypeView.layer.borderWidth = 1;
-    _selectShowTypeView.layer.borderColor = kColor(210, 210, 210).CGColor;
-    _selectShowTypeView.layer.cornerRadius = 15.f;
+    _selectShowTypeView.frame = CGRectMake(ScreenWidth/2-100, 64+12+10, 200, 40);
+    _selectShowTypeView.backgroundColor = KCOLOR(214, 241, 251);
+    _selectShowTypeView.layer.cornerRadius = 20.f;
     _selectShowTypeView.layer.masksToBounds = YES;
     //selectShowTypeView上的button
     _stepButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _stepButton.frame = CGRectMake(0, 0, 50, 30);
+    _stepButton.frame = CGRectMake(0, 0, 110, 40);
     [_stepButton setTitle:@"步数" forState:UIControlStateNormal];
-    [_stepButton setBackgroundColor:kMainColor];
+    [_stepButton setBackgroundColor:KCOLOR(40, 82, 251)];
     [_stepButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [_stepButton setTitleColor:kMainColor forState:UIControlStateNormal];
+    _stepButton.layer.cornerRadius = 20.f;
+    _stepButton.layer.masksToBounds = YES;
     [_stepButton addTarget:self action:@selector(changeShowView:) forControlEvents:UIControlEventTouchUpInside];
     _stepButton.selected = YES;
     [_selectShowTypeView addSubview:_stepButton];
     
     _workButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _workButton.frame = CGRectMake(50, 0, 50, 30);
+    _workButton.frame = CGRectMake(90, 0, 110, 40);
+    _workButton.layer.cornerRadius = 20.f;
+    _workButton.layer.masksToBounds = YES;
     [_workButton setTitle:@"锻炼" forState:UIControlStateNormal];
-    [_workButton setBackgroundColor:[UIColor whiteColor]];
+    [_workButton setBackgroundColor:[UIColor clearColor]];
     [_workButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [_workButton setTitleColor:kMainColor forState:UIControlStateNormal];
     [_workButton addTarget:self action:@selector(changeShowView:) forControlEvents:UIControlEventTouchUpInside];
     [_selectShowTypeView addSubview:_workButton];
     
     
-    CGFloat backScrollViewY = 64+42;
+    CGFloat backScrollViewY = 64+42+20;
     CGFloat backScrollViewW = CurrentDeviceWidth;
     CGFloat backScrollViewH = CurrentDeviceHeight - 64 - 49;
     
@@ -84,16 +88,16 @@
 
 //切换视图
 - (void)changeShowView:(UIButton *)button{
-    [button setBackgroundColor:kMainColor];
+    [button setBackgroundColor:KCOLOR(40, 82, 251)];
     button.selected = YES;
     if (button == _stepButton) {
         _workButton.selected = NO;
-        [_workButton setBackgroundColor:[UIColor whiteColor]];
+        [_workButton setBackgroundColor:[UIColor clearColor]];
         [self.view bringSubviewToFront:self.sportView];
         [self.sportView childrenTimeSecondChanged];
     }else{
         _stepButton.selected = NO;
-        [_stepButton setBackgroundColor:[UIColor whiteColor]];
+        [_stepButton setBackgroundColor:[UIColor clearColor]];
         [self.view bringSubviewToFront:self.workOutView];
     }
 }

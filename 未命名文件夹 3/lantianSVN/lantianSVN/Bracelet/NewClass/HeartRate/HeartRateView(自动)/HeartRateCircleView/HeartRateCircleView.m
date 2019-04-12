@@ -215,7 +215,7 @@
     CGContextSetLineWidth(context, self.ringThickness);
     CGContextBeginPath(context);
     CGContextAddArc(context, center.x, center.y, ringRadius, M_PI_4/9, M_PI_2/1.5, 0);
-    CGContextSetStrokeColorWithColor(context, kMainColor.CGColor);
+    CGContextSetStrokeColorWithColor(context, kColor(26, 160, 229).CGColor);
     CGContextStrokePath(context);
     
     //
@@ -392,7 +392,7 @@
         self.comLabel.textAlignment = NSTextAlignmentCenter;
         self.comLabel.frame = CGRectMake(0, self.valueLabel.bottom + 11*kDY, self.width, 20 * kDY);
         self.comLabel.font = Font_Normal_String(14);
-        self.comLabel.textColor = numColor;
+        self.comLabel.textColor = self.valueTextColor;
         [self addSubview:self.comLabel];
     }
     
@@ -407,7 +407,7 @@
         
         CAGradientLayer *gradientLayer1 =  [CAGradientLayer layer];
         gradientLayer1.frame = CGRectMake(0, 0, self.width/2, self.height);
-        [gradientLayer1 setColors:[NSArray arrayWithObjects:(id)[kColor(91, 170, 239) CGColor],(id)[kColor(7, 57, 245) CGColor], nil]];
+        [gradientLayer1 setColors:[NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],(id)[[UIColor clearColor] CGColor], nil]];
         [gradientLayer1 setLocations:@[@0.5]];
         [gradientLayer1 setStartPoint:CGPointMake(0.5, 1)];
         [gradientLayer1 setEndPoint:CGPointMake(0.5, 0)];
@@ -416,7 +416,7 @@
         CAGradientLayer *gradientLayer2 =  [CAGradientLayer layer];
         [gradientLayer2 setLocations:@[@0.5]];
         gradientLayer2.frame = CGRectMake(self.width/2, 0, self.width/2, self.height);
-        [gradientLayer2 setColors:[NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],(id)[kColor(91, 170, 239) CGColor], nil]];
+        [gradientLayer2 setColors:[NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],(id)[[UIColor clearColor] CGColor], nil]];
         [gradientLayer2 setStartPoint:CGPointMake(0.5, 0)];
         [gradientLayer2 setEndPoint:CGPointMake(0.5, 1)];
         [self.gradientLayer addSublayer:gradientLayer2];

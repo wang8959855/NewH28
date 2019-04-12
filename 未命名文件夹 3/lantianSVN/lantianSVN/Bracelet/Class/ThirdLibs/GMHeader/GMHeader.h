@@ -23,6 +23,26 @@
 #define CurrentDeviceHeight [[GMHeader getInstance] getCurrentDevieceHeight]
 #define CurrentDeviceMiddleHeight ([[GMHeader getInstance] getCurrentDevieceHeight] - 64.0 - 49.0)
 
+// 判断是否为iPhone X 系列  这样写消除了在Xcode10上的警告。
+#define IPHONE_X \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+/**
+ *tabbar高度
+ */
+#define SafeAreaBottomHeight (IPHONE_X ? (49 + 34) : 49)
+
+/**
+ *导航栏高度
+ */
+#define SafeAreaTopHeight (IPHONE_X ? 88 : 64)
+
+//statusBar高度
+#define StatusBarHeight [UIApplication sharedApplication].statusBarFrame.size.height
+
 #define WidthProportion  CurrentDeviceWidth / 375.0
 #define HeightProportion  CurrentDeviceHeight / 667.0
 

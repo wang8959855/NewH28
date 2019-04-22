@@ -52,6 +52,7 @@
         num = _min;
     }
     [[PZBlueToothManager sharedInstance] setHeartRateTimeWithTime:num];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTimer" object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -71,7 +72,7 @@
     UILabel *genderLabel = [UILabel new];
     genderLabel.textAlignment = NSTextAlignmentCenter;
     genderLabel.textColor = [UIColor whiteColor];
-    NSArray *timeArray = @[@"2.5",@"5",@"10",@"30",@"60",@"120"];
+    NSArray *timeArray = @[@"2",@"5",@"10"];
     if (component == 1)
     {
         genderLabel.text = timeArray[row];
@@ -92,7 +93,7 @@
 
         if (component == 1 ) {
             
-            return 6;
+            return 3;
         }
         else if (component == 2)
         {
@@ -122,7 +123,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSArray *timeArray = @[@"2.5",@"5",@"10",@"30",@"60",@"120"];
+    NSArray *timeArray = @[@"2",@"5",@"10"];
     
     _min = [timeArray[row] intValue];
     adaLog(@"%d",_min);

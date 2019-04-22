@@ -117,6 +117,8 @@ typedef enum {
 
 - (void)sendUserInformationWithHeight:(int)height weight:(int)weight gender:(int)gender;
 
+- (void)sendUserBph:(int)bph bpl:(int)bpl glu:(int)glu spo1:(int)spo1 spo2:(int)spo2;
+
 - (void)setBindUnitWith:(int)unit andTimeType:(int)type isEnglish:(BOOL)isEnglish;
 
 - (void)readRSSI;

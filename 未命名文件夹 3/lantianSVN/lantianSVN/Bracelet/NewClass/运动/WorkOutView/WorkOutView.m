@@ -404,7 +404,7 @@
         spreadLayer.bounds = CGRectMake(0,0, diameter, diameter);
         spreadLayer.cornerRadius = diameter/2; //设置圆角变为圆形
         spreadLayer.position = CGPointMake(_beginBtn.width/2, _beginBtn.width/2);
-        spreadLayer.backgroundColor = kMainColorw.CGColor;
+        spreadLayer.backgroundColor = kMainColor.CGColor;
         _stopLayer = spreadLayer;
     }
     return _stopLayer;

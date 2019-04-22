@@ -125,8 +125,8 @@
             [self addActityIndicatorInView:self.view labelText:NSLocalizedString(@"正在登录", nil) detailLabel:NSLocalizedString(@"正在登录", nil)];
             [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
 //            adaLog(@"  - - - - -开始登录");
-            NSString *url = [NSString stringWithFormat:@"%@/tel/%@/code/%@",LOGIN,_nameTF.text,_passWordTF.text];
-            [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:nil Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
+            NSString *url = [NSString stringWithFormat:@"%@",LOGIN];
+            [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:loginDic Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
              {
                  
 //                 adaLog(@"  - - - - -开始登录返回");
@@ -216,8 +216,8 @@
         [self addActityIndicatorInView:self.view labelText:NSLocalizedString(@"正在获取验证码", nil) detailLabel:NSLocalizedString(@"正在获取验证码", nil)];
         [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
         
-        NSString *url = [NSString stringWithFormat:@"%@/tel/%@",LOGINSEND,_nameTF.text];
-        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:nil Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
+        NSString *url = [NSString stringWithFormat:@"%@",LOGINSEND];
+        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:@{@"tel":_nameTF.text} Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
          {
              
              //                 adaLog(@"  - - - - -开始登录返回");

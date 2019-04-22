@@ -59,6 +59,7 @@
             [[NSUserDefaults standardUserDefaults] setValue:value forKey:@"kBleBoundPeripheralIdentifierString"];
             [weakSelf addActityText:NSLocalizedString(@"蓝牙已连接",nil) deleyTime:1.5f];
             weakSelf.peripheral = peripheral;
+            [self bindDevice:peripheral.name];
             
             NSString *unitCode = [XXUserInformation userUnit];
             int unit = 0;
@@ -108,6 +109,27 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextSong) name:nextSong object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendSOS) name:sendSOS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetRSSI:) name:@"RSSI" object:nil];
+}
+
+- (void)bindDevice:(NSString *)deviceName{
+    NSString *uploadUrl = [NSString stringWithFormat:@"%@",BINDDEVICE];
+    [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:uploadUrl fileUrl:nil params:@{@"userid":USERID,@"watch":deviceName,@"token":TOKEN} Block:^(id responseObject, NSError *error) {
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loginTimeOut) object:nil];
+        
+        if (error)
+        {
+        }
+        else
+        {
+            int code = [[responseObject objectForKey:@"code"] intValue];
+            NSString *message = [responseObject objectForKey:@"message"];
+            if (code == 0) {
+                
+            } else {
+            }
+        }
+    }];
 }
 
 - (void)didGetRSSI:(NSNotification *)noti

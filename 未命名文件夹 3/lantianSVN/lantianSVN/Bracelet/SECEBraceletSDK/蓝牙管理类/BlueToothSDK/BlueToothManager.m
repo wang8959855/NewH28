@@ -874,6 +874,13 @@ static BlueToothManager *instance;
     [self blueToothWhriteTransData:data isNeedResponse:YES];
 }
 
+- (void)sendUserBph:(int)bph bpl:(int)bpl glu:(int)glu spo1:(int)spo1 spo2:(int)spo2
+{
+    Byte transDat[] = {0x03,0x31,bph,bpl,glu,spo1,spo2};
+    NSData *data = [[NSData alloc] initWithBytes:transDat length:ArraySize(transDat)];
+    [self blueToothWhriteTransData:data isNeedResponse:NO];
+}
+
 - (void)setBindUnitWith:(int)unit andTimeType:(int)type isEnglish:(BOOL)isEnglish;
 {
     Byte transDat[] = {0x03,0x11,unit,type,isEnglish};

@@ -82,6 +82,7 @@ static NSString *conectReuse = @"connectedCell";
         CBPeripheral *per =  [EirogaBlueToothManager sharedInstance].peripheral;
         _stateLabel.text = per.name;
         _deviceName.text = kHCH.mac;
+        
     }
     else
     {
@@ -108,6 +109,7 @@ static NSString *conectReuse = @"connectedCell";
             [XXDeviceInfomation setDeviceIdentifierString:peripheral.identifier.UUIDString];
             _deviceName.text = kHCH.mac;
             _stateLabel.text = peripheral.name;
+            [self bindDevice:@"h28_"];
         }else{
             [self addActityTextInView:self.view text:NSLocalizedString(@"设备已断开", nil) deleyTime:1.5f];
             [_searchBtn setTitle:NSLocalizedString(@"搜索设备",nil) forState:UIControlStateNormal];
@@ -618,6 +620,30 @@ static NSString *conectReuse = @"connectedCell";
         return  mutString;
     }
     else return @"未获取到mac";
+}
+
+- (void)bindDevice:(NSString *)deviceName{
+    NSString *uploadUrl = [NSString stringWithFormat:@"%@",BINDDEVICE];
+    [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:uploadUrl fileUrl:nil params:@{@"userid":USERID,@"watch":deviceName,@"token":TOKEN} Block:^(id responseObject, NSError *error) {
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loginTimeOut) object:nil];
+        
+        [self.view makeToastActivity];
+        if (error)
+        {
+            [self.view makeToast:@"网络连接错误" duration:1.5 position:CSToastPositionCenter];
+        }
+        else
+        {
+            int code = [[responseObject objectForKey:@"code"] intValue];
+            NSString *message = [responseObject objectForKey:@"message"];
+            if (code == 0) {
+                
+            } else {
+                [self.view makeToast:message duration:1.5 position:CSToastPositionCenter];
+            }
+        }
+    }];
 }
 
 @end

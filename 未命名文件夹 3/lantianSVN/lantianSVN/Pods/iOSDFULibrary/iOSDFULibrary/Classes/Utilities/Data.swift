@@ -19,24 +19,90 @@
 * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import Foundation
+
+// Inspired by: https://stackoverflow.com/a/38024025/2115352
+
+extension Data {
+    
+    /// Converts the required number of bytes, starting from `offset`
+    /// to the value of return type.
+    ///
+    /// - parameter offset: The offset from where the bytes are to be read.
+    /// - returns: The value of type of the return type.
+    func asValue<R>(offset: Int = 0) -> R {
+        let length = MemoryLayout<R>.size
+        return subdata(in: offset ..< offset + length).withUnsafeBytes {
+            $0.baseAddress!.bindMemory(to: R.self, capacity: 1).pointee
+        }
+    }
+    
+}
 
 // Source: http://stackoverflow.com/a/35201226/2115352
 
 extension Data {
 
-    internal var hexString: String {
-        let pointer = self.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
+    /// Returns the Data as hexadecimal string.
+    var hexString: String {
+        var array: [UInt8] = []
+        self.withUnsafeBytes {
+            array.append(contentsOf: $0)
         }
-        let array = getByteArray(pointer)
         
         return array.reduce("") { (result, byte) -> String in
             result + String(format: "%02x", byte)
         }
     }
+    
+}
 
-    private func getByteArray(_ pointer: UnsafePointer<UInt8>) -> [UInt8] {
-        let buffer = UnsafeBufferPointer<UInt8>(start: pointer, count: count)
-        return [UInt8](buffer)
+// Source: http://stackoverflow.com/a/42241894/2115352
+
+public protocol DataConvertible {
+    static func + (lhs: Data, rhs: Self) -> Data
+    static func += (lhs: inout Data, rhs: Self)
+}
+
+extension DataConvertible {
+    
+    public static func + (lhs: Data, rhs: Self) -> Data {
+        var value = rhs
+        let data = Data(buffer: UnsafeBufferPointer(start: &value, count: 1))
+        return lhs + data
     }
+    
+    public static func += (lhs: inout Data, rhs: Self) {
+        lhs = lhs + rhs
+    }
+    
+}
+
+extension UInt8  : DataConvertible { }
+extension UInt16 : DataConvertible { }
+extension UInt32 : DataConvertible { }
+
+extension Int    : DataConvertible { }
+extension Float  : DataConvertible { }
+extension Double : DataConvertible { }
+
+extension String : DataConvertible {
+    
+    public static func + (lhs: Data, rhs: String) -> Data {
+        guard let data = rhs.data(using: .utf8) else { return lhs}
+        return lhs + data
+    }
+    
+}
+
+extension Data : DataConvertible {
+    
+    public static func + (lhs: Data, rhs: Data) -> Data {
+        var data = Data()
+        data.append(lhs)
+        data.append(rhs)
+        
+        return data
+    }
+    
 }

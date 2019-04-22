@@ -48,6 +48,7 @@
         [self childrenTimeSecondChanged];
         [self setBlocks];
         self.backScrollView.mj_header = [self getRefreshHeader];
+        [self getHomeData];
     }
     return self;
 }
@@ -56,7 +57,39 @@
 {
     [self initPro];
     [self setSleepbackGround];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:150 target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
+    
+    [[PZBlueToothManager sharedInstance] connectStateChangedWithBlock:^(BOOL isConnect, CBPeripheral *peripheral) {
+        if (isConnect) {
+            [[PZBlueToothManager sharedInstance] getHeartRateTimeinterverWithBlock:^(int number) {
+                int sec = 0;
+                if (number == 3) {
+                    sec = 120;
+                }
+                sec = number * 60;
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:sec target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
+            }];
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTimer) name:@"changeTimer" object:nil];
+    
+}
+
+- (void)changeTimer{
+    [self.timer invalidate];
+    self.timer = nil;
+    [[PZBlueToothManager sharedInstance] connectStateChangedWithBlock:^(BOOL isConnect, CBPeripheral *peripheral) {
+        if (isConnect) {
+            [[PZBlueToothManager sharedInstance] getHeartRateTimeinterverWithBlock:^(int number) {
+                int sec = 0;
+                if (number == 3) {
+                    sec = 120;
+                }
+                sec = number * 60;
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:sec target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
+            }];
+        }
+    }];
 }
 
 -(void)setSleepbackGround
@@ -108,6 +141,7 @@
             [weakSelf addActityTextInView:weakSelf text:NSLocalizedString(@"蓝牙未连接", nil) deleyTime:1.5f];
             [weakSelf.backScrollView.mj_header endRefreshing];
         }
+        [self getHomeData];
     }];
     header.lastUpdatedTimeLabel.hidden = YES;
     [header setTitle:NSLocalizedString(@"下拉可以刷新",nil) forState:MJRefreshStateIdle];
@@ -563,6 +597,52 @@
             break;
     }
     [AlertMainView alertMainViewWithArray:arr];
+}
+
+- (void)getHomeData{
+    [self makeToastActivity];
+    NSString *uploadUrl = [NSString stringWithFormat:@"%@",HOMEDATA];
+    [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:uploadUrl ParametersDictionary:@{@"userid":USERID,@"device":@"h28_",@"token":TOKEN} Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loginTimeOut) object:nil];
+        
+        [self hideToastActivity];
+        if (error) {
+            [self makeToast:@"网络连接错误" duration:1.5 position:CSToastPositionCenter];
+        }else{
+            int code = [[responseObject objectForKey:@"code"] intValue];
+            NSString *message = [responseObject objectForKey:@"message"];
+            if (code == 0) {
+                
+                self.averageHeartRateLabel.text = [NSString stringWithFormat:@"%@℃",responseObject[@"data"][@"tiwen"]];
+                self.fatigueLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"xueyang"]];
+                self.bloodPressureLabel.text = [NSString stringWithFormat:@"%@mmHg",responseObject[@"data"][@"xueya"]];
+                
+                NSString *xueya = responseObject[@"data"][@"xueya"];
+                NSArray *xueyaArr = [xueya componentsSeparatedByString:@"/"];
+                NSString *xueyang = [NSString stringWithFormat:@"%.1f",[responseObject[@"data"][@"xueyang"] doubleValue]];
+                NSArray *xueyangArr = [xueyang componentsSeparatedByString:@"."];
+                
+                int spo2 = 0;
+                if (xueyaArr.count == 2) {
+                    spo2 = [xueyangArr[1] intValue];
+                }
+                
+                NSString *xuetang;
+                if (responseObject[@"data"][@"xuetang"] == nil || [responseObject[@"data"][@"xuetang"] isEqual:[NSNull null]]) {
+                    xuetang = @"";
+                }else{
+                    xuetang = responseObject[@"data"][@"xuetang"];
+                }
+                
+                if ([[EirogaBlueToothManager sharedInstance] isconnected]) {
+                    [[PZBlueToothManager sharedInstance] sendUserBph:[xueyaArr[0] intValue] bpl:[xueyaArr[1] intValue] glu:[xuetang intValue] spo1:[xueyangArr[0] intValue] spo2:spo2];
+                }
+                
+            } else {
+                [self makeToast:message duration:1.5 position:CSToastPositionCenter];
+            }
+        }
+    }];
 }
 
 @end

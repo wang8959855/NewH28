@@ -28,7 +28,6 @@
 		18072030215CC0A60069107F /* left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1807202D215CC0A60069107F /* left@2x.png */; };
 		18072033215CC4320069107F /* JiuzuoMinuteListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18072032215CC4320069107F /* JiuzuoMinuteListView.m */; };
 		18072035215CC4420069107F /* JiuzuoMinuteListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18072034215CC4420069107F /* JiuzuoMinuteListView.xib */; };
-		1809F533212A6683005EDABA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1809F531212A6682005EDABA /* LoginViewController.m */; };
 		1809F537212A668B005EDABA /* FindPSWViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1809F534212A668B005EDABA /* FindPSWViewController.xib */; };
 		1809F538212A668B005EDABA /* FindPSWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1809F536212A668B005EDABA /* FindPSWViewController.m */; };
 		1809F53C212A6693005EDABA /* RgistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1809F539212A6693005EDABA /* RgistViewController.xib */; };
@@ -222,6 +221,7 @@
 		1892ACD6212E8FB700C03432 /* RegulationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892ACD2212E8FB700C03432 /* RegulationViewController.m */; };
 		1892ACD7212E8FB700C03432 /* RegulationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1892ACD3212E8FB700C03432 /* RegulationViewController.xib */; };
 		1892ACEB212FB24200C03432 /* AFAppDotNetAPIClient1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892ACEA212FB24200C03432 /* AFAppDotNetAPIClient1.m */; };
+		189A7D9E226D654800403EAD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1809F531212A6682005EDABA /* LoginViewController.m */; };
 		18A67AB52147A35100CB9161 /* AboutMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A67AB32147A35100CB9161 /* AboutMyViewController.m */; };
 		18A67AB62147A35100CB9161 /* AboutMyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A67AB42147A35100CB9161 /* AboutMyViewController.xib */; };
 		18A67ABA2147DED100CB9161 /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A67AB82147DED100CB9161 /* BaseWebViewController.m */; };
@@ -4023,7 +4023,7 @@
 		3B6A0CFD1C3B687D00FB76D0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = com.czjk.www;
 				TargetAttributes = {
 					3B6A0D041C3B687D00FB76D0 = {
@@ -4041,7 +4041,7 @@
 			};
 			buildConfigurationList = 3B6A0D001C3B687D00FB76D0 /* Build configuration list for PBXProject "Bracelet" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -4294,13 +4294,15 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Bracelet/Pods-Bracelet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
+				"${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSDFULibrary/iOSDFULibrary.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZIPFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSDFULibrary.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4453,7 +4455,6 @@
 				183A7BB02119D32500F98016 /* UIView+leoAdd.m in Sources */,
 				BC7DAE851E64145000876151 /* ZFYAxisLine.m in Sources */,
 				3BD722C11C59B85D0085E149 /* WMRecorder.m in Sources */,
-				1809F533212A6683005EDABA /* LoginViewController.m in Sources */,
 				DD6F3AE51E124F4C0000B296 /* UIColor+Hex.m in Sources */,
 				BC7DAE8D1E64145000876151 /* ZFCirqueChart.m in Sources */,
 				183A7BFE2119DD2C00F98016 /* MASLayoutConstraint.m in Sources */,
@@ -4578,6 +4579,7 @@
 				18D1C70B225ED8AD0023F76F /* JXPopoverAction.m in Sources */,
 				BC7DAE831E64145000876151 /* ZFPopoverLabel.m in Sources */,
 				1809F546212A669A005EDABA /* EditPersonalInformationOneViewController.m in Sources */,
+				189A7D9E226D654800403EAD /* LoginViewController.m in Sources */,
 				DD6F3B4A1E1250480000B296 /* UnityTool.m in Sources */,
 				18AD4A9821527EC10018A3CB /* TaiwanViewController1.m in Sources */,
 				BC34C37F1EDFC88F0055546E /* HIstoryTableViewCell.m in Sources */,
@@ -4714,14 +4716,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -4763,14 +4773,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

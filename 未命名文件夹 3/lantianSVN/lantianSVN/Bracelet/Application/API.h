@@ -11,17 +11,20 @@
 #define API_h
 
 //生产环境
-#define ROOT_URL @"http://sanguo.lantianfangzhou.com/h28/"
+#define ROOT_URL @"https://rulong.lantianfangzhou.com/all/public/"
+//测试环境
+//#define ROOT_URL @"http://test02.lantianfangzhou.com/"
+
 #define PATH_URL(url) [NSString stringWithFormat:@"%@%@",ROOT_URL,url]
 
 //登录
-#define LOGIN PATH_URL(@"log/login")
+#define LOGIN PATH_URL(@"api/login/login")
 //发送登录短信验证码
-#define LOGINSEND PATH_URL(@"log/logincode")
+#define LOGINSEND PATH_URL(@"api/login/logincode")
 //注册
-#define REGISTER PATH_URL(@"log/register")
+#define REGISTER PATH_URL(@"api/login/register")
 //发送注册短信验证码
-#define REGISTERSEND PATH_URL(@"log/registercode")
+#define REGISTERSEND PATH_URL(@"api/login/registercode")
 //上传个人信息
 #define UPLOADUSERINFO PATH_URL(@"api/userinfo")
 //获取用户信息
@@ -63,5 +66,10 @@
 //定时上传定位
 #define UPLOADLOCATION PATH_URL(@"api/address")
 #define CUSTOMWARING PATH_URL(@"api/warnbtn")
+
+//绑定设备
+#define BINDDEVICE PATH_URL(@"api/app/watch")
+//首页数据
+#define HOMEDATA PATH_URL(@"api/app/data2app")
 
 #endif /* API_h */

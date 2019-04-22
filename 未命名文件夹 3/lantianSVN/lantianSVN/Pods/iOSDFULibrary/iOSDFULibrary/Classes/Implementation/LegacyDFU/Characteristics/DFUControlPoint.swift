@@ -63,41 +63,27 @@ internal enum Request {
     var data : Data {
         switch self {
         case .jumpToBootloader:
-            let bytes:[UInt8] = [DFUOpCode.startDfu.code, FIRMWARE_TYPE_APPLICATION]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 2)
+            return Data([DFUOpCode.startDfu.code, FIRMWARE_TYPE_APPLICATION])
         case .startDfu(let type):
-            let bytes:[UInt8] = [DFUOpCode.startDfu.code, type]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 2)
+            return Data([DFUOpCode.startDfu.code, type])
         case .startDfu_v1:
-            let bytes:[UInt8] = [DFUOpCode.startDfu.code]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
+            return Data([DFUOpCode.startDfu.code])
         case .initDfuParameters(let req):
-            let bytes:[UInt8] = [DFUOpCode.initDfuParameters.code, req.code]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 2)
+            return Data([DFUOpCode.initDfuParameters.code, req.code])
         case .initDfuParameters_v1:
-            let bytes:[UInt8] = [DFUOpCode.initDfuParameters.code]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
+            return Data([DFUOpCode.initDfuParameters.code])
         case .receiveFirmwareImage:
-            let bytes:[UInt8] = [DFUOpCode.receiveFirmwareImage.code]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
+            return Data([DFUOpCode.receiveFirmwareImage.code])
         case .validateFirmware:
-            let bytes:[UInt8] = [DFUOpCode.validateFirmware.code]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
+            return Data([DFUOpCode.validateFirmware.code])
         case .activateAndReset:
-            let bytes:[UInt8] = [DFUOpCode.activateAndReset.code]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
+            return Data([DFUOpCode.activateAndReset.code])
         case .reset:
-            let bytes:[UInt8] = [DFUOpCode.reset.code]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: 1)
+            return Data([DFUOpCode.reset.code])
         case .packetReceiptNotificationRequest(let number):
-            let data = NSMutableData(capacity: 5)!
-            let bytes:[UInt8] = [DFUOpCode.packetReceiptNotificationRequest.code]
-            data.append(bytes, length: 1)
-            var n = number.littleEndian
-            withUnsafePointer(to: &n) {
-                data.append(UnsafeRawPointer($0), length: 2)
-            }
-            return (NSData(data: data as Data) as Data)
+            var data = Data([DFUOpCode.packetReceiptNotificationRequest.code])
+            data += number.littleEndian
+            return data
         }
     }
     
@@ -148,13 +134,9 @@ internal struct Response {
     let status        : DFUResultCode?
     
     init?(_ data: Data) {
-        var opCode        : UInt8 = 0
-        var requestOpCode : UInt8 = 0
-        var status        : UInt8 = 0
-        
-        (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
-        (data as NSData).getBytes(&requestOpCode, range: NSRange(location: 1, length: 1))
-        (data as NSData).getBytes(&status, range: NSRange(location: 2, length: 1))
+        let opCode        : UInt8 = data[0]
+        let requestOpCode : UInt8 = data[1]
+        let status        : UInt8 = data[2]
         
         self.opCode        = DFUOpCode(rawValue: opCode)
         self.requestOpCode = DFUOpCode(rawValue: requestOpCode)
@@ -175,8 +157,8 @@ internal struct PacketReceiptNotification {
     let bytesReceived : UInt32
     
     init?(_ data: Data) {
-        var opCode: UInt8 = 0
-        (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
+        let opCode: UInt8 = data[0]
+        
         self.opCode = DFUOpCode(rawValue: opCode)
         
         if self.opCode != .packetReceiptNotification {
@@ -187,23 +169,17 @@ internal struct PacketReceiptNotification {
         // in SDK 5.2.0.39364 the bytesReveived value in a PRN packet is 16-bit long, instad of 32-bit.
         // However, the packet is still 5 bytes long and the two last bytes are 0x00-00.
         // This has to be taken under consideration when comparing number of bytes sent and received as
-        // the latter counter may rewind if fw size is > 0xFFFF bytes (LegacyDFUService:L372).
-        var bytesReceived: UInt32 = 0
-        (data as NSData).getBytes(&bytesReceived, range: NSRange(location: 1, length: 4))
+        // the latter counter may rewind if fw size is > 0xFFFF bytes (LegacyDFUService:L446).
+        let bytesReceived: UInt32 = data.asValue(offset: 1)
         self.bytesReceived = bytesReceived
     }
 }
 
-@objc internal class DFUControlPoint : NSObject, CBPeripheralDelegate {
-    static let UUID = CBUUID(string: "00001531-1212-EFDE-1523-785FEABCD123")
-    
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(UUID)
-    }
-    
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+@objc internal class DFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharacteristic {
+
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+
     private var success: Callback?
     private var proceed: ProgressCallback?
     private var report:  ErrorCallback?
@@ -212,25 +188,25 @@ internal struct PacketReceiptNotification {
     private var resetSent = false
     
     internal var valid: Bool {
-        return characteristic.properties.isSuperset(of: [CBCharacteristicProperties.write, CBCharacteristicProperties.notify])
+        return characteristic.properties.isSuperset(of: [.write, .notify])
     }
     
     // MARK: - Initialization
-    
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
     }
-    
+
     // MARK: - Characteristic API methods
     
     /**
-    Enables notifications for the DFU Control Point characteristics. Reports success or an error 
-    using callbacks.
+     Enables notifications for the DFU Control Point characteristics.
+     Reports success or an error using callbacks.
     
-    - parameter success: method called when notifications were successfully enabled
-    - parameter report:  method called in case of an error
-    */
+     - parameter success: Method called when notifications were successfully enabled.
+     - parameter report:  Method called in case of an error.
+     */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
         self.success = success
@@ -248,12 +224,12 @@ internal struct PacketReceiptNotification {
     }
     
     /**
-     Sends given request to the DFU Control Point characteristic. Reports success or an error
-     using callbacks.
+     Sends given request to the DFU Control Point characteristic.
+     Reports success or an error using callbacks.
      
-     - parameter request: request to be sent
-     - parameter success: method called when peripheral reported with status success
-     - parameter report:  method called in case of an error
+     - parameter request: Request to be sent.
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter report:  Method called in case of an error.
      */
     func send(_ request: Request, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
@@ -288,12 +264,15 @@ internal struct PacketReceiptNotification {
     }
     
     /**
-     Sets the callbacks used later on when a Packet Receipt Notification is received, a device reported an error or the whole firmware has been sent
-     and the notification with success status was received. Sending the firmware is done using DFU Packet characteristic.
+     Sets the callbacks used later on when a Packet Receipt Notification is received,
+     a device reported an error or the whole firmware has been sent and the notification
+     with success status was received. Sending the firmware is done using DFU Packet
+     characteristic.
      
-     - parameter success: method called when peripheral reported with status success
-     - parameter proceed: method called the a PRN has been received and sending following data can be resumed
-     - parameter report:  method called in case of an error
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter proceed: Method called the a PRN has been received and sending following
+     data can be resumed.
+     - parameter report:  Method called in case of an error.
      */
     func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {
         // Save callbacks. The proceed callback will be called periodically whenever a packet receipt notification is received. It resumes uploading.
@@ -307,17 +286,18 @@ internal struct PacketReceiptNotification {
         
         // Set the peripheral delegate to self
         peripheral.delegate = self
-        
-        logger.a("Uploading firmware...")
-        logger.v("Sending firmware DFU Packet characteristic...")
     }
     
     // MARK: - Peripheral Delegate callbacks
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
-            logger.e("Enabling notifications failed")
+            logger.e("Enabling notifications failed. Check if Service Changed service is enabled.")
             logger.e(error!)
+            // Note:
+            // Error 253: Unknown ATT error.
+            // This most proably is caching issue. Check if your device had Service Changed characteristic (for non-bonded devices)
+            // in both app and bootloader modes. For bonded devices make sure it sends the Service Changed indication after connecting.
             report?(.enablingControlPointFailed, "Enabling notifications failed")
         } else {
             logger.v("Notifications enabled for \(characteristic.uuid.uuidString)")
@@ -330,14 +310,18 @@ internal struct PacketReceiptNotification {
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        guard characteristic.uuid.isEqual(DFUControlPoint.UUID) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
-        
+
         if error != nil {
             if !resetSent {
-                logger.e("Writing to characteristic failed")
+                logger.e("Writing to characteristic failed. Check if Service Changed service is enabled.")
                 logger.e(error!)
+                // Note:
+                // Error 3: Writing is not permitted
+                // This most proably is caching issue. Check if your device had Service Changed characteristic (for non-bonded devices)
+                // in both app and bootloader modes. For bonded devices make sure it sends the Service Changed indication after connecting.
                 report?(.writingCharacteristicFailed, "Writing to characteristic failed")
             } else {
                 // When a 'JumpToBootloader', 'Activate and Reset' or 'Reset' command is sent the device may reset before sending the acknowledgement.
@@ -374,10 +358,10 @@ internal struct PacketReceiptNotification {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(DFUControlPoint.UUID) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
-        
+
         if error != nil {
             // This characteristic is never read, the error may only pop up when notification is received
             logger.e("Receiving notification failed")
@@ -419,5 +403,12 @@ internal struct PacketReceiptNotification {
                 report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristic.value!.hexString)")
             }
         }
+    }
+    
+    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
+        // On iOS 11 and MacOS 10.13 or newer PRS are no longer required. Instead,
+        // the service checks if it can write write without response before writing
+        // and it will get this callback if the buffer is ready again.
+        proceed?(nil) // no offset available
     }
 }

@@ -318,6 +318,16 @@ typedef void (^disturbModelBlock)(DisturbModel *disturbModel);
  */
 - (void)sendUserInformationWithHeight:(int)height weight:(int)weight gender:(int)gender;
 
+/**
+ 发送用户信息到手环
+ 
+ @param bph 血压高压
+ @param bpl 血压低压
+ @param glu 血糖值 单位为0.1豪摩尔/升，如血糖值为7.8则发送78
+ @param spo1 血氧值 血氧整数位（0-99）
+ @param spo2 血氧值 血氧小数位（0-9）
+ */
+- (void)sendUserBph:(int)bph bpl:(int)bpl glu:(int)glu spo1:(int)spo1 spo2:(int)spo2;
 
 /**
  设置手环

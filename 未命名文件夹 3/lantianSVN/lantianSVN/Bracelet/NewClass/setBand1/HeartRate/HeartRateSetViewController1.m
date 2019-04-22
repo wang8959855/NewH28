@@ -31,7 +31,7 @@
             [[PZBlueToothManager sharedInstance] getHeartRateTimeinterverWithBlock:^(int number) {
                 weakSelf.minute = number;
                 if (number == 3) {
-                    weakSelf.minute = 2.5;
+                    weakSelf.minute = 2;
                 }
                 weakSelf.minuteLabel.text = [NSString stringWithFormat:@"%.1f分钟",weakSelf.minute];
             }];

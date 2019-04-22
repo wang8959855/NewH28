@@ -310,6 +310,10 @@
     [self.blueToothManager sendUserInformationWithHeight:height weight:weight gender:gender];
 }
 
+- (void)sendUserBph:(int)bph bpl:(int)bpl glu:(int)glu spo1:(int)spo1 spo2:(int)spo2{
+    [self.blueToothManager sendUserBph:bph bpl:bpl glu:glu spo1:spo1 spo2:spo2];
+}
+
 - (void)setBindUnit:(int)unit andTimeType:(int)timeType isEnglish:(BOOL)isEnglish;
 {
     [self.blueToothManager setBindUnitWith:unit andTimeType:timeType isEnglish:isEnglish];

@@ -84,7 +84,7 @@
     
     //    设置下方4个view
     NSArray *array = @[@"里程",@"卡路里",@"实时心率",@"平均心率"];
-    NSArray *leftImageArr = @[@"xueya",@"xueyang",@"shishi",@"tiwen"];
+    NSArray *leftImageArr = @[@"licheng_",@"kaluli_",@"shishi",@"pingjun_"];
     for (int i = 0; i < 4; i ++)
     {
         UIView *view = [[UIView alloc] init];

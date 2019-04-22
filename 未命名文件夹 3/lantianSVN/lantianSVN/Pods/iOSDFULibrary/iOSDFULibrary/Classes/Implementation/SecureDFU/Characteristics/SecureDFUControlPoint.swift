@@ -98,50 +98,38 @@ internal enum SecureDFURequest {
     var data : Data {
         switch self {
         case .createDataObject(let aSize):
-            //Split to UInt8
-            let byteArray = stride(from: 24, through: 0, by: -8).map {
-                UInt8(truncatingBitPattern: aSize >> UInt32($0))
-            }
-            //Size is converted to Little Endian (0123 -> 3210)
-            let bytes:[UInt8] = [SecureDFUOpCode.createObject.code, SecureDFUProcedureType.data.rawValue, byteArray[3], byteArray[2], byteArray[1], byteArray[0]]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: bytes.count)
+            var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.data.rawValue])
+            data += aSize.littleEndian
+            return data
         case .createCommandObject(let aSize):
-            //Split to UInt8
-            let byteArray = stride(from: 24, through: 0, by: -8).map {
-                UInt8(truncatingBitPattern: aSize >> UInt32($0))
-            }
-            //Size is converted to Little Endian (0123 -> 3210)
-            let bytes:[UInt8] = [SecureDFUOpCode.createObject.code, SecureDFUProcedureType.command.rawValue, byteArray[3], byteArray[2], byteArray[1], byteArray[0]]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: bytes.count)
+            var data = Data([SecureDFUOpCode.createObject.code, SecureDFUProcedureType.command.rawValue])
+            data += aSize.littleEndian
+            return data
         case .readCommandObjectInfo:
-            let bytes:[UInt8] = [SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.command.rawValue]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: bytes.count)
+            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.command.rawValue])
         case .readDataObjectInfo:
-            let bytes:[UInt8] = [SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.data.rawValue]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: bytes.count)
+            return Data([SecureDFUOpCode.readObjectInfo.code, SecureDFUProcedureType.data.rawValue])
         case .setPacketReceiptNotification(let aSize):
-            let byteArary:[UInt8] = [UInt8(aSize>>8), UInt8(aSize & 0x00FF)]
-            let bytes:[UInt8] = [SecureDFUOpCode.setPRNValue.code, byteArary[1], byteArary[0]]
-            return Data(bytes: UnsafePointer<UInt8>(bytes), count: bytes.count)
+            var data = Data([SecureDFUOpCode.setPRNValue.code])
+            data += aSize.littleEndian
+            return data
         case .calculateChecksumCommand:
-            let byteArray:[UInt8] = [SecureDFUOpCode.calculateChecksum.code]
-            return Data(bytes: UnsafePointer<UInt8>(byteArray), count: byteArray.count)
+            return Data([SecureDFUOpCode.calculateChecksum.code])
         case .executeCommand:
-            let byteArray:[UInt8] = [SecureDFUOpCode.execute.code]
-            return Data(bytes: UnsafePointer<UInt8>(byteArray), count: byteArray.count)
+            return Data([SecureDFUOpCode.execute.code])
         }
     }
 
     var description : String {
         switch self {
-        case .createCommandObject(let size):  return "Create Command Object (Op Code = 1, Type = 1, Size: \(size)b)"
-        case .createDataObject(let size):     return "Create Data Object (Op Code = 1, Type = 2, Size: \(size)b)"
-        case .readCommandObjectInfo:        return "Read Command Object Info (Op Code = 6, Type = 1)"
-        case .readDataObjectInfo:           return "Read Data Object Info (Op Code = 6, Type = 2)"
+        case .createCommandObject(let size): return "Create Command Object (Op Code = 1, Type = 1, Size: \(size)b)"
+        case .createDataObject(let size):    return "Create Data Object (Op Code = 1, Type = 2, Size: \(size)b)"
+        case .readCommandObjectInfo:         return "Read Command Object Info (Op Code = 6, Type = 1)"
+        case .readDataObjectInfo:            return "Read Data Object Info (Op Code = 6, Type = 2)"
         case .setPacketReceiptNotification(let number):
-                                              return "Packet Receipt Notif Req (Op Code = 2, Value = \(number))"
-        case .calculateChecksumCommand:     return "Calculate Checksum (Op Code = 3)"
-        case .executeCommand:               return "Execute Object (Op Code = 4)"
+                                             return "Packet Receipt Notif Req (Op Code = 2, Value = \(number))"
+        case .calculateChecksumCommand:      return "Calculate Checksum (Op Code = 3)"
+        case .executeCommand:                return "Execute Object (Op Code = 4)"
         }
     }
 }
@@ -192,16 +180,9 @@ internal struct SecureDFUResponse {
     let error         : SecureDFUExtendedErrorCode?
     
     init?(_ data: Data) {
-        var opCode        : UInt8 = 0
-        var requestOpCode : UInt8 = 0
-        var status        : UInt8 = 0
-        
-        // The correct response is at least 3 bytes long: Response Op Code, Request Op Code and Status
-        if data.count >= 3 {
-            (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
-            (data as NSData).getBytes(&requestOpCode, range: NSRange(location: 1, length: 1))
-            (data as NSData).getBytes(&status, range: NSRange(location: 2, length: 1))
-        }
+        let opCode        : UInt8 = data[0]
+        let requestOpCode : UInt8 = data[1]
+        let status        : UInt8 = data[2]
         
         self.opCode        = SecureDFUOpCode(rawValue: opCode)
         self.requestOpCode = SecureDFUOpCode(rawValue: requestOpCode)
@@ -211,30 +192,19 @@ internal struct SecureDFUResponse {
         if self.status == .success {
             switch self.requestOpCode {
             case .some(.readObjectInfo):
-                var maxSize : UInt32 = 0
-                var offset  : UInt32 = 0
-                var crc     : UInt32 = 0
-                
                 // The correct reponse for Read Object Info has additional 12 bytes: Max Object Size, Offset and CRC
-                if data.count == 3 + 3 * 4 {
-                    (data as NSData).getBytes(&maxSize, range: NSRange(location: 3, length: 4))
-                    (data as NSData).getBytes(&offset, range: NSRange(location: 7, length: 4))
-                    (data as NSData).getBytes(&crc, range: NSRange(location: 11, length: 4))
-                }
+                let maxSize : UInt32 = data.asValue(offset: 3)
+                let offset  : UInt32 = data.asValue(offset: 7)
+                let crc     : UInt32 = data.asValue(offset: 11)
                 
                 self.maxSize = maxSize
                 self.offset  = offset
                 self.crc     = crc
                 self.error   = nil
             case .some(.calculateChecksum):
-                var offset : UInt32 = 0
-                var crc    : UInt32 = 0
-                
                 // The correct reponse for Calculate Checksum has additional 8 bytes: Offset and CRC
-                if data.count == 3 + 2 * 4 {
-                    (data as NSData).getBytes(&offset, range: NSRange(location: 3, length: 4))
-                    (data as NSData).getBytes(&crc, range: NSRange(location: 7, length: 4))
-                }
+                let offset : UInt32 = data.asValue(offset: 3)
+                let crc    : UInt32 = data.asValue(offset: 7)
                 
                 self.maxSize = 0
                 self.offset  = offset
@@ -248,12 +218,8 @@ internal struct SecureDFUResponse {
             }
         } else if self.status == .extendedError {
             // If extended error was received, parse the extended error code
-            var error : UInt8 = 0
-            
             // The correct response for Read Error request has 4 bytes. The 4th byte is the extended error code
-            if data.count == 4 {
-                (data as NSData).getBytes(&error, range: NSRange(location: 3, length: 1))
-            }
+            let error : UInt8 = data[3]
             
             self.maxSize = 0
             self.offset  = 0
@@ -302,13 +268,9 @@ internal struct SecureDFUPacketReceiptNotification {
     let crc           : UInt32
 
     init?(_ data: Data) {
-        var opCode        : UInt8 = 0
-        var requestOpCode : UInt8 = 0
-        var resultCode    : UInt8 = 0
-
-        (data as NSData).getBytes(&opCode, range: NSRange(location: 0, length: 1))
-        (data as NSData).getBytes(&requestOpCode, range: NSRange(location: 1, length: 1))
-        (data as NSData).getBytes(&resultCode, range: NSRange(location: 2, length: 1))
+        let opCode        : UInt8 = data[0]
+        let requestOpCode : UInt8 = data[1]
+        let resultCode    : UInt8 = data[2]
 
         self.opCode         = SecureDFUOpCode(rawValue: opCode)
         self.requestOpCode  = SecureDFUOpCode(rawValue: requestOpCode)
@@ -323,38 +285,31 @@ internal struct SecureDFUPacketReceiptNotification {
         if self.resultCode != .success {
             return nil
         }
-
-        var offsetResult: UInt32 = 0
-        (data as NSData).getBytes(&offsetResult, range: NSRange(location: 3, length: 4))
-        self.offset = offsetResult
         
-        var crcResult: UInt32 = 0
-        (data as NSData).getBytes(&crcResult, range: NSRange(location: 7, length: 4))
-        self.crc = crcResult
+        let offset : UInt32 = data.asValue(offset: 3)
+        let crc    : UInt32 = data.asValue(offset: 7)
+
+        self.offset = offset
+        self.crc = crc
     }
 }
 
-internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
-    static let UUID = CBUUID(string: "8EC90001-F315-4F60-9FB8-838830DAEA50")
+internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate, DFUCharacteristic {
     
-    static func matches(_ characteristic: CBCharacteristic) -> Bool {
-        return characteristic.uuid.isEqual(UUID)
-    }
-    
-    private var characteristic: CBCharacteristic
-    private var logger: LoggerHelper
-    
+    internal var characteristic: CBCharacteristic
+    internal var logger: LoggerHelper
+
     private var success:  Callback?
     private var response: SecureDFUResponseCallback?
     private var proceed:  ProgressCallback?
     private var report:   ErrorCallback?
 
     internal var valid: Bool {
-        return characteristic.properties.isSuperset(of: [CBCharacteristicProperties.write, CBCharacteristicProperties.notify])
+        return characteristic.properties.isSuperset(of: [.write, .notify])
     }
     
     // MARK: - Initialization
-    init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
+    required init(_ characteristic: CBCharacteristic, _ logger: LoggerHelper) {
         self.characteristic = characteristic
         self.logger = logger
     }
@@ -366,16 +321,17 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     // MARK: - Characteristic API methods
     
     /**
-    Enables notifications for the DFU Control Point characteristics. Reports success or an error 
-    using callbacks.
+     Enables notifications for the DFU Control Point characteristics.
+     Reports success or an error using callbacks.
     
-    - parameter success: method called when notifications were successfully enabled
-    - parameter report:  method called in case of an error
-    */
+     - parameter success: Method called when notifications were successfully enabled.
+     - parameter report:  Method called in case of an error.
+     */
     func enableNotifications(onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks
-        self.success = success
-        self.report  = report
+        self.success  = success
+        self.response = nil
+        self.report   = report
         
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
@@ -383,8 +339,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Enabling notifications for \(characteristic.uuid.uuidString)...")
-        logger.d("peripheral.setNotifyValue(true, for: \(characteristic.uuid.uuidString))")
+        let controlPointUUID = characteristic.uuid.uuidString
+        
+        logger.v("Enabling notifications for \(controlPointUUID)...")
+        logger.d("peripheral.setNotifyValue(true, for: \(controlPointUUID))")
         peripheral.setNotifyValue(true, for: characteristic)
     }
     
@@ -392,14 +350,15 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
      Sends given request to the DFU Control Point characteristic. Reports success or an error
      using callbacks.
      
-     - parameter request: request to be sent
-     - parameter success: method called when peripheral reported with status success
-     - parameter report:  method called in case of an error
+     - parameter request: Request to be sent.
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter report:  Method called in case of an error.
      */
     func send(_ request: SecureDFURequest, onSuccess success: Callback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
-        self.success = success
-        self.report  = report
+        self.success  = success
+        self.response = nil
+        self.report   = report
         
         // Get the peripheral object
         let peripheral = characteristic.service.peripheral
@@ -407,8 +366,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(characteristic.uuid.uuidString), type: .withResponse)")
+        let controlPointUUID = characteristic.uuid.uuidString
+        
+        logger.v("Writing to characteristic \(controlPointUUID)...")
+        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(controlPointUUID), type: .withResponse)")
         peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     
@@ -416,12 +377,13 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
      Sends given request to the DFU Control Point characteristic. Reports received data or an error
      using callbacks.
      
-     - parameter request:  request to be sent
-     - parameter response: method called when peripheral sent a notification with requested data and status success
-     - parameter report:   method called in case of an error
+     - parameter request:  Request to be sent.
+     - parameter response: Method called when peripheral sent a notification with requested data and status success.
+     - parameter report:   Method called in case of an error.
      */
     func send(_ request: SecureDFURequest, onResponse response: SecureDFUResponseCallback?, onError report: ErrorCallback?) {
         // Save callbacks and parameter
+        self.success  = nil
         self.response = response
         self.report   = report
         
@@ -431,18 +393,21 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         // Set the peripheral delegate to self
         peripheral.delegate = self
         
-        logger.v("Writing to characteristic \(characteristic.uuid.uuidString)...")
-        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(characteristic.uuid.uuidString), type: .withResponse)")
+        let controlPointUUID = characteristic.uuid.uuidString
+        
+        logger.v("Writing to characteristic \(controlPointUUID)...")
+        logger.d("peripheral.writeValue(0x\(request.data.hexString), for: \(controlPointUUID), type: .withResponse)")
         peripheral.writeValue(request.data, for: characteristic, type: .withResponse)
     }
     
     /**
-     Sets the callbacks used later on when a Packet Receipt Notification is received, a device reported an error or the whole firmware has been sent. 
+     Sets the callbacks used later on when a Packet Receipt Notification is received,
+     a device reported an error or the whole firmware has been sent. 
      Sending the firmware is done using DFU Packet characteristic.
      
-     - parameter success: method called when peripheral reported with status success
-     - parameter proceed: method called the a PRN has been received and sending following data can be resumed
-     - parameter report:  method called in case of an error
+     - parameter success: Method called when peripheral reported with status success.
+     - parameter proceed: Method called the a PRN has been received and sending following data can be resumed.
+     - parameter report:  Method called in case of an error.
      */
     func waitUntilUploadComplete(onSuccess success: Callback?, onPacketReceiptNofitication proceed: ProgressCallback?, onError report: ErrorCallback?) {
         // Save callbacks. The proceed callback will be called periodically whenever a packet receipt notification is received. It resumes uploading.
@@ -464,8 +429,12 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
-            logger.e("Enabling notifications failed")
+            logger.e("Enabling notifications failed. Check if Service Changed service is enabled.")
             logger.e(error!)
+            // Note:
+            // Error 253: Unknown ATT error.
+            // This most proably is caching issue. Check if your device had Service Changed characteristic (for non-bonded devices)
+            // in both app and bootloader modes. For bonded devices make sure it sends the Service Changed indication after connecting.
             report?(.enablingControlPointFailed, "Enabling notifications failed")
         } else {
             logger.v("Notifications enabled for \(characteristic.uuid.uuidString)")
@@ -478,13 +447,18 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
         // This method, according to the iOS documentation, should be called only after writing with response to a characteristic.
         // However, on iOS 10 this method is called even after writing without response, which is a bug.
         // The DFU Control Point characteristic always writes with response, in oppose to the DFU Packet, which uses write without response.
-        guard characteristic.uuid.isEqual(SecureDFUControlPoint.UUID) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
-        
+
         if error != nil {
-            logger.e("Writing to characteristic failed")
+            logger.e("Writing to characteristic failed. Check if Service Changed service is enabled.")
             logger.e(error!)
+            // Note:
+            // Error 3: Writing is not permitted.
+            // This most proably is caching issue. Check if your device had Service Changed characteristic (for non-bonded devices)
+            // in both app and bootloader modes. This is a specially a case in SDK 12.x, where it was disabled by default.
+            // For bonded devices make sure it sends the Service Changed indication after connecting.
             report?(.writingCharacteristicFailed, "Writing to characteristic failed")
         } else {
             logger.i("Data written to \(characteristic.uuid.uuidString)")
@@ -493,10 +467,10 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Ignore updates received for other characteristics
-        guard characteristic.uuid.isEqual(SecureDFUControlPoint.UUID) else {
+        guard self.characteristic.isEqual(characteristic) else {
             return
         }
-        
+
         if error != nil {
             // This characteristic is never read, the error may only pop up when notification is received
             logger.e("Receiving notification failed")
@@ -510,7 +484,7 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
                     return
                 }
             }
-            //Otherwise...    
+            // Otherwise...    
             logger.i("Notification received from \(characteristic.uuid.uuidString), value (0x): \(characteristic.value!.hexString)")
 
             // Parse response received
@@ -531,8 +505,8 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
                 } else if dfuResponse.status == .extendedError {
                     // An extended error was received
                     logger.e("Error \(dfuResponse.error!.code): \(dfuResponse.error!.description)")
-                    // The returned errod code is incremented by 10 to match Secure DFU remote codes
-                    report?(DFUError(rawValue: Int(dfuResponse.status!.code) + 10)!, dfuResponse.error!.description)
+                    // The returned errod code is incremented by 20 to match Secure DFU remote codes
+                    report?(DFUError(rawValue: Int(dfuResponse.error!.code) + 20)!, dfuResponse.error!.description)
                 } else {
                     logger.e("Error \(dfuResponse.status!.code): \(dfuResponse.status!.description)")
                     // The returned errod code is incremented by 10 to match Secure DFU remote codes
@@ -543,5 +517,12 @@ internal class SecureDFUControlPoint : NSObject, CBPeripheralDelegate {
                 report?(.unsupportedResponse, "Unsupported response received: 0x\(characteristic.value!.hexString)")
             }
         }
+    }
+    
+    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
+        // On iOS 11 and MacOS 10.13 or newer PRS are no longer required. Instead,
+        // the service checks if it can write write without response before writing
+        // and it will get this callback if the buffer is ready again.
+        proceed?(nil) // no offset available
     }
 }

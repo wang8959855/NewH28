@@ -81,10 +81,10 @@
         if ([self checkPassWord:_passWordTF.text])
         {
         
-            NSString *url = [NSString stringWithFormat:@"%@/tel/%@/code/%@",REGISTER,_userNameTF.text,_passWordTF.text];
+            NSString *url = [NSString stringWithFormat:@"%@",REGISTER];
             
             kWEAKSELF;
-            [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:url fileUrl:nil params:nil Block:^(id responseObject, NSError *error) {
+            [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:url fileUrl:nil params:@{@"tel":_userNameTF.text,@"code":_passWordTF.text} Block:^(id responseObject, NSError *error) {
                 
                 //adaLog(@"responseObject[msg] - %@",responseObject[@"msg"]);
                 //adaLog(@"responseObject - %@",responseObject);
@@ -141,8 +141,8 @@
         [self addActityIndicatorInView:self.view labelText:NSLocalizedString(@"正在获取验证码", nil) detailLabel:NSLocalizedString(@"正在获取验证码", nil)];
         [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
         
-        NSString *url = [NSString stringWithFormat:@"%@/tel/%@",REGISTERSEND,_userNameTF.text];
-        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:nil Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
+        NSString *url = [NSString stringWithFormat:@"%@",REGISTERSEND];
+        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:@{@"tel":_userNameTF.text} Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
          {
              
              //                 adaLog(@"  - - - - -开始登录返回");

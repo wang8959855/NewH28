@@ -19,6 +19,7 @@
 * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import Foundation
 
 internal class DFUStreamHex : DFUStream {
     private(set) var currentPart = 1
@@ -49,7 +50,7 @@ internal class DFUStreamHex : DFUStream {
     }
     
     init(urlToHexFile: URL, urlToDatFile: URL?, type: DFUFirmwareType) {
-        let hexData = try? Data(contentsOf: urlToHexFile)
+        let hexData = try! Data(contentsOf: urlToHexFile)
         binaries = IntelHex2BinConverter.convert(hexData)
         firmwareSize = UInt32(binaries.count)
         
@@ -57,7 +58,16 @@ internal class DFUStreamHex : DFUStream {
             initPacketBinaries = try? Data(contentsOf: dat)
         }
         
-        self.currentPartType = type.rawValue
+        currentPartType = type.rawValue
+    }
+    
+    init(hexFile: Data, datFile: Data?, type: DFUFirmwareType) {
+        binaries = IntelHex2BinConverter.convert(hexFile)
+        firmwareSize = UInt32(binaries.count)
+        
+        initPacketBinaries = datFile
+        
+        currentPartType = type.rawValue
     }
     
     var data: Data {

@@ -9,8 +9,9 @@ target 'Bracelet' do
 
   # Pods for Bracelet
   use_frameworks!
-  pod 'iOSDFULibrary', '~>3.0.3'
+  pod 'iOSDFULibrary', '~> 4.4.1'
   pod 'AFNetworking'
   pod 'BMKLocationKit'
+  pod 'Toast'
 
 end

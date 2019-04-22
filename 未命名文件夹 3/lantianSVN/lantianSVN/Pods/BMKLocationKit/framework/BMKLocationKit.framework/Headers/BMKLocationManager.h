@@ -39,7 +39,7 @@ typedef NS_ENUM(int, BMKLocationNetworkState) {
 
 ///BMKLocation errorDomain
 
-FOUNDATION_EXPORT NSErrorDomain const BMKLocationErrorDomain;
+FOUNDATION_EXPORT NSErrorDomain const _Nonnull BMKLocationErrorDomain;
 
 ///BMKLocation errorCode
 typedef NS_ENUM(NSInteger, BMKLocationErrorCode)
@@ -104,9 +104,14 @@ typedef void (^BMKLocatingCompletionBlock)(BMKLocation * _Nullable location, BMK
 ///连续定位是否返回逆地理信息，默认YES。
 @property (nonatomic, assign) BOOL locatingWithReGeocode;
 
+///定位sdk-v1.3之后，开发者可以选择是否需要最新版本rgc数据，默认是不需要NO；YES的情况下，定位sdk会实时返回最新的rgc数据，如城市变更等数据都会实时更新
+@property (nonatomic, assign) BOOL isNeedNewVersionReGeocode;
+
 
 ///开发者可以指定该用户的id，用于后续统一识别用户，便于查找问题
 @property(nonatomic, retain, nullable) NSString * userID;
+
+
 
 
 /**
@@ -149,6 +154,16 @@ typedef void (^BMKLocatingCompletionBlock)(BMKLocation * _Nullable location, BMK
  * @brief 该方法为BMKLocationManager停止设备朝向事件回调。
  */
 - (void)stopUpdatingHeading;
+
+/**
+ * @brief 该方法为BMKLocationManager尝试使用高精度室内定位。在特定的室内场景下会有更高精度的定位回调，只在室内定位版本生效。
+ */
+- (void)tryIndoorLocation;
+
+/**
+ * @brief 该方法为BMKLocationManager会关闭高精度室内定位，只在室内定位版本生效。
+ */
+- (void)stopIndoorLocation;
 
 
 /**

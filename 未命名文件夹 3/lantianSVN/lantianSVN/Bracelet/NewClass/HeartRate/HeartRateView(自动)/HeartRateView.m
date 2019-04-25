@@ -58,38 +58,38 @@
     [self initPro];
     [self setSleepbackGround];
     
-    [[PZBlueToothManager sharedInstance] connectStateChangedWithBlock:^(BOOL isConnect, CBPeripheral *peripheral) {
-        if (isConnect) {
-            [[PZBlueToothManager sharedInstance] getHeartRateTimeinterverWithBlock:^(int number) {
-                int sec = 0;
-                if (number == 3) {
-                    sec = 120;
-                }
-                sec = number * 60;
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:sec target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
-            }];
-        }
-    }];
+//    [[PZBlueToothManager sharedInstance] connectStateChangedWithBlock:^(BOOL isConnect, CBPeripheral *peripheral) {
+//        if (isConnect) {
+//            [[PZBlueToothManager sharedInstance] getHeartRateTimeinterverWithBlock:^(int number) {
+//                int sec = 0;
+//                if (number == 3) {
+//                    sec = 120;
+//                }
+//                sec = number * 60;
+//            }];
+//        }
+//    }];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:150 target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTimer) name:@"changeTimer" object:nil];
     
 }
 
 - (void)changeTimer{
-    [self.timer invalidate];
-    self.timer = nil;
-    [[PZBlueToothManager sharedInstance] connectStateChangedWithBlock:^(BOOL isConnect, CBPeripheral *peripheral) {
-        if (isConnect) {
-            [[PZBlueToothManager sharedInstance] getHeartRateTimeinterverWithBlock:^(int number) {
-                int sec = 0;
-                if (number == 3) {
-                    sec = 120;
-                }
-                sec = number * 60;
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:sec target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
-            }];
-        }
-    }];
+//    [self.timer invalidate];
+//    self.timer = nil;
+//    [[PZBlueToothManager sharedInstance] connectStateChangedWithBlock:^(BOOL isConnect, CBPeripheral *peripheral) {
+//        if (isConnect) {
+//            [[PZBlueToothManager sharedInstance] getHeartRateTimeinterverWithBlock:^(int number) {
+//                int sec = 0;
+//                if (number == 3) {
+//                    sec = 120;
+//                }
+//                sec = number * 60;
+//                self.timer = [NSTimer scheduledTimerWithTimeInterval:sec target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
+//            }];
+//        }
+//    }];
 }
 
 -(void)setSleepbackGround

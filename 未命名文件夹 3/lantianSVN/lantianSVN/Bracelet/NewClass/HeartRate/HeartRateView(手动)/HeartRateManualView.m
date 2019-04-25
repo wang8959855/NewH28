@@ -12,6 +12,7 @@
 @interface HeartRateManualView ()<HeartRateCircleViewDelegate>
 
 @property (nonatomic, assign) int beginTimeSecond;
+@property (nonatomic, assign) int endTimesecond;
 
 @property (nonatomic, assign) int nowHeart;
 
@@ -108,6 +109,7 @@
         kWEAKSELF;
         [[PZBlueToothManager sharedInstance] switchActualHeartStateWithState:YES andActualHeartBlock:^(int number1 , int number2) {
             if (number1) {
+                self.beginTimeSecond = [[TimeCallManager getInstance] getSecondsOfCurTime];
                 if (_nowHeart != number2) {
                     _nowHeart = number2;
                     self.circleView.value = number2;
@@ -119,6 +121,7 @@
             {
                 if (button.selected)
                 {
+                    self.endTimesecond = [[TimeCallManager getInstance] getSecondsOfCurTime];
                     [[PZBlueToothManager sharedInstance] switchActualHeartStateWithState:NO andActualHeartBlock:nil];
                     button.selected = NO;
                 }
@@ -135,10 +138,10 @@
 {
     if (self.heartArray )
     {
-        NSString *url = [NSString stringWithFormat:@"%@/?token=%@",HEARTRATEUPDATE,TOKEN];
-        NSDictionary *jsonDic = @{@"deviceId":kHCH.mac,@"openid":kHCH.mac,@"values":_heartArray,@"type":kHCH.type,@"version":kHCH.version};
+        NSString *heart = [AllTool  arrayToStringHeart:self.heartArray];
+        NSString *url = [NSString stringWithFormat:@"%@",MANUALUOLOADHEART];
+        NSDictionary *param = @{@"userid":USERID,@"token":TOKEN,@"start":@(self.beginTimeSecond),@"end":@(self.endTimesecond),@"heart":heart};
         
-        NSDictionary *param = [kHCH changeToParamWithDic:jsonDic];
         [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:param Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {
             if (responseObject)
             {

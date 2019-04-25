@@ -218,6 +218,15 @@ static TimeCallManager * instance=nil;
     return  [self getSecondsWithTimeString:string andFormat:@"yyyy/MM/dd"];
 }
 
+//获得当前时间的秒数
+- (NSTimeInterval)getSecondsOfCurTime {
+    NSDate *eDate = [NSDate date];
+    NSDateFormatter *formates = [[NSDateFormatter alloc] init];
+    [formates setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
+    NSString *string = [formates stringFromDate:eDate];
+    return  [self getSecondsWithTimeString:string andFormat:@"yyyy/MM/dd hh:mm:ss"];
+}
+
 - (NSTimeInterval)getSecondsOfCurMonth
 {
     NSDate *eDate = [NSDate date];

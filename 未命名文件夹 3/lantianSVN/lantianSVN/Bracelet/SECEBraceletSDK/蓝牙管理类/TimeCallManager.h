@@ -52,6 +52,8 @@
 
 //获取当前天时间的秒数
 - (NSTimeInterval)getSecondsOfCurDay ;
+//获得当前时间的秒数
+- (NSTimeInterval)getSecondsOfCurTime;
 
 - (NSString *)getYearWithSecond:(NSTimeInterval)seconds;
 

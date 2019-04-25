@@ -66,8 +66,8 @@
     NSDictionary *dic = self.dataSource[indexPath.row];
     [cell.headerImage sd_setImageWithURL:[NSURL URLWithString:dic[@"friendimg"]]];
     cell.nickName.text = dic[@"friendName"];
-    cell.heartRateLabel.text = dic[@"friendHeartRate"];
-    cell.sportsLabel.text = dic[@"friendStep"];
+    cell.heartRateLabel.text = [NSString stringWithFormat:@"%ld",[dic[@"friendHeartRate"] integerValue]];
+    cell.sportsLabel.text = [NSString stringWithFormat:@"%ld",[dic[@"friendStep"] integerValue]];
     return cell;
 }
 
@@ -216,7 +216,7 @@
 
 - (AttentionView *)attentionView{
     if (!_attentionView) {
-        _attentionView = [[AttentionView alloc] initWithFrame:CGRectMake(0, 64, ScreenW, ScreenH-64)];
+        _attentionView = [[AttentionView alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight, ScreenW, ScreenH-SafeAreaTopHeight)];
         _attentionView.vc = self;
         [self.view addSubview:_attentionView];
         [self.view sendSubviewToBack:_attentionView];

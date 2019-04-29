@@ -354,13 +354,13 @@
 #pragma mark -- 发送数据
 - (void)getHistoryDataWithTimeSeconds:(int)timeSeconds andHour:(int)hour
 {
-    [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.removeFromSuperViewOnHide = YES;
-    hud.label.text = NSLocalizedString(@"正在同步数据", nil);
-    [hud hideAnimated:YES afterDelay:1.5];
-    [XXDeviceInfomation setDeviceUpdateTime];
+//    [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//    hud.mode = MBProgressHUDModeIndeterminate;
+//    hud.removeFromSuperViewOnHide = YES;
+//    hud.label.text = NSLocalizedString(@"正在同步数据", nil);
+//    [hud hideAnimated:YES afterDelay:1.5];
+//    [XXDeviceInfomation setDeviceUpdateTime];
     
     if (hour > 24)
     {

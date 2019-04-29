@@ -17,6 +17,7 @@
 @property (nonatomic, assign) int nowHeart;
 
 @property (nonatomic, strong) NSMutableArray *heartArray;
+@property (nonatomic, strong) NSMutableArray *heartArray1;
 
 @end
 
@@ -62,7 +63,7 @@
     self.circleView.startAngle = 3./2 * M_PI + M_PI/3600.;
     self.circleView.endAngle = 3./2 * M_PI;
     //    self.circleView.ringBackgroundColor = kColor(234, 237, 242);
-    self.circleView.valueTextColor = kMainColor;
+    self.circleView.valueTextColor = kColor(244, 70, 73);
     self.circleView.ringThickness = MIN(16 * kX, 16 * kDY);
     self.circleView.delegate = self;
     self.circleView.value = 0;
@@ -106,25 +107,26 @@
     button.selected = !button.selected;
     if (button.selected)
     {
+        self.beginTimeSecond = [[TimeCallManager getInstance] getSecondsOfCurTime];
         kWEAKSELF;
         [[PZBlueToothManager sharedInstance] switchActualHeartStateWithState:YES andActualHeartBlock:^(int number1 , int number2) {
             if (number1) {
-                self.beginTimeSecond = [[TimeCallManager getInstance] getSecondsOfCurTime];
                 if (_nowHeart != number2) {
                     _nowHeart = number2;
                     self.circleView.value = number2;
                     int timeSeconds = [[NSDate date] timeIntervalSince1970];
                     NSDictionary * dic = @{@"time":[NSString stringWithFormat:@"%d",timeSeconds],@"rate":[NSString stringWithFormat:@"%d",number2]};
                     [weakSelf.heartArray addObject:dic];
+                    [weakSelf.heartArray1 addObject:@(number2)];
                 }
             }else
             {
                 if (button.selected)
                 {
-                    self.endTimesecond = [[TimeCallManager getInstance] getSecondsOfCurTime];
                     [[PZBlueToothManager sharedInstance] switchActualHeartStateWithState:NO andActualHeartBlock:nil];
                     button.selected = NO;
                 }
+                self.endTimesecond = [[TimeCallManager getInstance] getSecondsOfCurTime];
                 [weakSelf testEnded];
             }
         }];
@@ -136,15 +138,21 @@
 
 - (void)testEnded
 {
-    if (self.heartArray )
+    if (self.heartArray1.count != 0)
     {
-        NSString *heart = [AllTool  arrayToStringHeart:self.heartArray];
+        NSString *heart = [AllTool  arrayToStringHeart:self.heartArray1];
         NSString *url = [NSString stringWithFormat:@"%@",MANUALUOLOADHEART];
         NSDictionary *param = @{@"userid":USERID,@"token":TOKEN,@"start":@(self.beginTimeSecond),@"end":@(self.endTimesecond),@"heart":heart};
         
         [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:param Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {
             if (responseObject)
             {
+                int code = [responseObject[@"code"] intValue];
+                if (code == 0) {
+                    
+                }else{
+                    [self makeToast:responseObject[@"message"] duration:1.5 position:CSToastPositionCenter];
+                }
                 self.heartArray = nil;
                 adaLog(@"%@",responseObject[@"message"]);
             }
@@ -159,6 +167,15 @@
         _heartArray = [[NSMutableArray alloc] init];
     }
     return _heartArray;
+}
+
+- (NSMutableArray *)heartArray1
+{
+    if (!_heartArray1)
+    {
+        _heartArray1 = [[NSMutableArray alloc] init];
+    }
+    return _heartArray1;
 }
 
 @end

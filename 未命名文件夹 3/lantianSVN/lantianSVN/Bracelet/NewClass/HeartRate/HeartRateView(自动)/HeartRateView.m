@@ -343,7 +343,7 @@
     self.circleView.startAngle = 3./2 * M_PI + M_PI/3600.;
     self.circleView.endAngle = 3./2 * M_PI;
 //    self.circleView.ringBackgroundColor = kColor(234, 237, 242);
-    self.circleView.valueTextColor = kMainColor;
+    self.circleView.valueTextColor = kColor(244, 70, 73);
     self.circleView.ringThickness = MIN(16 * kX, 16 * kDY);
     self.circleView.delegate = self;
     self.circleView.value = 0;
@@ -614,7 +614,7 @@
             if (code == 0) {
                 
                 self.averageHeartRateLabel.text = [NSString stringWithFormat:@"%@℃",responseObject[@"data"][@"tiwen"]];
-                self.fatigueLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"xueyang"]];
+                self.fatigueLabel.text = [NSString stringWithFormat:@"%@%%",responseObject[@"data"][@"xueyang"]];
                 self.bloodPressureLabel.text = [NSString stringWithFormat:@"%@mmHg",responseObject[@"data"][@"xueya"]];
                 
                 NSString *xueya = responseObject[@"data"][@"xueya"];

@@ -44,16 +44,9 @@ static NSString *header = @"header";
 
 - (void)reloadWebView{
     //测试
-    NSString *root = @"http://newrulongh5test.lantianfangzhou.com/current";
+    NSString *root = @"http://test07.lantianfangzhou.com/report/current/h28";
     //生产
     //        NSString *root = @"http://sanguo.lantianfangzhou.com/h28/report/current";
-    
-    if ([BlueToothManager getInstance].isConnected) {
-        if ([BlueToothManager getInstance].deviceName != nil) {
-            self.sxiao = [BlueToothManager getInstance].deviceName;
-            self.sxiao = [self.sxiao lowercaseString];
-        }
-    }
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@/%@/0",root,self.sxiao,USERID,TOKEN]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -74,17 +67,11 @@ static NSString *header = @"header";
     
     
     //测试
-    NSString *root = @"http://newrulongh5test.lantianfangzhou.com/current";
+    NSString *root = @"http://test07.lantianfangzhou.com/report/current/h28";
     //生产
     //    NSString *root = @"http://sanguo.lantianfangzhou.com/h28/report/current";
     
-    self.sxiao = @"h28_";
-    if ([BlueToothManager getInstance].isConnected) {
-        if ([BlueToothManager getInstance].deviceName != nil) {
-            self.sxiao = [BlueToothManager getInstance].deviceName;
-            self.sxiao = [self.sxiao lowercaseString];
-        }
-    }
+    self.sxiao = @"h28";
     
     CGFloat backScrollViewY = SafeAreaTopHeight;
     CGFloat backScrollViewW = CurrentDeviceWidth;

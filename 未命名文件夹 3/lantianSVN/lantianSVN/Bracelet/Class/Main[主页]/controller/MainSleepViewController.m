@@ -373,7 +373,7 @@
         view.layer.borderColor = kMainColor.CGColor;
         view.layer.borderWidth = 0.5f;
         view.backgroundColor = [UIColor whiteColor];
-        view.frame = CGRectMake(10, self.view.height - 338*kDY + 100, ScreenWidth-20 , 180);
+        view.frame = CGRectMake(10, self.view.height - 338*kDY + 100, ScreenWidth-20 , 200);
         view.layer.cornerRadius = 8;
         view.layer.masksToBounds = YES;
         [self.view addSubview:view];
@@ -388,10 +388,10 @@
         jieduLabel.font = Font_Bold_String(13);
         [view addSubview:jieduLabel];
         
-        UILabel *tixing = [[UILabel alloc] initWithFrame:CGRectMake(20, view.height-20, view.width-40, 20)];
+        UILabel *tixing = [[UILabel alloc] initWithFrame:CGRectMake(20, view.height-45, view.width-40, 40)];
         [view addSubview:tixing];
         tixing.font = [UIFont systemFontOfSize:11];
-        tixing.text = @"*正常人睡眠时长是7-8小时，其中深睡时长应达到总睡眠时长的25%。";
+        tixing.text = @"*正常人睡眠时长是7-8小时，\n 其中深睡时长应达到总睡眠时长的25%。";
         tixing.textColor = kMainColor;
         
         NSArray *nameArray = @[NSLocalizedString(@"深睡",nil),NSLocalizedString(@"浅睡",nil),NSLocalizedString(@"清醒",nil)];

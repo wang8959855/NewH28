@@ -74,7 +74,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dic = self.dataSource[indexPath.row];
     FriendDetailViewController *detail = [FriendDetailViewController new];
-    detail.url = [NSString stringWithFormat:@"http://sanguo.lantianfangzhou.com/h28/h5/healthreport_ontime.html?UserID=%@&token=%@&friendid=%@",USERID,TOKEN,dic[@"friendid"]];
+    detail.url = [NSString stringWithFormat:@"http://test07.lantianfangzhou.com/report/current/h28/%@/%@/%@",USERID,TOKEN,dic[@"friendid"]];
     [self.navigationController pushViewController:detail animated:YES];
 }
 

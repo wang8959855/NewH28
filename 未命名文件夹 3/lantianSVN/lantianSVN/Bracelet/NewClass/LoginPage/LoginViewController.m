@@ -47,7 +47,6 @@
     self.versionLabel.text = showAppVersion;
     
     [_loginBtn setTitle:NSLocalizedString(@"登录", nil) forState:UIControlStateNormal];
-    [_loginBtn setTitleColor:kMainColor forState:UIControlStateNormal];
     _loginBtn.layer.cornerRadius = 5;
     _loginBtn.clipsToBounds = YES;
     

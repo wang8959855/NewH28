@@ -218,7 +218,6 @@ static NSString *reuseID  = @"CELL";
     self.dataArray = @[@"erweima",@"我的二维码",
                        @"saoyisao",@"扫一扫",
                        @"friends",@"亲友监护",
-                       @"jiankangbaogao",@"健康报告",
                        @"设备管理",NSLocalizedString(@"设备管理", nil),
                        @"远程拍照",NSLocalizedString(@"遥控拍照", nil),
                        @"设置", NSLocalizedString(@"设置", nil),
@@ -435,22 +434,22 @@ static NSString *reuseID  = @"CELL";
         case 2://亲友监护
             [self friendJH];
             break;
-        case 3://健康报告
-            [self tuiGuang:nil];
-            break;
-        case 4:
+//        case 3://健康报告
+//            [self tuiGuang:nil];
+//            break;
+        case 3:
             [self SheBeiGuanLi:nil];
             break;
-        case 5:
+        case 4:
             [self takePhoto];
             break;
-        case 6:
+        case 5:
             [self sheZhiPage];
             break;
 //        case 7://我的费用
 //            [self feiYong:nil];
 //            break;
-        case 7:
+        case 6:
             [self aboutPage:nil];
             break;
             //        case 4:

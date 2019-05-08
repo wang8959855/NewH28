@@ -44,7 +44,7 @@ static NSString *header = @"header";
 
 - (void)reloadWebView{
     //测试
-    NSString *root = @"http://test07.lantianfangzhou.com/report/current/h28";
+    NSString *root = @"http://test07.lantianfangzhou.com/report/current";
     //生产
     //        NSString *root = @"http://sanguo.lantianfangzhou.com/h28/report/current";
     
@@ -67,7 +67,7 @@ static NSString *header = @"header";
     
     
     //测试
-    NSString *root = @"http://test07.lantianfangzhou.com/report/current/h28";
+    NSString *root = @"http://test07.lantianfangzhou.com/report/current";
     //生产
     //    NSString *root = @"http://sanguo.lantianfangzhou.com/h28/report/current";
     

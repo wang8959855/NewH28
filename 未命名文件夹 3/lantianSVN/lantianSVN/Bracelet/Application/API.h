@@ -72,6 +72,6 @@
 //首页数据
 #define HOMEDATA PATH_URL(@"api/app/data2app")
 //手动测量上传心率
-#define MANUALUOLOADHEART PATH_URL(@"api/app/heartbyhand")
+#define MANUALUOLOADHEART PATH_URL(@"api/app/heartbyhand2")
 
 #endif /* API_h */

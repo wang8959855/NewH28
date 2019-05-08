@@ -81,7 +81,6 @@
 }
 
 #pragma mark -- 扫描方法
-
 - (void)scanDevicesWithBlock:(arrayBlock)deviceArrayBlock
 {
     [self.blueToothScan startScan];

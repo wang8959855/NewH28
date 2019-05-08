@@ -650,14 +650,16 @@
         {
             sportModel *sportM = [NSKeyedUnarchiver unarchiveObjectWithData:dataModel.userData];
             NSArray *heartArray = sportM.heartArray;
+            NSArray *stepArray = sportM.stepArray;
             NSMutableArray *valueArray = [[NSMutableArray alloc] init];
+            NSMutableArray *valueArray1 = [[NSMutableArray alloc] init];
             int valueTimeSeconds = 0;
             for (int i = 0 ; i < heartArray.count; i ++)
             {
                 int heart = [heartArray[i] intValue];
                 if (heart > 0)
                 {
-                    int time = timeSeconds + i * 2.5 * 60;
+                    int time = timeSeconds + i * 2 * 60;
                     if (time > lastTime)
                     {
                         NSDictionary *dic = @{@"time":intToString(time),@"rate":intToString(heart)};
@@ -666,9 +668,19 @@
                     }
                 }
             }
+            for (int i = 0; i < stepArray.count; i ++)
+            {
+                int step = [stepArray[i] intValue];
+                if (step > 0)
+                {
+                    int time = timeSeconds + i * 2 * 60;
+                    NSDictionary *dic = @{@"time":intToString(time),@"step":intToString(step)};
+                    [valueArray1 addObject:dic];
+                }
+            }
             if (valueArray && valueArray.count != 0)
             {
-                NSDictionary *jsonDic = @{@"deviceId":kHCH.mac,@"openid":kHCH.mac,@"values":valueArray,@"type":kHCH.type,@"version":kHCH.version};
+                NSDictionary *jsonDic = @{@"deviceId":kHCH.mac,@"openid":kHCH.mac,@"rate":valueArray,@"type":kHCH.type,@"version":kHCH.version,@"step":valueArray1};
                 NSDictionary *param = [kHCH changeToParamWithDic:jsonDic];
                 NSString *url = [NSString stringWithFormat:@"%@/?token=%@",HEARTRATEUPDATE,TOKEN];
                 [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:param Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {
@@ -794,6 +806,7 @@
     _locationManager.locationTimeout = 10;
     //设置获取地址信息超时时间
     _locationManager.reGeocodeTimeout = 10;
+    [_locationManager startUpdatingLocation];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1800 target:self selector:@selector(startUploadLocation) userInfo:nil repeats:YES];
     [self.timer fire];
 }
@@ -802,7 +815,7 @@
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if ([CLLocationManager locationServicesEnabled] &&
         (status == kCLAuthorizationStatusAuthorizedWhenInUse
-         || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways)) {
+         || status == kCLAuthorizationStatusAuthorizedAlways)) {
             //定位功能可用，开始定位
             //单次定位
             kWEAKSELF

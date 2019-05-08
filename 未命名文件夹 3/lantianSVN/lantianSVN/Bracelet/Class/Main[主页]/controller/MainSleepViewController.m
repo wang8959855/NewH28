@@ -390,6 +390,7 @@
         
         UILabel *tixing = [[UILabel alloc] initWithFrame:CGRectMake(20, view.height-45, view.width-40, 40)];
         [view addSubview:tixing];
+        tixing.numberOfLines = 0;
         tixing.font = [UIFont systemFontOfSize:11];
         tixing.text = @"*正常人睡眠时长是7-8小时，\n 其中深睡时长应达到总睡眠时长的25%。";
         tixing.textColor = kMainColor;

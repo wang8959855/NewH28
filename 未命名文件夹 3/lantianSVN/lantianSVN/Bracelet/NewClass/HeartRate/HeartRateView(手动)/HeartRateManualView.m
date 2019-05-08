@@ -49,7 +49,7 @@
     [self addSubview:backImageView];
     backImageView.frame = CGRectMake(0, 0, CurrentDeviceWidth, CurrentDeviceHeight - 48);
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenH/2)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenH)];
     bgView.backgroundColor = kMainColor;
     [self addSubview:bgView];
     
@@ -87,7 +87,7 @@
     
     self.targetBtn = [[UIButton alloc] init];
     self.targetBtn.size = CGSizeMake(180 * kX, 34 * kX);
-    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.height - 260*kDY);
+    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.height - 290*kDY);
     [self addSubview:self.targetBtn];
 //    self.targetBtn.layer.borderColor = kMainColor.CGColor;
 //    self.targetBtn.layer.borderWidth = 1;
@@ -100,6 +100,35 @@
     [self.targetBtn addTarget:self action:@selector(targetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.backgroundColor = [UIColor whiteColor];
+    
+    
+    UIView *view = [[UIView alloc] init];
+    view.layer.cornerRadius = 10;
+    view.layer.masksToBounds = YES;
+    view.layer.borderColor = kMainColor.CGColor;
+    view.layer.borderWidth = 0.5f;
+    view.backgroundColor = [UIColor whiteColor];
+    view.frame = CGRectMake(10, self.targetBtn.bottom+10, ScreenWidth-20 , 180);
+    view.layer.cornerRadius = 8;
+    view.layer.masksToBounds = YES;
+    [self addSubview:view];
+    
+    UIImageView *jiedu = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 20)];
+    jiedu.image = [UIImage imageNamed:@"jiedu"];
+    [view addSubview:jiedu];
+    
+    UILabel *jieduLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 100, 20)];
+    jieduLabel.text = @"心律检测";
+    jieduLabel.font = Font_Bold_String(13);
+    [view addSubview:jieduLabel];
+    
+    UILabel *tixing = [[UILabel alloc] initWithFrame:CGRectMake(20, jieduLabel.bottom, view.width-40, view.height-30)];
+    [view addSubview:tixing];
+    tixing.numberOfLines = 0;
+    tixing.font = [UIFont systemFontOfSize:12];
+    tixing.text = @"  *点击”开始测量”，即可启动以秒为频率的心率监测模式，秒秒钟实时监测心率波动数值和波动幅度，有助于实时检出心脏早博和心律失常风险，主动预防心血管疾病的发生发展。\n   *如感觉有心悸、心慌、胸闷、头晕、出汗等症状，请立即启动手动监测模式，或去医院做进一步检查。\n  *手动监测模式每次监测时段为5分钟。启动该模式时，请勿切换页面并保持亮屏！";
+    tixing.textColor = kMainColor;
+    
 }
 
 #pragma mark -- button方法
@@ -140,7 +169,11 @@
 {
     if (self.heartArray1.count != 0)
     {
-        NSString *heart = [AllTool  arrayToStringHeart:self.heartArray1];
+//        NSString *heart = [AllTool  arrayToStringHeart:self.heartArray1];
+        NSString *heart = @"";
+        for (NSString *str in self.heartArray1) {
+            heart = [heart stringByAppendingString:[NSString stringWithFormat:@"%@,",str]];
+        }
         NSString *url = [NSString stringWithFormat:@"%@",MANUALUOLOADHEART];
         NSDictionary *param = @{@"userid":USERID,@"token":TOKEN,@"start":@(self.beginTimeSecond),@"end":@(self.endTimesecond),@"heart":heart};
         

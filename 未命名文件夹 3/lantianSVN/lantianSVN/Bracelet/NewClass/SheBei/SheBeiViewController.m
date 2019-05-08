@@ -624,11 +624,12 @@ static NSString *conectReuse = @"connectedCell";
 
 - (void)bindDevice:(NSString *)deviceName{
     NSString *uploadUrl = [NSString stringWithFormat:@"%@",BINDDEVICE];
+    [self.view makeToastActivity];
     [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:uploadUrl fileUrl:nil params:@{@"userid":USERID,@"watch":deviceName,@"token":TOKEN} Block:^(id responseObject, NSError *error) {
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loginTimeOut) object:nil];
         
-        [self.view makeToastActivity];
+        [self.view hideToastActivity];
         if (error)
         {
             [self.view makeToast:@"网络连接错误" duration:1.5 position:CSToastPositionCenter];

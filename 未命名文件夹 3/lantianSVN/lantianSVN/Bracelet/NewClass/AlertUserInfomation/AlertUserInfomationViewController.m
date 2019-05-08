@@ -48,6 +48,7 @@ static NSString *AUISaveID = @"AUISaveID";
 @property (nonatomic, strong) UITextField *rafTel2TF;
 @property (nonatomic, strong) UITextField *rafTel3TF;
 @property (nonatomic, strong) UITextField *GluTF;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
 
 @end
 
@@ -68,6 +69,7 @@ static NSString *AUISaveID = @"AUISaveID";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelEdit)];
     tap.delegate=self;
     [self.tableView addGestureRecognizer:tap];
+    self.height.constant = StatusBarHeight;
 }
 
 - (void)cancelEdit{

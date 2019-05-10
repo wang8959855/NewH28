@@ -84,6 +84,20 @@
     _sportView.controller = self;
     [self.view addSubview:_sportView];
     
+    UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:guideButton];
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, 32, 20, 20);
+    [guideButton setImage:[UIImage imageNamed:@"zy"] forState:UIControlStateNormal];
+    [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+//指引
+- (void)guideAction{
+    GuideLinesViewController *guide = [GuideLinesViewController new];
+    guide.index = 0;
+    guide.imageArr = @[@"step1",@"step2",@"step3",@"step4",@"step5",@"step6"];
+    [self.navigationController pushViewController:guide animated:YES];
 }
 
 //切换视图

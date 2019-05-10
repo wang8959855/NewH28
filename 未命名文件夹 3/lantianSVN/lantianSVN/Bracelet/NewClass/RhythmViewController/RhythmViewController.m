@@ -45,6 +45,21 @@
     _dirtyView = [[DirtyView alloc] initWithFrame:CGRectMake(0, backScrollViewY, backScrollViewW, backScrollViewH)];
     _dirtyView.controller = self;
     [self.view addSubview:_dirtyView];
+    
+    UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:guideButton];
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, 32, 20, 20);
+    [guideButton setImage:[UIImage imageNamed:@"zy-black"] forState:UIControlStateNormal];
+    [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+//指引
+- (void)guideAction{
+    GuideLinesViewController *guide = [GuideLinesViewController new];
+    guide.index = 0;
+    guide.imageArr = @[@"jielv1",@"jielv2",@"jielv3"];
+    [self.navigationController pushViewController:guide animated:YES];
 }
 
 

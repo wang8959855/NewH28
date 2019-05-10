@@ -45,6 +45,20 @@ static NSString *conectReuse = @"connectedCell";
     [self setupView];
     [self refreshConnectView];
     //    [self setupConstraint];
+    
+    UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:guideButton];
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, 32, 20, 20);
+    [guideButton setImage:[UIImage imageNamed:@"zy-black"] forState:UIControlStateNormal];
+    [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//指引
+- (void)guideAction{
+    GuideLinesViewController *guide = [GuideLinesViewController new];
+    guide.index = 0;
+    guide.imageArr = @[@"guanli1",@"sousuo1",@"sousuo2"];
+    [self.navigationController pushViewController:guide animated:YES];
 }
 -(void)viewDidAppear:(BOOL)animated
 {

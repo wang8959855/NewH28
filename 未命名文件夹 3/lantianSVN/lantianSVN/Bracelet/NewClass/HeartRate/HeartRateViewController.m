@@ -103,6 +103,20 @@
     _rateView.controller = self;
     [self.view addSubview:_rateView];
     
+    UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:guideButton];
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, 32, 20, 20);
+    [guideButton setImage:[UIImage imageNamed:@"zy"] forState:UIControlStateNormal];
+    [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+//指引
+- (void)guideAction{
+    GuideLinesViewController *guide = [GuideLinesViewController new];
+    guide.index = 0;
+    guide.imageArr = @[@"tizheng1",@"tizheng2",@"tizheng3",@"tizheng4",@"tizheng5",@"tizheng6"];
+    [self.navigationController pushViewController:guide animated:YES];
 }
 
 //切换视图

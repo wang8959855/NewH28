@@ -289,6 +289,7 @@
 		18E56AC82122F7B4007840D7 /* LMGaugeView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E56AC72122F7B4007840D7 /* LMGaugeView1.m */; };
 		18F0BB3121246E8300384AAE /* HeartRateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0BB2F21246E8300384AAE /* HeartRateDetailViewController.m */; };
 		18F0BB3221246E8300384AAE /* HeartRateDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F0BB3021246E8300384AAE /* HeartRateDetailViewController.xib */; };
+		18F41E8F228519FF00D80625 /* GuideLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F41E8E228519FF00D80625 /* GuideLinesViewController.m */; };
 		3B06A7CA1C50C5D500D970E5 /* AlarmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B06A7C91C50C5D500D970E5 /* AlarmCell.m */; };
 		3B078B3C1C4DE01C0014899F /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B078B3A1C4DE01C0014899F /* CallViewController.m */; };
 		3B078B411C4DE03B0014899F /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B078B3F1C4DE03B0014899F /* AlarmViewController.m */; };
@@ -995,6 +996,8 @@
 		18F0BB2E21246E8300384AAE /* HeartRateDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeartRateDetailViewController.h; sourceTree = "<group>"; };
 		18F0BB2F21246E8300384AAE /* HeartRateDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeartRateDetailViewController.m; sourceTree = "<group>"; };
 		18F0BB3021246E8300384AAE /* HeartRateDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeartRateDetailViewController.xib; sourceTree = "<group>"; };
+		18F41E8D228519FF00D80625 /* GuideLinesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideLinesViewController.h; sourceTree = "<group>"; };
+		18F41E8E228519FF00D80625 /* GuideLinesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideLinesViewController.m; sourceTree = "<group>"; };
 		3B06A7C81C50C5D500D970E5 /* AlarmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmCell.h; sourceTree = "<group>"; };
 		3B06A7C91C50C5D500D970E5 /* AlarmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AlarmCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3B078B391C4DE01C0014899F /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
@@ -2094,6 +2097,7 @@
 		183A7C0B2119E07600F98016 /* NewClass */ = {
 			isa = PBXGroup;
 			children = (
+				18F41E8C228519C200D80625 /* 指引 */,
 				18D1C6FC225ED79B0023F76F /* 助眠 */,
 				18D1C6C2225ECCBA0023F76F /* RhythmViewController */,
 				18D1C6BE225ECC1F0023F76F /* + */,
@@ -2606,6 +2610,15 @@
 				18E56AC72122F7B4007840D7 /* LMGaugeView1.m */,
 			);
 			path = LMGaugeView;
+			sourceTree = "<group>";
+		};
+		18F41E8C228519C200D80625 /* 指引 */ = {
+			isa = PBXGroup;
+			children = (
+				18F41E8D228519FF00D80625 /* GuideLinesViewController.h */,
+				18F41E8E228519FF00D80625 /* GuideLinesViewController.m */,
+			);
+			path = "指引";
 			sourceTree = "<group>";
 		};
 		3B5124C11C52331500E31897 /* SECEBraceletSDK */ = {
@@ -4426,6 +4439,7 @@
 				182EEB642121B4EF0049687D /* HealtPoliceViewController.m in Sources */,
 				BC6E35171E987B76008A0203 /* SDWebImageManager.m in Sources */,
 				182CEC8B2181A730002F0DBC /* AttentionReusableView.m in Sources */,
+				18F41E8F228519FF00D80625 /* GuideLinesViewController.m in Sources */,
 				DD88EF781E1B7A3900605901 /* UIView+ViewController.m in Sources */,
 				1809F54B212A6827005EDABA /* AllTool.m in Sources */,
 				BC7779D81E85022300CB80B5 /* PerModel.m in Sources */,

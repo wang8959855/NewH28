@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppHeader.h"
 #import "MJRefresh.h"
-
+#import "GuideLinesViewController.h"
 
 #define ScreenW [UIScreen mainScreen].bounds.size.width
 #define ScreenH [UIScreen mainScreen].bounds.size.height

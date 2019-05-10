@@ -859,6 +859,11 @@ static NSString *reuseID  = @"CELL";
     //    [self addCurrentPageScreenshot];
     //    [self settingDrawerWhenPush];
 
+    UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imageView addSubview:guideButton];
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45, 32, 20, 20);
+    [guideButton setImage:[UIImage imageNamed:@"zy-black"] forState:UIControlStateNormal];
+    [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
 
     split.navigationController.navigationBar.hidden = YES;
 
@@ -895,6 +900,14 @@ static NSString *reuseID  = @"CELL";
     split.tabsViewControllers = @[alarmTab,alarmTab2,alarmTab3,alarmTab4,alarmTab5,alarmTab6,alarmTab7,alarmTab8];
 
     [self unitePushViewController:_split];
+}
+
+//指引
+- (void)guideAction{
+    GuideLinesViewController *guide = [GuideLinesViewController new];
+    guide.index = 0;
+    guide.imageArr = @[@"set1"];
+    [_split.navigationController pushViewController:guide animated:YES];
 }
 
 #pragma mark - 弹出HUD

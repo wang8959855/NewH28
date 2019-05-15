@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "EditPersonalInformationOneViewController.h"
 #import "MoreView.h"
+#import "H5ViewController.h"
 
 #define kCOLOR_BaseViewControllerBackground     [UIColor whiteColor]
 #define kNav_BackIcon                           @"nav_back"
@@ -37,6 +38,8 @@
     [super viewDidLoad];
     
     [self baseConfiguration];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserInfo) name:@"updateUserInfo" object:nil];
 }
 
 #pragma mark - *********************基础配置*********************
@@ -194,11 +197,33 @@
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [shareButton setImage:[UIImage imageNamed:@"yujing"] forState:UIControlStateNormal];
         shareButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [shareButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [shareButton addTarget:self action:@selector(yujingAcition) forControlEvents:UIControlEventTouchUpInside];
         [navView addSubview:shareButton];
         shareButton.frame = CGRectMake(ScreenW - 60, 0, 60, 44);
     }
 
+}
+
+- (void)yujingAcition{
+    [self.view makeToastActivity];
+    NSString *url = [NSString stringWithFormat:@"%@/?token=%@",GETWARNING,TOKEN];
+    NSDictionary *para = @{@"userid":USERID};
+    [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:para Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {
+        [self.view hideToastActivity];
+        int code = [responseObject[@"code"] intValue];
+        if (code == 0) {
+            NSInteger warnNum = [responseObject[@"data"][@"warnNum"] integerValue];
+            if (warnNum > 0) {
+                H5ViewController *h5 = [H5ViewController new];
+                h5.titleStr = @"预警记录";
+                h5.url = [NSString stringWithFormat:@"http://test07.lantianfangzhou.com/report/current/h28_/%@/%@/0?page=current",USERID,TOKEN];
+                [self.navigationController pushViewController:h5 animated:YES];
+            }else{
+                [self.view makeToast:@"暂无预警记录" duration:1.5 position:CSToastPositionCenter];
+            }
+        }else{
+        }
+    }];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context

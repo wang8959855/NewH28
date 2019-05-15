@@ -144,6 +144,9 @@
                      if (code == 0)
                      {
                          [self addActityTextInView:self.view text:NSLocalizedString(@"登录成功", nil) deleyTime:1.5f];
+                         
+                         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isLoginOpenDevice"];
+                         
                          NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:[responseObject objectForKey:@"data"]];
                          NSString *name = [tempDic objectForKey:@"userName"] ;
                          NSString *birthday = [tempDic objectForKey:@"birthday"] ;

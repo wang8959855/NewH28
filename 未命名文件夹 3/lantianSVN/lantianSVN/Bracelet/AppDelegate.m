@@ -21,6 +21,7 @@
 #import "HomeView.h"
 
 #import "userDataModel.h"
+#import "StartUpViewController.h"
 
 @import CoreTelephony;
 
@@ -80,7 +81,7 @@ void uncaughtExceptionHandler(NSException*exception){
 //切换到未登录状态
 - (void)changeLoginState{
     [[NSUserDefaults standardUserDefaults] setObject:@{} forKey:LastLoginUser_Info];
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    StartUpViewController *loginVC = [[StartUpViewController alloc] init];
     UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
     self.window.rootViewController = loginNav;
     [self.window makeKeyAndVisible];

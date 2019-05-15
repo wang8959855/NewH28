@@ -9,6 +9,7 @@
 #import "HeartRateViewController.h"
 #import "HeartRateView.h"
 #import "HeartRateManualView.h"
+#import "SheBeiViewController.h"
 
 @interface HeartRateViewController ()
 
@@ -37,6 +38,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //是否进入设备连接界面
+    NSString *isDevice = [[NSUserDefaults standardUserDefaults] objectForKey:@"isLoginOpenDevice"];
+    if ([isDevice isEqualToString:@"YES"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isLoginOpenDevice"];
+        SheBeiViewController *shebei = [SheBeiViewController sharedInstance];
+        shebei.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:shebei animated:NO];
+    }
+    
     [self addnavTittle:@"体征" RSSIImageView:YES shareButton:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -105,7 +116,7 @@
     
     UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:guideButton];
-    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, 32, 20, 20);
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, StatusBarHeight + 12, 20, 20);
     [guideButton setImage:[UIImage imageNamed:@"zy"] forState:UIControlStateNormal];
     [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
     

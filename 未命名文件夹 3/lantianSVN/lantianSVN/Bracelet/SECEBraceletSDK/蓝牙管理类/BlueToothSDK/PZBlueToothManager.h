@@ -38,6 +38,8 @@ static NSString *pauseMusic = @"pauseMusic";
 static NSString *playMusic = @"playMusic";
 //发送SOS信息
 static NSString *sendSOS = @"sendSOS";
+//实时心率
+static NSString *nowHeartRate = @"nowHeartRate";
 
 //@protocol CositeaBlueToothManagerDelegate <NSObject>
 //@end

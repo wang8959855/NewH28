@@ -797,7 +797,7 @@ static NSString *AUISaveID = @"AUISaveID";
         NSDictionary *returnDic = [NSDictionary dictionaryWithDictionary:responseObject];
         if ([[returnDic objectForKey:@"code"] integerValue] == 0) {
             [self addActityTextInView:self.view text:NSLocalizedString(@"修改成功", nil) deleyTime:1.5f];
-            [kHCH setUserHeaderWith:responseObject[@"data"][@"imgURL"]];
+            [kHCH setUserHeaderWith:responseObject[@"data"][@"file"]];
             [self reloadTableViewSection:0 row:0];
             [[NSNotificationCenter defaultCenter] postNotificationName:UserInformationUpDateNotification object:nil];
         }else if ([[returnDic objectForKey:@"code"] isEqualToString:@"1001"]){

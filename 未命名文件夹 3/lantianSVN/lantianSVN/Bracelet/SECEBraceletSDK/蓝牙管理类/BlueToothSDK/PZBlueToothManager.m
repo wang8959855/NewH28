@@ -369,7 +369,7 @@
                 case 0x07:
                     [self recieveActualDatwithData:Dat];
                     break;
-                case 0x08:
+                case 0x19:
                     [self recieveHistoryData:Dat];
                     break;
                 case 0x09:
@@ -434,6 +434,11 @@
             if (key == 0x02)
             {
                 [[NSNotificationCenter defaultCenter] postNotificationName:findMyPhone object:nil];
+            }
+            //实时心率
+            if (key == 0x04) {
+                NSInteger hr = transDat[2];
+                [[NSNotificationCenter defaultCenter] postNotificationName:nowHeartRate object:@(hr)];
             }
             if (key == 0x03)
             {
@@ -628,7 +633,7 @@
             [BPHArray addObject:[NSString stringWithFormat:@"%d",BPH]];
             [BPLArray addObject:[NSString stringWithFormat:@"%d",BPL]];
         }
-    }else if (len == 60)
+    }else if (len == 67)
     {
         for (int i = 0 ; i < len/10; i ++)
         {

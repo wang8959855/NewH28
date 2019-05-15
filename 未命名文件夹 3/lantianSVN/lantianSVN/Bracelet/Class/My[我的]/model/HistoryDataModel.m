@@ -255,7 +255,7 @@
             a = 115;
             forcount = sportM.statuArray.count;
         }else{
-            forcount = 110;
+            forcount = sportM.statuArray.count;
         }
         for (int j = forcount - 1 ; j >= a; j --)
         {

@@ -53,6 +53,7 @@ static NSString * const testAFAppDotNetAPIBaseURLString = @"http://bracelet.cosi
 #import "PZMusicStateSetViewController1.h"
 #import "TaiwanViewController1.h"
 #import "DisturbViewController1.h"
+#import <Photos/PHPhotoLibrary.h>
 
 @interface HomeView ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,ZBarReaderDelegate>
 
@@ -101,7 +102,7 @@ static NSString *reuseID  = @"CELL";
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] init];
     });
-    
+    [instance performSelectorOnMainThread:@selector(viewWillRefresh) withObject:nil waitUntilDone:YES];
     return instance;
 }
 
@@ -150,7 +151,7 @@ static NSString *reuseID  = @"CELL";
     _userNameLabel.textColor = [UIColor whiteColor];
     //服务费日期
     _serveDateLabel = [[UILabel alloc] init];
-    [self addSubview:_serveDateLabel];
+//    [self addSubview:_serveDateLabel];
     _serveDateLabel.font = [UIFont systemFontOfSize:10];
     _serveDateLabel.textColor = [UIColor whiteColor];
     //蓝牙
@@ -159,7 +160,7 @@ static NSString *reuseID  = @"CELL";
     self.bleImageView.image = [UIImage imageNamed:@"bluetooth"];
     
     CGFloat bleImageViewX=30*WidthProportion;
-    CGFloat bleImageViewY=190*HeightProportion;
+    CGFloat bleImageViewY=150*HeightProportion;
     CGFloat bleImageViewW=12*WidthProportion;
     CGFloat bleImageViewH=16*HeightProportion;
     self.bleImageView.frame = CGRectMake(bleImageViewX, bleImageViewY, bleImageViewW, bleImageViewH);
@@ -169,7 +170,7 @@ static NSString *reuseID  = @"CELL";
     self.bleLabel.tag = 50;
     self.bleLabel.text  = NSLocalizedString(@"未连接", nil);
     self.bleLabel.font = [UIFont systemFontOfSize:11];
-    self.bleLabel.frame =CGRectMake(50*WidthProportion, 157*HeightProportion, 34*WidthProportion, 21*HeightProportion);
+    self.bleLabel.frame =CGRectMake(50*WidthProportion, 137*HeightProportion, 34*WidthProportion, 21*HeightProportion);
     self.bleLabel.textColor = [UIColor whiteColor];
     
     [self.bleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -347,7 +348,7 @@ static NSString *reuseID  = @"CELL";
 }
 
 
--(void)layoutSubviews {
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.backImageView.frame = CGRectMake(0, 20, self.bounds.size.width, self.bounds.size.height);
     self.headImageView.frame = CGRectMake(35, 80*HeightProportion, 60*WidthProportion, 60*WidthProportion);
@@ -359,14 +360,14 @@ static NSString *reuseID  = @"CELL";
     self.tableView.frame = CGRectMake(0, CGRectGetMaxY(_headImageView.frame)+10, self.width, 468*HeightProportion);
     
     CGFloat userNameLabelX = CGRectGetMaxX(_headImageView.frame)+10;
-    CGFloat userNameLabelY = 80*HeightProportion;
+    CGFloat userNameLabelY = 85*HeightProportion;
     CGFloat userNameLabelW = self.width-CGRectGetMaxX(_headImageView.frame)-10;
     CGFloat userNameLabelH = 20 * HeightProportion;
     _userNameLabel.frame = CGRectMake(userNameLabelX, userNameLabelY, userNameLabelW, userNameLabelH);
     
     self.headBtn.center = self.headImageView.center;
     
-    _serveDateLabel.frame = CGRectMake(userNameLabelX, CGRectGetMaxY(_userNameLabel.frame), userNameLabelW, 20);
+    _serveDateLabel.frame = CGRectMake(userNameLabelX, CGRectGetMaxY(_userNameLabel.frame)-15, userNameLabelW, 20);
     
     CGRect bleRect = _bleImageView.frame;
     bleRect.origin.y = CGRectGetMaxY(_serveDateLabel.frame)+10;
@@ -526,8 +527,7 @@ static NSString *reuseID  = @"CELL";
 }
 
 //每次侧滑后都运行这个方法
--(void)viewWillRefresh
-{
+-(void)viewWillRefresh {
 //        adaLog(@"  = = = = = =  不断的请求");
     
     [[PZBlueToothManager sharedInstance] getHardBatteryInformation:^(int number) {
@@ -718,6 +718,28 @@ static NSString *reuseID  = @"CELL";
         [self addActityTextInView:window text:NSLocalizedString(@"蓝牙未连接",nil) deleyTime:1.5f];
         return;
     }
+    
+    NSString *mediaType = AVMediaTypeVideo;//读取媒体类型
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];//读取设备授权状态
+    if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
+        NSString *errorStr = @"应用相机权限受限,请在设置中启用";
+        [[UIApplication sharedApplication].keyWindow makeToast:errorStr duration:1.5 position:CSToastPositionCenter];
+        return;
+    }
+    if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
+        NSString *errorStr = @"应用相机权限受限,请在设置中启用";
+        [[UIApplication sharedApplication].keyWindow makeToast:errorStr duration:1.5 position:CSToastPositionCenter];
+        return;
+    }
+    
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+        // 无权限
+        NSString *errorStr = @"应用相册权限受限,请在设置中启用";
+        [[UIApplication sharedApplication].keyWindow makeToast:errorStr duration:1.5 position:CSToastPositionCenter];
+        return;
+    }
+    
     [[PZBlueToothManager sharedInstance] changetakePhoteStateWithState:YES];
     TakePhotoViewController *photeVC = [TakePhotoViewController new];
     photeVC.navigationController.navigationBar.hidden = YES;
@@ -818,7 +840,7 @@ static NSString *reuseID  = @"CELL";
 
     split.background = [UIColor whiteColor];
 
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CurrentDeviceWidth, 64)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CurrentDeviceWidth, SafeAreaTopHeight)];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [imageView addSubview:button];
 
@@ -826,7 +848,7 @@ static NSString *reuseID  = @"CELL";
     UIView *topView = [[UIView alloc] init];
     topView.backgroundColor = [UIColor blackColor];
     [imageView addSubview:topView];
-    topView.frame = CGRectMake(0, 0, CurrentDeviceWidth, 20);
+    topView.frame = CGRectMake(0, 0, CurrentDeviceWidth, StatusBarHeight);
     imageView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     imageView.layer.shadowOffset = CGSizeMake(0, 1);
     imageView.layer.shadowOpacity = 0.6;
@@ -861,7 +883,7 @@ static NSString *reuseID  = @"CELL";
 
     UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [imageView addSubview:guideButton];
-    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45, 32, 20, 20);
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45, StatusBarHeight + 12, 20, 20);
     [guideButton setImage:[UIImage imageNamed:@"zy-black"] forState:UIControlStateNormal];
     [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
 

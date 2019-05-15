@@ -18,7 +18,7 @@
 #import <BMKLocationkit/BMKLocationComponent.h>
 #import <BMKLocationKit/BMKLocationAuth.h>
 
-@interface EirogaBlueToothManager()<BMKLocationManagerDelegate,BMKLocationAuthDelegate>
+@interface EirogaBlueToothManager()<BMKLocationManagerDelegate,BMKLocationAuthDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) BMKLocationManager *locationManager;
 
@@ -26,10 +26,12 @@
 
 @property (nonatomic, assign) NSInteger uploadNum;
 
-//@property (nonatomic, strong) CLLocationManager *locationmanager;
+@property (nonatomic, strong) CLLocationManager *locationmanager1;
+
+//没有开启定位请求3次
+@property (nonatomic, assign) NSInteger locationErrorNum;
 
 @end
-
 
 
 @implementation EirogaBlueToothManager
@@ -354,13 +356,13 @@
 #pragma mark -- 发送数据
 - (void)getHistoryDataWithTimeSeconds:(int)timeSeconds andHour:(int)hour
 {
-//    [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-//    hud.mode = MBProgressHUDModeIndeterminate;
-//    hud.removeFromSuperViewOnHide = YES;
-//    hud.label.text = NSLocalizedString(@"正在同步数据", nil);
-//    [hud hideAnimated:YES afterDelay:1.5];
-//    [XXDeviceInfomation setDeviceUpdateTime];
+    [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.removeFromSuperViewOnHide = YES;
+    hud.label.text = NSLocalizedString(@"正在同步数据", nil);
+    [hud hideAnimated:YES afterDelay:1.5];
+    [XXDeviceInfomation setDeviceUpdateTime];
     
     if (hour > 24)
     {
@@ -514,11 +516,24 @@
             
             if (dataModel.lastUpdate <= hour)
             {
-                [sportM.statuArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.stateArray];
+                int cha = hour-sportM.statuArray.count/6;
+                int cha1 = hour-sportM.BPLArray.count/6;
+                int cha2 = hour-sportM.BPHArray.count/6;
+                int cha3 = hour-sportM.heartArray.count/24;
+                
+                if (sportM.statuArray.count != 0) {
+                    [sportM.statuArray replaceObjectsInRange:NSMakeRange((hour-cha-1) * 6, 6) withObjectsFromArray:model.stateArray];
+                }
                 [sportM.stepArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.totalSteps]];
-                [sportM.BPHArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPHArray];
-                [sportM.BPLArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPLArray];
-                [sportM.heartArray replaceObjectsInRange:NSMakeRange(hour * 24, 24) withObjectsFromArray:model.heartArray];
+                if (sportM.BPHArray.count != 0) {
+                    [sportM.BPHArray replaceObjectsInRange:NSMakeRange((hour-cha1-1) * 6, 6) withObjectsFromArray:model.BPHArray];
+                }
+                if (sportM.BPLArray.count != 0) {
+                    [sportM.BPLArray replaceObjectsInRange:NSMakeRange((hour-cha2-1) * 6, 6) withObjectsFromArray:model.BPLArray];
+                }
+                if (sportM.heartArray.count != 0) {
+                    [sportM.heartArray replaceObjectsInRange:NSMakeRange((hour-cha3-1) * 24, 24) withObjectsFromArray:model.heartArray];
+                }
                 [sportM.calmHRArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.calmHR]];
                 dataModel.lastUpdate = hour;
             }
@@ -786,9 +801,23 @@
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    [manager stopUpdatingLocation];
+    self.locationManager = nil;
+}
 
 #pragma mark - 上传定位
 - (void)createLocation{
+    
+    self.locationmanager1 = [[CLLocationManager alloc] init];
+    self.locationmanager1.delegate = self;
+    [self.locationmanager1 requestAlwaysAuthorization];
+    [self.locationmanager1 requestWhenInUseAuthorization];
+    self.locationmanager1.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationmanager1.distanceFilter = 1000;
+    [self.locationmanager1 startUpdatingLocation];
+    _locationErrorNum = 0;
+    
     //初始化实例
     [[BMKLocationAuth sharedInstance] checkPermisionWithKey:@"T1yaP1z2gQECDxQ3n1VWKqMaAEvgoL07" authDelegate:self];
     _locationManager = [[BMKLocationManager alloc] init];
@@ -806,7 +835,7 @@
     _locationManager.locationTimeout = 10;
     //设置获取地址信息超时时间
     _locationManager.reGeocodeTimeout = 10;
-    [_locationManager startUpdatingLocation];
+//    [_locationManager startUpdatingLocation];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1800 target:self selector:@selector(startUploadLocation) userInfo:nil repeats:YES];
     [self.timer fire];
 }
@@ -818,6 +847,7 @@
          || status == kCLAuthorizationStatusAuthorizedAlways)) {
             //定位功能可用，开始定位
             //单次定位
+            _locationErrorNum = 0;
             kWEAKSELF
             [self.locationManager requestLocationWithReGeocode:YES withNetworkState:NO completionBlock:^(BMKLocation * _Nullable location, BMKLocationNetworkState state, NSError * _Nullable error) {
                 weakSelf.uploadNum = 0;
@@ -827,8 +857,13 @@
                 }else{
                     [weakSelf requestUploadAddress:@"" lng:location.location.coordinate.longitude lat:location.location.coordinate.latitude environment:@""];
                 }
+                [weakSelf.locationManager stopUpdatingLocation];
             }];
-            
+        }else{
+            _locationErrorNum++;
+            if (_locationErrorNum != 4) {
+                [self performSelector:@selector(startUploadLocation) withObject:nil afterDelay:5];
+            }
         }
 }
 //定时上传定位
@@ -843,7 +878,7 @@
             //上传成功
             NSLog(@"上传成功");
             BaseViewController *topmostVC = (BaseViewController *)[self topViewController];
-            [topmostVC addActityTextInView:topmostVC.view text:@"心率监护:地理位置上传成功"  deleyTime:1.5f];
+            [topmostVC.view makeToast:@"心率监护:地理位置上传成功" duration:1.5 position:CSToastPositionCenter];
         }else{
             //上传失败
             if (self.uploadNum < 3) {
@@ -852,6 +887,9 @@
             self.uploadNum++;
         }
     }];
+}
+
+- (void)BMKLocationManager:(BMKLocationManager *)manager didUpdateLocation:(BMKLocation *)location orError:(NSError *)error{
 }
 
 - (UIViewController *)topViewController {

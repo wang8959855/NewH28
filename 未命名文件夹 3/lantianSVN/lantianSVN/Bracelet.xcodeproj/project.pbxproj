@@ -290,6 +290,8 @@
 		18F0BB3121246E8300384AAE /* HeartRateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0BB2F21246E8300384AAE /* HeartRateDetailViewController.m */; };
 		18F0BB3221246E8300384AAE /* HeartRateDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F0BB3021246E8300384AAE /* HeartRateDetailViewController.xib */; };
 		18F41E8F228519FF00D80625 /* GuideLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F41E8E228519FF00D80625 /* GuideLinesViewController.m */; };
+		18F42179228BFD5F00D80625 /* StartUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F42177228BFD5F00D80625 /* StartUpViewController.m */; };
+		18F4217A228BFD5F00D80625 /* StartUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F42178228BFD5F00D80625 /* StartUpViewController.xib */; };
 		3B06A7CA1C50C5D500D970E5 /* AlarmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B06A7C91C50C5D500D970E5 /* AlarmCell.m */; };
 		3B078B3C1C4DE01C0014899F /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B078B3A1C4DE01C0014899F /* CallViewController.m */; };
 		3B078B411C4DE03B0014899F /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B078B3F1C4DE03B0014899F /* AlarmViewController.m */; };
@@ -998,6 +1000,9 @@
 		18F0BB3021246E8300384AAE /* HeartRateDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeartRateDetailViewController.xib; sourceTree = "<group>"; };
 		18F41E8D228519FF00D80625 /* GuideLinesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideLinesViewController.h; sourceTree = "<group>"; };
 		18F41E8E228519FF00D80625 /* GuideLinesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideLinesViewController.m; sourceTree = "<group>"; };
+		18F42176228BFD5E00D80625 /* StartUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartUpViewController.h; sourceTree = "<group>"; };
+		18F42177228BFD5F00D80625 /* StartUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartUpViewController.m; sourceTree = "<group>"; };
+		18F42178228BFD5F00D80625 /* StartUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartUpViewController.xib; sourceTree = "<group>"; };
 		3B06A7C81C50C5D500D970E5 /* AlarmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmCell.h; sourceTree = "<group>"; };
 		3B06A7C91C50C5D500D970E5 /* AlarmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AlarmCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3B078B391C4DE01C0014899F /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
@@ -1650,6 +1655,9 @@
 		1809F52A212A65ED005EDABA /* LoginPage */ = {
 			isa = PBXGroup;
 			children = (
+				18F42176228BFD5E00D80625 /* StartUpViewController.h */,
+				18F42177228BFD5F00D80625 /* StartUpViewController.m */,
+				18F42178228BFD5F00D80625 /* StartUpViewController.xib */,
 				1809F530212A6682005EDABA /* LoginViewController.h */,
 				1809F531212A6682005EDABA /* LoginViewController.m */,
 				1809F57B212AA082005EDABA /* LoginViewController.xib */,
@@ -4226,6 +4234,7 @@
 				18A67ABB2147DED100CB9161 /* BaseWebViewController.xib in Resources */,
 				1892ACC4212E8EC600C03432 /* AUIPhoneCell.xib in Resources */,
 				18AD4AA221527EC10018A3CB /* DisturbViewController1.xib in Resources */,
+				18F4217A228BFD5F00D80625 /* StartUpViewController.xib in Resources */,
 				1809F66E212C3E42005EDABA /* 手环-1@3x.png in Resources */,
 				18D1C710225EDFD40023F76F /* SetBloodOxygenView.xib in Resources */,
 				1809F669212C3E42005EDABA /* 3.png in Resources */,
@@ -4488,6 +4497,7 @@
 				BC3386221ECE812800F87760 /* YHEditEquipmentViewController.m in Sources */,
 				BC4469331EC077AD006BA9CD /* ChoseAcountRestPasswordViewController.m in Sources */,
 				BC6E351B1E987B76008A0203 /* UIImage+MultiFormat.m in Sources */,
+				18F42179228BFD5F00D80625 /* StartUpViewController.m in Sources */,
 				1809F538212A668B005EDABA /* FindPSWViewController.m in Sources */,
 				3B6A0DD91C3B689F00FB76D0 /* UIView+ViewFrameExt.m in Sources */,
 				BC7DAE901E64145000876151 /* ZFHorizontalAxis.m in Sources */,

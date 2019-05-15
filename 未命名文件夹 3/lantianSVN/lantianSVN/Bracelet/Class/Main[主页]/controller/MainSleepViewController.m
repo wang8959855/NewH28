@@ -35,6 +35,7 @@
 
 @property (strong, nonatomic) NightCircleView *circle;
 
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 //选择显示类型的view
 @property (nonatomic, strong) UIView *selectShowTypeView;
@@ -54,7 +55,7 @@
     
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight, ScreenWidth, ScreenH/2+42+20)];
     bgView.backgroundColor = kMainColor;
-    [self.view addSubview:bgView];
+    [self.scrollView addSubview:bgView];
     
     [self loadUI];
     
@@ -69,7 +70,7 @@
     
     UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:guideButton];
-    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, 32, 20, 20);
+    guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, StatusBarHeight + 12, 20, 20);
     [guideButton setImage:[UIImage imageNamed:@"zy"] forState:UIControlStateNormal];
     [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
     
@@ -94,7 +95,7 @@
     
     
     self.circle = [[NightCircleView alloc] init];
-    [self.view addSubview:self.circle];
+    [self.scrollView addSubview:self.circle];
     self.circle.frame = CGRectMake(0, 0, MIN(203 * kX, 203 * kDY), MIN(203 * kX, 203 * kDY));
     self.circle.center = CGPointMake(CurrentDeviceWidth / 2, SafeAreaTopHeight+42+20+40 * kDY + self.circle.height/2.);
     self.circle.backgroundColor = [UIColor clearColor];
@@ -125,7 +126,7 @@
     self.targetBtn = [[UIButton alloc] init];
     self.targetBtn.size = CGSizeMake(180*kX, 35*kDY);
     self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.circle.bottom + 30 * kX);
-    [self.view addSubview:self.targetBtn];
+    [self.scrollView addSubview:self.targetBtn];
     self.targetBtn.layer.cornerRadius = 8*kDY;
     [self.targetBtn setImage:[UIImage imageNamed:@"target1"] forState:UIControlStateNormal];
     
@@ -139,7 +140,7 @@
     _selectShowTypeView = [[UIView alloc] init];
     _selectShowTypeView.frame = CGRectMake(ScreenWidth/2-100, SafeAreaTopHeight+12+10, 200, 40);
     _selectShowTypeView.backgroundColor = kColor(214, 241, 251);
-    [self.view addSubview:_selectShowTypeView];
+    [self.scrollView addSubview:_selectShowTypeView];
     //    _selectShowTypeView.layer.borderWidth = 1;
     //    _selectShowTypeView.layer.borderColor = kColor(210, 210, 210).CGColor;
     _selectShowTypeView.layer.cornerRadius = 20.f;
@@ -175,7 +176,7 @@
     
     UIView  *backView = [[UIView alloc] init];
     backView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:backView];
+    [self.scrollView addSubview:backView];
     backView.frame = CGRectMake(0, self.view.height, self.view.width, self.view.height);
     
     XXPickerView *picker = [[XXPickerView alloc] init];
@@ -269,7 +270,8 @@
     NSInteger min = [_pickerView.mPickerView selectedRowInComponent:2];
     [XXUserInformation setUserSleepHourTarget:[NSString stringWithFormat:@"%ld",hour]];
     [XXUserInformation setUserSleepMinuteTarget:[NSString stringWithFormat:@"%ld",min]];
-    [self.targetBtn setTitle:[NSString stringWithFormat:@"%ldh%ldmin",hour,min] forState:UIControlStateNormal];
+//    [self.targetBtn setTitle:[NSString stringWithFormat:@"%ldh%ldmin",hour,min] forState:UIControlStateNormal];
+    [self.targetBtn setAttributedTitle:[self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%@h",[XXUserInformation userSleepHourTarget]] Unit:@"(目标睡眠)" WithFont:18] forState:UIControlStateNormal];
     self.circle.maxValue = hour*60;
 }
 
@@ -346,13 +348,13 @@
     if (!_sleepCircle)
     {
         SleepCircleView *view = [[SleepCircleView alloc] initWithFrame:CGRectMake(0, 0, 235 * kX, 235 * kX)];
-        [self.view addSubview:view];
+        [self.scrollView addSubview:view];
         view.center = CGPointMake(ScreenW/2., 258 * kX);
         _sleepCircle = view;
         
         UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 235 * kX, 235 * kX)];
-        [self.view addSubview:v];
-        [self.view sendSubviewToBack:v];
+        [self.scrollView addSubview:v];
+        [self.scrollView sendSubviewToBack:v];
         v.center = CGPointMake(ScreenW/2., 258 * kX);
         v.layer.masksToBounds = YES;
         v.layer.cornerRadius = v.frame.size.width/2;
@@ -361,7 +363,7 @@
         UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeCustom];
         detailButton.frame = CGRectMake(0, 0, 235*kX, 235*kX);
         detailButton.center = CGPointMake(ScreenW/2., 258*kX);
-        [self.view addSubview:detailButton];
+        [self.scrollView addSubview:detailButton];
         [detailButton addTarget:self action:@selector(detailButtonClick) forControlEvents:UIControlEventTouchUpInside];
         
     }
@@ -391,7 +393,7 @@
         view.frame = CGRectMake(10, self.view.height - 338*kDY + 100, ScreenWidth-20 , 200);
         view.layer.cornerRadius = 8;
         view.layer.masksToBounds = YES;
-        [self.view addSubview:view];
+        [self.scrollView addSubview:view];
         _backView = view;
         
         UIImageView *jiedu = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 20, 20)];
@@ -470,6 +472,17 @@
     [unitString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:font - 5] range:NSMakeRange(0, unitString.length)];
     [attributeString appendAttributedString:unitString];
     return attributeString;
+}
+
+- (UIScrollView *)scrollView{
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,  -StatusBarHeight, ScreenW, ScreenHeight - StatusBarHeight)];
+        [self.view addSubview:_scrollView];
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        [_scrollView setContentSize:CGSizeMake(ScreenWidth, 338*kDY + 350)];
+    }
+    return _scrollView;
 }
 
 /*

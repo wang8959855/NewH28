@@ -723,7 +723,7 @@ static BlueToothManager *instance;
  */
 - (void)getHistoryDataWithyeah:(int)yeah month:(int)month day:(int)day andHour:(int)hour
 {
-    Byte transDat[] = {0x02,0x08,yeah - 2000,month,day,hour};
+    Byte transDat[] = {0x02,0x19,yeah - 2000,month,day,hour};
     NSData *data = [NSData dataWithBytes:transDat length:ArraySize(transDat)];
     [self blueToothWhriteTransData:data isNeedResponse:YES];
 }

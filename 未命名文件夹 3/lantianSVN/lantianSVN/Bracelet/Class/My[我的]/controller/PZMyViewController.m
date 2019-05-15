@@ -15,6 +15,7 @@
 #import "SendMessageViewController.h"
 #import "LoginViewController.h"
 #import "AboutViewController.h"
+#import "StartUpViewController.h"
 
 
 @interface PZMyViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -161,7 +162,7 @@ static NSString *reuseID = @"collectionCell";
     
     [PZSaveDefaluts remobeObjectForKey:@"userData"];
     kHCH.userInfoModel = nil;
-    LoginViewController *loginVC = [[LoginViewController alloc]init];
+    StartUpViewController *loginVC = [[StartUpViewController alloc]init];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     window.rootViewController = loginVC;
     

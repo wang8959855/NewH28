@@ -121,8 +121,6 @@
 	<string>请允许访问相机来拍摄照片</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>请允许APP后台访问您的地理位置来实现轨迹跑以及手环一键SOS求救功能</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>我们需要使用定位用于在“健康调控-锻炼模块”记录您的巡查位置，若不允许，将无法记录您的工作轨迹</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>请允许访问地理位置实现轨迹跑功能</string>
 	<key>NSPhotoLibraryUsageDescription</key>

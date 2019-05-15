@@ -52,8 +52,14 @@
         [self childrenTimeSecondChanged];
         [self setBlocks];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(childrenTimeSecondChanged) name:@"updateHeartRate" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nowHeartRate:) name:nowHeartRate object:nil];
     }
     return self;
+}
+
+- (void)nowHeartRate:(NSNotification *)noti{
+    _heartRateLabel.text = [NSString stringWithFormat:@"%d次/分",[noti.object intValue]];
 }
 
 - (void)setupView {
@@ -148,7 +154,7 @@
                 break;
             case 2:
             {
-                string = [self makeAttributedStringWithnumBer:@"--" Unit:@"bpm" WithFont:18];
+                string = [self makeAttributedStringWithnumBer:@"--" Unit:@"次/分" WithFont:18];
                 _heartRateLabel = [[UILabel alloc] init];
                 _heartRateLabel.textColor = kMainColor;
                 _heartRateLabel.textAlignment = NSTextAlignmentCenter;
@@ -160,7 +166,7 @@
                 break;
             case 3:
             {
-                string = [self makeAttributedStringWithnumBer:@"--" Unit:@"bpm" WithFont:18];
+                string = [self makeAttributedStringWithnumBer:@"--" Unit:@"次/分" WithFont:18];
                 _activeTimeLabel = [[UILabel alloc] init];
                 _activeTimeLabel.textAlignment = NSTextAlignmentCenter;
                 _activeTimeLabel.textColor = kMainColor;
@@ -263,7 +269,7 @@
         }];
         
     } else {
-        _heartRateLabel.attributedText = [self makeAttributedStringWithnumBer:@"--" Unit:@"bpm" WithFont:18];
+        _heartRateLabel.attributedText = [self makeAttributedStringWithnumBer:@"--" Unit:@"次/分" WithFont:18];
 //        _targetBtn.userInteractionEnabled = NO;
     }
 }
@@ -277,7 +283,7 @@
     int currentHR = 0;
     int hour = [AllTool currentHour];
     int minute = [AllTool currentMinute];
-    int location = (hour*60+minute)/2.5;
+    int location = (hour*60+minute)/2;
     for ( int i = 0 ; i < StepArray.count; i ++)
     {
         int value = [StepArray[i] intValue];
@@ -302,8 +308,8 @@
     }
     int avgValue = totalValue/count;
     
-    _activeTimeLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",avgValue] Unit:@"bpm" WithFont:18];
-    _heartRateLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",currentHR] Unit:@"bpm" WithFont:18];
+//    _activeTimeLabel.text = [NSString stringWithFormat:@"%d次/分",avgValue];
+//    _heartRateLabel.text = [NSString stringWithFormat:@"%d次/分",currentHR];
 }
 
 - (void)setStep:(ActualDataModel *)model{
@@ -314,6 +320,8 @@
     self.caloriesLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",model.calories] Unit:@"kcal" WithFont:18];
     self.distanceLabel.attributedText = [self makeAttributedStringWithnumBer:distance Unit:@"km" WithFont:18];
     self.circle.value = model.steps;
+    _activeTimeLabel.text = [NSString stringWithFormat:@"%d次/分",model.hr];
+    
 }
 
 - (void)targetBtnAction:(UIButton *)button{
@@ -399,7 +407,8 @@
     }];
     
     NSInteger row = [_pickerView.mPickerView selectedRowInComponent:0];
-    [self.targetBtn setTitle:[NSString stringWithFormat:@"%ld",(row + 1) * 1000] forState:UIControlStateNormal];
+//    [self.targetBtn setTitle:[NSString stringWithFormat:@"%ld",(row + 1) * 1000] forState:UIControlStateNormal];
+    [self.targetBtn setAttributedTitle:[self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%ld",(row + 1) * 1000] Unit:@"(目标步数)" WithFont:18] forState:UIControlStateNormal];
     [XXUserInformation setUserSportTarget:[NSString stringWithFormat:@"%ld",(row + 1) * 1000]];
     [self childrenTimeSecondChanged];
 }

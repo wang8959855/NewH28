@@ -72,7 +72,12 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:150 target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTimer) name:@"changeTimer" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nowHeartRate:) name:nowHeartRate object:nil];
+}
+
+- (void)nowHeartRate:(NSNotification *)noti{
+    self.nowHeartRateLabel.text = [NSString stringWithFormat:@"%d次/分",[noti.object intValue]];
+    self.circleView.value = [noti.object intValue];
 }
 
 - (void)changeTimer{
@@ -181,9 +186,15 @@
 -(void)successCallbackSleepData
 {
     [self reloadData];
+    
 }
 - (void)reloadData;
 {
+    
+    [[PZBlueToothManager sharedInstance] getHistoryDataWithYeah:2019 Month:5 Day:13 andHour:14 DataBlock:^(historyDataHourModel *model) {
+        NSLog(@"%@",model);
+    }];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeartRate" object:nil];
     [self.backScrollView.mj_header endRefreshing];
     
@@ -212,7 +223,7 @@
     int currentHR = 0;
     int hour = [AllTool currentHour];
     int minute = [AllTool currentMinute];
-    int location = (hour*60+minute)/2.5;
+    int location = (hour*60+minute)/2;
     for ( int i = 0 ; i < StepArray.count; i ++)
     {
         int value = [StepArray[i] intValue];
@@ -240,8 +251,8 @@
 //    self.fatigueLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",minValue] Unit:@"bpm" WithFont:18];
 //    self.bloodPressureLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",maxValue] Unit:@"bpm" WithFont:18];
 //    self.averageHeartRateLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",avgValue] Unit:@"bpm" WithFont:18];
-    self.nowHeartRateLabel.attributedText = [self makeAttributedStringWithnumBer:[NSString stringWithFormat:@"%d",currentHR] Unit:@"次/分" WithFont:18];
-    self.circleView.value = currentHR;
+//    self.nowHeartRateLabel.text = [NSString stringWithFormat:@"%d次/分",currentHR];
+//    self.circleView.value = currentHR;
 }
 
 - (void)setBackgroundView
@@ -631,7 +642,7 @@
                 if (responseObject[@"data"][@"xuetang"] == nil || [responseObject[@"data"][@"xuetang"] isEqual:[NSNull null]]) {
                     xuetang = @"";
                 }else{
-                    xuetang = responseObject[@"data"][@"xuetang"];
+                    xuetang = [NSString stringWithFormat:@"%.1f",[responseObject[@"data"][@"xuetang"] floatValue]];
                 }
                 
                 if ([[EirogaBlueToothManager sharedInstance] isconnected]) {

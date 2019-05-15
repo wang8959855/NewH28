@@ -7,6 +7,7 @@
 //
 
 #import "SetBloodOxygenView.h"
+#import "AFAppDotNetAPIClient1.h"
 
 @interface SetBloodOxygenView()
 
@@ -44,10 +45,64 @@
         [self makeToast:@"请填写餐后血糖值" duration:1.5 position:CSToastPositionCenter];
         return;
     }
-    [[NSUserDefaults standardUserDefaults] setObject:self.heightTF.text forKey:@"setheight"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.lowTF.text forKey:@"setlow"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.SPO2TF.text forKey:@"setspo2"];
-    [self removeFromSuperview];
+    
+    NSMutableDictionary *_uploadInfoDic = [NSMutableDictionary dictionary];
+    HCHCommonManager *hchc = [HCHCommonManager getInstance];
+    [_uploadInfoDic setObject:[hchc userBirthdate] forKey:@"birthday"];
+    [_uploadInfoDic setObject:[hchc UserGender] forKey:@"sex"];
+    [_uploadInfoDic setObject:[hchc UserAcount] forKey:@"username"];
+    [_uploadInfoDic setObject:[hchc UserAddress] forKey:@"address"];
+    [_uploadInfoDic setObject:[hchc UserWeight] forKey:@"weight"];
+    [_uploadInfoDic setObject:[hchc UserHeight] forKey:@"height"];
+    [_uploadInfoDic setObject:[hchc UserIsHypertension] forKey:@"is_Hypertension"];
+    [_uploadInfoDic setObject:self.heightTF.text forKey:@"systolicP"];
+    [_uploadInfoDic setObject:[hchc UserIsCHD] forKey:@"is_CHD"];
+    [_uploadInfoDic setObject:self.lowTF.text forKey:@"diastolicP"];
+    [_uploadInfoDic setObject:[hchc UserRafTel1] forKey:@"friendTel1"];
+    [_uploadInfoDic setObject:[hchc UserRafTel2] forKey:@"friendTel2"];
+    [_uploadInfoDic setObject:[hchc UserRafTel3] forKey:@"friendTel3"];
+    [_uploadInfoDic setObject:self.SPO2TF.text forKey:@"Glu"];
+    [_uploadInfoDic setObject:[hchc UserIsGlu] forKey:@"is_Glu"];
+    [_uploadInfoDic setObject:USERID forKey:@"userid"];
+    
+    NSString *uploadUrl = [NSString stringWithFormat:@"%@/?token=%@",UPLOADUSERINFO,TOKEN];
+    
+    [self makeToastActivity];
+    [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
+    
+    [[AFAppDotNetAPIClient1 sharedClient] globalmultiPartUploadWithUrl:uploadUrl fileUrl:nil params:_uploadInfoDic Block:^(id responseObject, NSError *error) {
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loginTimeOut) object:nil];
+        
+        [self hideToastActivity];
+        if (error)
+        {
+            [self makeToast:@"网络连接错误" duration:1.5 position:CSToastPositionCenter];
+        }
+        else
+        {
+            int code = [[responseObject objectForKey:@"code"] intValue];
+            NSString *message = [responseObject objectForKey:@"message"];
+            if (code == 0) {
+                if ([message isEqualToString:@"error"]) {
+                    [self makeToast:@"修改失败" duration:1.5 position:CSToastPositionCenter];
+                    return;
+                }else{
+                    [self makeToast:@"修改成功" duration:1.5 position:CSToastPositionCenter];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateUserInfo" object:nil];
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:self.heightTF.text forKey:@"setheight"];
+                    [[NSUserDefaults standardUserDefaults] setObject:self.lowTF.text forKey:@"setlow"];
+                    [[NSUserDefaults standardUserDefaults] setObject:self.SPO2TF.text forKey:@"setspo2"];
+                    [self removeFromSuperview];
+                }
+                
+            } else {
+                [self makeToast:message duration:1.5 position:CSToastPositionCenter];
+            }
+        }
+    }];
 }
 
 //取消

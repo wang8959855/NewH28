@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "EditPersonalInformationOneViewController.h"
 #import "MoreView.h"
-#import "H5ViewController.h"
+#import "BaseWebViewController.h"
 
 #define kCOLOR_BaseViewControllerBackground     [UIColor whiteColor]
 #define kNav_BackIcon                           @"nav_back"
@@ -66,15 +66,15 @@
 {
     UIView *statuBarView = [[UIView alloc] init];
     statuBarView.backgroundColor = KCOLOR(6, 48, 46);
-    statuBarView.frame = CGRectMake(0, 0, ScreenW, 20);
+    statuBarView.frame = CGRectMake(0, 0, ScreenW, StatusBarHeight);
     [self.view addSubview:statuBarView];
     
     UIView *navView = [[UIView alloc] init];
     navView.backgroundColor = [UIColor whiteColor];
-    navView.frame = CGRectMake(0, 20, ScreenW, 44);
+    navView.frame = CGRectMake(0, StatusBarHeight, ScreenW, 44);
     [self.view addSubview:navView];
     
-    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, ScreenW, 1)];
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight, ScreenW, 1)];
     line.backgroundColor = KCOLOR(222, 222, 222);
     [self.view addSubview:line];
     
@@ -117,12 +117,12 @@
 {
     UIView *statuBarView = [[UIView alloc] init];
     statuBarView.backgroundColor = KCOLOR(44, 128, 251);
-    statuBarView.frame = CGRectMake(0, 0, ScreenW, 20);
+    statuBarView.frame = CGRectMake(0, 0, ScreenW, StatusBarHeight);
     [self.view addSubview:statuBarView];
     
     UIView *navView = [[UIView alloc] init];
     navView.backgroundColor = kMainColor;
-    navView.frame = CGRectMake(0, 20, ScreenW, 44);
+    navView.frame = CGRectMake(0, StatusBarHeight, ScreenW, 44);
     [self.view addSubview:navView];
     
 //    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, ScreenW, 1)];
@@ -214,9 +214,9 @@
         if (code == 0) {
             NSInteger warnNum = [responseObject[@"data"][@"warnNum"] integerValue];
             if (warnNum > 0) {
-                H5ViewController *h5 = [H5ViewController new];
+                BaseWebViewController *h5 = [BaseWebViewController new];
                 h5.titleStr = @"预警记录";
-                h5.url = [NSString stringWithFormat:@"http://test07.lantianfangzhou.com/report/current/h28_/%@/%@/0?page=current",USERID,TOKEN];
+                h5.urlStr = [NSString stringWithFormat:@"http://test07.lantianfangzhou.com/report/current/h28_/%@/%@/0?page=current",USERID,TOKEN];
                 [self.navigationController pushViewController:h5 animated:YES];
             }else{
                 [self.view makeToast:@"暂无预警记录" duration:1.5 position:CSToastPositionCenter];

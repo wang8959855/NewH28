@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *switchC;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+
 @end
 
 @implementation PZMusicStateSetViewController1
@@ -24,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.topConstraint.constant = SafeAreaTopHeight;
 }
 
 - (IBAction)switchAction:(UISwitch *)sender {

@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *topButton1;
 @property (weak, nonatomic) IBOutlet UIButton *topButton2;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
+
 
 @end
 
@@ -45,6 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setSubViews];
+    self.topHeight.constant = StatusBarHeight;
 }
 
 - (void)setSubViews{

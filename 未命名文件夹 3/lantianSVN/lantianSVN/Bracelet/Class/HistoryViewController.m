@@ -190,7 +190,7 @@
         UIView *backView = [[UIView alloc] init];
         _backView = backView;
         _backView.backgroundColor = [UIColor whiteColor];
-        _backView.frame = CGRectMake(0, ScreenH, ScreenW, ScreenH - 20);
+        _backView.frame = CGRectMake(0, ScreenH, ScreenW, ScreenH - StatusBarHeight);
         [self.view addSubview:_backView];
         
         UIView *topView = [[UIView alloc] init];
@@ -233,12 +233,12 @@
         }
 
         [UIView animateWithDuration:0.35 animations:^{
-            _backView.frame =CGRectMake(0, 20, ScreenW, ScreenH - 20);
+            _backView.frame =CGRectMake(0, StatusBarHeight, ScreenW, ScreenH - StatusBarHeight);
         } completion:nil];
     }else
     {
         [UIView animateWithDuration:0.35 animations:^{
-            _backView.frame =CGRectMake(0, 20, ScreenW, ScreenH - 20);
+            _backView.frame =CGRectMake(0, StatusBarHeight, ScreenW, ScreenH - StatusBarHeight);
         } completion:nil];
     }
 }
@@ -280,7 +280,7 @@
         label.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:label];
         [label sizeToFit];
-        label.sd_layout.topSpaceToView(self.view, 64 + 27 * kX)
+        label.sd_layout.topSpaceToView(self.view, SafeAreaTopHeight + 27 * kX)
         .centerXIs(self.view.width/2.)
         .widthIs(self.view.width)
         .heightIs(label.height);

@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSMutableArray *alarmArray;
 @property (nonatomic, strong)NSMutableArray *alarmIDArray;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+
 @end
 
 static NSString *reuseID = @"alarmCell";
@@ -47,6 +49,7 @@ static NSString *reuseID = @"alarmCell";
     [super viewDidLoad];
     
     [self setXibLabel];
+    self.topConstraint.constant = SafeAreaTopHeight;
 
 //    self.alarmArray = @[NSLocalizedString(@"运动", nil),NSLocalizedString(@"约会",nil),NSLocalizedString (@"喝水", nil),NSLocalizedString (@"吃药",nil),NSLocalizedString(@"睡眠",nil)];
     contentArray = [[NSMutableArray alloc]init];

@@ -23,6 +23,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.delegate = self;
+    
+    [self.view addSubview:self.coverBtn];//覆盖按钮
+    AppDelegate *app =(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    app.coverBtn = self.coverBtn;
+    //    self.tabBar.barTintColor = kColor(20, 67, 131);
+    [[UITabBar appearance] setTranslucent:NO];
 }
 
 - (void)didReceiveMemoryWarning {

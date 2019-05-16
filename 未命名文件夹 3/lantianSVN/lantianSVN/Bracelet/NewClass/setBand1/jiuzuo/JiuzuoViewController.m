@@ -21,6 +21,9 @@
 
 @property (strong, nonatomic) SedentaryModel *model;
 
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+
 @end
 
 @implementation JiuzuoViewController
@@ -29,6 +32,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setXibLabels];
+    self.topConstraint.constant = SafeAreaTopHeight;
 }
 
 - (void)setXibLabels

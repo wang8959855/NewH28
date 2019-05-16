@@ -11,6 +11,9 @@
 
 @interface JiuzuoSetViewController1 ()
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *statusheight;
+
 @end
 
 @implementation JiuzuoSetViewController1
@@ -19,6 +22,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setXibLabels];
+    self.topHeight.constant = SafeAreaTopHeight;
+    self.statusheight.constant = StatusBarHeight;
 }
 
 - (void)setXibLabels

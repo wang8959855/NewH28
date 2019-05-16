@@ -61,7 +61,7 @@ static NSString *header = @"header";
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserClick) name:@"updateWarn" object:nil];
     UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:refreshButton];
-    refreshButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 25, 32, 20, 20);
+    refreshButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 25, StatusBarHeight + 12, 20, 20);
     [refreshButton setImage:[UIImage imageNamed:@"shuaxin-icon"] forState:UIControlStateNormal];
     [refreshButton addTarget:self action:@selector(reloadWebView) forControlEvents:UIControlEventTouchUpInside];
     

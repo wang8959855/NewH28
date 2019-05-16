@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallViewController1">
             <connections>
                 <outlet property="switchC" destination="iSN-wn-X28" id="Y4V-bW-1yl"/>
+                <outlet property="topConstraint" destination="asK-5F-XYy" id="0mH-bB-KEu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9l-kZ-c5A">
-                    <rect key="frame" x="12" y="134" width="351" height="1"/>
+                    <rect key="frame" x="12" y="114" width="351" height="1"/>
                     <color key="backgroundColor" red="0.82085037230000002" green="0.82102966310000003" blue="0.82081985469999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="Z03-m1-BmZ"/>
@@ -32,7 +33,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来电提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYM-AE-5Fm">
-                    <rect key="frame" x="12" y="84" width="61.5" height="50"/>
+                    <rect key="frame" x="12" y="64" width="61.5" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="S7o-NZ-blU"/>
                     </constraints>
@@ -41,7 +42,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iSN-wn-X28">
-                    <rect key="frame" x="314" y="93.5" width="51" height="31"/>
+                    <rect key="frame" x="314" y="73.5" width="51" height="31"/>
                     <color key="onTintColor" red="0.0" green="0.62745098040000002" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
                     <connections>
                         <action selector="switchAction:" destination="-1" eventType="valueChanged" id="aRa-br-Mpw"/>
@@ -53,7 +54,7 @@
                 <constraint firstItem="r9l-kZ-c5A" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="LbA-Jp-0jb"/>
                 <constraint firstItem="iSN-wn-X28" firstAttribute="centerY" secondItem="fYM-AE-5Fm" secondAttribute="centerY" id="PmA-Qf-6d7"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="iSN-wn-X28" secondAttribute="trailing" constant="12" id="SBl-NK-p7g"/>
-                <constraint firstItem="fYM-AE-5Fm" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="ceU-0s-uvp"/>
+                <constraint firstItem="fYM-AE-5Fm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="asK-5F-XYy"/>
                 <constraint firstItem="fYM-AE-5Fm" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="12" id="gd8-a5-9Eb"/>
                 <constraint firstItem="r9l-kZ-c5A" firstAttribute="top" secondItem="fYM-AE-5Fm" secondAttribute="bottom" id="qHM-N7-c5K"/>
                 <constraint firstAttribute="trailing" secondItem="r9l-kZ-c5A" secondAttribute="trailing" constant="12" id="tYG-fD-nmG"/>

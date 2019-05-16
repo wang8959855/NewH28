@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PZMusicStateSetViewController1">
             <connections>
                 <outlet property="switchC" destination="AFl-xJ-7FK" id="xHv-c7-rDr"/>
+                <outlet property="topConstraint" destination="w3Y-rC-b2b" id="ach-pu-wIX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0t8-e5-T3q">
-                    <rect key="frame" x="12" y="134" width="351" height="1"/>
+                    <rect key="frame" x="12" y="114" width="351" height="1"/>
                     <color key="backgroundColor" red="0.82085037230000002" green="0.82102966310000003" blue="0.82081985469999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="a1N-ti-YXR"/>
@@ -32,7 +33,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音乐控制" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xvy-zx-lQs">
-                    <rect key="frame" x="12" y="84" width="61.5" height="50"/>
+                    <rect key="frame" x="12" y="64" width="61.5" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="q1d-3x-Fig"/>
                     </constraints>
@@ -41,7 +42,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AFl-xJ-7FK">
-                    <rect key="frame" x="314" y="93.5" width="51" height="31"/>
+                    <rect key="frame" x="314" y="73.5" width="51" height="31"/>
                     <color key="onTintColor" red="0.0" green="0.62745098040000002" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
                     <connections>
                         <action selector="switchAction:" destination="-1" eventType="valueChanged" id="WjK-YA-Ynj"/>
@@ -54,9 +55,9 @@
                 <constraint firstAttribute="trailing" secondItem="0t8-e5-T3q" secondAttribute="trailing" constant="12" id="E87-Jd-dMw"/>
                 <constraint firstItem="AFl-xJ-7FK" firstAttribute="centerY" secondItem="Xvy-zx-lQs" secondAttribute="centerY" id="UyE-GC-TkR"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="AFl-xJ-7FK" secondAttribute="trailing" constant="12" id="Vg6-ZY-sYj"/>
-                <constraint firstItem="Xvy-zx-lQs" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="ex5-Pz-CGy"/>
                 <constraint firstItem="Xvy-zx-lQs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="gfb-hF-zgf"/>
                 <constraint firstItem="0t8-e5-T3q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="kNc-7T-jAG"/>
+                <constraint firstItem="Xvy-zx-lQs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="w3Y-rC-b2b"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

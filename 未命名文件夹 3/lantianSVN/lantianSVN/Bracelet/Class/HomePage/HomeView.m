@@ -125,7 +125,7 @@ static NSString *reuseID  = @"CELL";
     
     //关闭
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeBtn.frame = CGRectMake(18, 35, 40, 40);
+    closeBtn.frame = CGRectMake(18, StatusBarHeight+15, 40, 40);
     [closeBtn setImage:[UIImage imageNamed:@"guanbi-1"] forState:UIControlStateNormal];
     [self addSubview:closeBtn];
     [closeBtn addTarget:self action:@selector(cloaseAction) forControlEvents:UIControlEventTouchUpInside];
@@ -761,6 +761,7 @@ static NSString *reuseID  = @"CELL";
 #pragma mark   - - - -   统一的   push  VC  的方法
 -(void)unitePushViewController:(UIViewController *)VC
 {
+    [self cloaseAction];
     //    VC.hidesBottomBarWhenPushed = YES;
     [[PSDrawerManager instance] resetShowType:PSDrawerManagerShowCenter];
     
@@ -777,6 +778,7 @@ static NSString *reuseID  = @"CELL";
 
 -(void)unitePresentViewController:(UIViewController *)VC
 {
+    [self cloaseAction];
     //    VC.hidesBottomBarWhenPushed = YES;
     [[PSDrawerManager instance] resetShowType:PSDrawerManagerShowCenter];
     
@@ -855,7 +857,7 @@ static NSString *reuseID  = @"CELL";
     imageView.layer.shadowRadius = 4;
 
     button.sd_layout.leftSpaceToView(imageView,15)
-    .topSpaceToView (imageView,28)
+    .topSpaceToView (imageView,StatusBarHeight+8)
     .widthIs(24)
     .heightIs(24);
     [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -876,7 +878,7 @@ static NSString *reuseID  = @"CELL";
     label.textColor = [UIColor blackColor];
     label.sd_layout.centerXEqualToView(imageView)
     .widthIs(label.width)
-    .topSpaceToView(imageView,31)
+    .topSpaceToView(imageView,StatusBarHeight+11)
     .heightIs(21);
     //    [self addCurrentPageScreenshot];
     //    [self settingDrawerWhenPush];

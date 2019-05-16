@@ -13,6 +13,7 @@
 @interface MineEWMViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *rwmImage;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeignt;
 
 @end
 
@@ -23,6 +24,7 @@
     // Do any additional setup after loading the view from its nib.
     NSString *data = [NSString stringWithFormat:@"https://www.lantianfangzhou.com/download/downloadApp.html?h28=%@",USERID];
     [self composeImg:[self encodeQRImageWithContent:data size:CGSizeMake(215, 215)]];
+    self.topHeignt.constant = StatusBarHeight;
 }
 
 - (void)didReceiveMemoryWarning {

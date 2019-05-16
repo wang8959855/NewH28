@@ -32,7 +32,7 @@
 - (IBAction)helpAction:(UIButton *)sender {
     BaseWebViewController *web = [[BaseWebViewController alloc] init];
     web.hidesBottomBarWhenPushed = YES;
-    web.urlStr = @"https://rulong.lantianfangzhou.com//wechat2/assistance.html";
+    web.urlStr = @"https://rulong.lantianfangzhou.com/wechat2/assistance.html";
     web.titleStr = @"帮助";
     [self.navigationController pushViewController:web animated:YES];
 }

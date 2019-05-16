@@ -18,6 +18,8 @@
 
 @property (nonatomic, assign) CGFloat minute;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+
 @end
 
 @implementation HeartRateSetViewController1
@@ -42,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.topConstraint.constant = SafeAreaTopHeight;
 }
 
 - (IBAction)switchAction:(UISwitch *)sender {

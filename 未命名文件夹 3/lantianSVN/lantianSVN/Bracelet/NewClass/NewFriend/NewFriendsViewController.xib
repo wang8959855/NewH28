@@ -17,6 +17,7 @@
                 <outlet property="tableView" destination="99b-nZ-D7w" id="0ja-qv-12J"/>
                 <outlet property="topButton1" destination="GT2-Z9-OF7" id="G5f-4Q-nvW"/>
                 <outlet property="topButton2" destination="L3d-VS-djq" id="VC7-pU-1rP"/>
+                <outlet property="topHeight" destination="x1k-Bf-Tv9" id="S3C-Xv-aiC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

@@ -49,7 +49,7 @@
         UIView *backView = [[UIView alloc] init];
         backView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:backView];
-        backView.sd_layout.topSpaceToView(self.view, 64 + 55 * kX * i)
+        backView.sd_layout.topSpaceToView(self.view, SafeAreaTopHeight + 55 * kX * i)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .heightIs(55 * kX);
@@ -57,7 +57,7 @@
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.image = [UIImage imageNamed:array[i * 2 + 1]];
         [backView addSubview:imageView];
-        imageView.sd_layout.leftSpaceToView(backView, 20 * kX)
+        imageView.sd_layout.leftSpaceToView(backView, StatusBarHeight * kX)
         .centerYIs(backView.height/2.)
         .widthIs(30)
         .heightIs(30);
@@ -67,7 +67,7 @@
         label.textColor = kmainBackgroundColor;
         [label sizeToFit];
         [backView addSubview:label];
-        label.sd_layout.leftSpaceToView(imageView, 20)
+        label.sd_layout.leftSpaceToView(imageView, StatusBarHeight)
         .centerYIs(backView.height/2.)
         .widthIs(label.width)
         .heightIs(30);
@@ -78,7 +78,7 @@
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         button.tag = 100 + i;
-        button.sd_layout.topSpaceToView(self.view, 64 + 55 * kX * i)
+        button.sd_layout.topSpaceToView(self.view, SafeAreaTopHeight + 55 * kX * i)
         .rightSpaceToView(self.view, 22 * kX)
         .widthIs(55 * kX)
         .heightIs(55 * kX);

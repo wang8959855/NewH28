@@ -34,6 +34,9 @@ static NSString *AUISaveID = @"AUISaveID";
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
+
+
 //选择器
 @property (nonatomic,strong) ChooseLocationView *chooseLocationView;
 @property (nonatomic,strong) UIView  *cover;
@@ -60,6 +63,7 @@ static NSString *AUISaveID = @"AUISaveID";
     [self setSubViews];
     [self.view addSubview:self.cover];
     [[CitiesDataTool sharedManager] requestGetData];
+    self.topHeight.constant = StatusBarHeight;
 }
 
 - (void)setSubViews{

@@ -92,7 +92,7 @@ void uncaughtExceptionHandler(NSException*exception){
     XXTabBarController *tabbar = [[XXTabBarController alloc]init];
     self.mainTabBarController = tabbar;
     HomeView *leftView = [[HomeView alloc]init];
-    leftView.frame = CGRectMake(0, 0, 250*WidthProportion, CurrentDeviceHeight);
+    leftView.frame = CGRectMake(0, -20, 250*WidthProportion, CurrentDeviceHeight);
     [[PSDrawerManager instance] installCenterViewController:tabbar leftView:leftView];
     self.window.rootViewController = tabbar;
     [self.window makeKeyAndVisible];

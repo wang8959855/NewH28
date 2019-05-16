@@ -23,6 +23,7 @@
 //客服
 @property (weak, nonatomic) IBOutlet UILabel *kefuLabel;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
 
 @end
 
@@ -38,6 +39,7 @@
     _kefuLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(kefuAction)];
     [_kefuLabel addGestureRecognizer:tap];
+    self.topHeight.constant = StatusBarHeight;
 }
 
 - (void)didReceiveMemoryWarning {

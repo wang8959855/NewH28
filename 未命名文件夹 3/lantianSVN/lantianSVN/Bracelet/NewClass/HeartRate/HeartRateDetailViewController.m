@@ -92,7 +92,7 @@
         [button setImage:[UIImage imageNamed:@"xinlv-new"] forState:UIControlStateNormal];
         [self.view addSubview:button];
         button.sd_layout.rightSpaceToView(self.view, 6 * kX)
-        .topSpaceToView(self.view, 15+64)
+        .topSpaceToView(self.view, 15+SafeAreaTopHeight)
         .widthIs(44)
         .heightIs(44);
         _typeButton = button;
@@ -113,7 +113,7 @@
         label.userInteractionEnabled = YES;
         [self.view addSubview:label];
         label.sd_layout.xIs(20)
-        .topSpaceToView(self.view, 18+64)
+        .topSpaceToView(self.view, 18+SafeAreaTopHeight)
         .widthIs(300 * kX)
         .heightIs(35);
         _dateLabel = label;
@@ -150,10 +150,10 @@
     {
         WeekBackView *view = [[WeekBackView alloc] init];
         [self.view addSubview:view];
-        view.sd_layout.topSpaceToView(self.view, 64+25)
+        view.sd_layout.topSpaceToView(self.view, SafeAreaTopHeight+25)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .heightIs(ScreenH - 64 - 25);
+        .heightIs(ScreenH - SafeAreaTopHeight - 25);
         _stepChartBackView = view;
     }
     return _stepChartBackView;

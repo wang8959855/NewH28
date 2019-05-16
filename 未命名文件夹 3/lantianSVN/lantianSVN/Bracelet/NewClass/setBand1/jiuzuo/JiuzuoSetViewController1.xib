@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,7 +20,9 @@
                 <outlet property="kTImeDurationLabel" destination="Ho3-gi-WWY" id="mLh-fO-4Av"/>
                 <outlet property="kTextTipLabel" destination="q45-rZ-ypc" id="YAA-Sh-HFn"/>
                 <outlet property="saveBtn" destination="0bu-Ae-2Md" id="cev-Vp-f1u"/>
+                <outlet property="statusheight" destination="kbf-xB-Zcl" id="hI0-Dq-dBu"/>
                 <outlet property="titleLabel" destination="xgo-vl-6O9" id="v70-o7-b8c"/>
+                <outlet property="topHeight" destination="Zbq-k7-0PU" id="fkD-Nf-isw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,7 +35,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="T3l-4Y-qFI"/>
                         <constraint firstAttribute="height" constant="64" id="Zbq-k7-0PU"/>
                     </constraints>
                 </imageView>
@@ -194,7 +195,6 @@
             <constraints>
                 <constraint firstItem="Ho3-gi-WWY" firstAttribute="top" secondItem="EUM-OL-Z3W" secondAttribute="bottom" constant="18" id="1ae-DK-iec"/>
                 <constraint firstItem="xgo-vl-6O9" firstAttribute="centerY" secondItem="Swf-dR-T3u" secondAttribute="centerY" id="3xu-Oh-0UY"/>
-                <constraint firstItem="Swf-dR-T3u" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="27" id="5L2-Bq-Gfc"/>
                 <constraint firstItem="ozV-eL-J4r" firstAttribute="centerX" secondItem="XuM-kR-Mzp" secondAttribute="centerX" id="6qr-fX-tjY"/>
                 <constraint firstItem="Y5g-Zw-i7F" firstAttribute="centerY" secondItem="q45-rZ-ypc" secondAttribute="centerY" id="6x3-ml-xk4"/>
                 <constraint firstItem="TiS-Mk-Tex" firstAttribute="top" secondItem="ewJ-Dr-EcH" secondAttribute="bottom" constant="18" id="7dO-Lk-kQ8"/>
@@ -226,8 +226,9 @@
                 <constraint firstItem="B5a-cq-eMJ" firstAttribute="top" secondItem="TiS-Mk-Tex" secondAttribute="bottom" constant="18" id="kgn-vL-9h3"/>
                 <constraint firstItem="XuM-kR-Mzp" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mnR-1u-tPm"/>
                 <constraint firstItem="q45-rZ-ypc" firstAttribute="top" secondItem="XuM-kR-Mzp" secondAttribute="bottom" constant="13" id="nHu-ML-qiR"/>
-                <constraint firstItem="Kma-S0-jQV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="oRz-fM-jW8"/>
+                <constraint firstItem="Swf-dR-T3u" firstAttribute="top" secondItem="r4D-yW-Fls" secondAttribute="bottom" constant="7" id="p7g-U0-we4"/>
                 <constraint firstAttribute="trailing" secondItem="r4D-yW-Fls" secondAttribute="trailing" id="pUw-Dk-AdW"/>
+                <constraint firstItem="Kma-S0-jQV" firstAttribute="top" secondItem="r4D-yW-Fls" secondAttribute="bottom" constant="8" id="qam-Es-FFp"/>
                 <constraint firstItem="0bu-Ae-2Md" firstAttribute="centerY" secondItem="xgo-vl-6O9" secondAttribute="centerY" id="sWm-i7-525"/>
                 <constraint firstItem="q45-rZ-ypc" firstAttribute="leading" secondItem="Y5g-Zw-i7F" secondAttribute="trailing" constant="5" id="tt0-Ct-2Yj"/>
                 <constraint firstItem="XuM-kR-Mzp" firstAttribute="top" secondItem="Ho3-gi-WWY" secondAttribute="bottom" constant="18" id="uBr-Hp-1fv"/>
@@ -242,8 +243,8 @@
     <resources>
         <image name="SZ_jiuzuoBtnSelected.png" width="741" height="130"/>
         <image name="SZ_jiuzuoBtnUnselected.png" width="480" height="62"/>
-        <image name="SZ_jiuzuoDurationBg.png" width="480" height="61"/>
-        <image name="left.png" width="10" height="14"/>
-        <image name="loginTakeCare.png" width="12" height="12"/>
+        <image name="SZ_jiuzuoDurationBg.png" width="480" height="61.5"/>
+        <image name="left.png" width="10" height="14.5"/>
+        <image name="loginTakeCare.png" width="12.5" height="12.5"/>
     </resources>
 </document>

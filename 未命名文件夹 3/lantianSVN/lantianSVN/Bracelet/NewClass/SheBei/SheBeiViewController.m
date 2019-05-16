@@ -170,7 +170,7 @@ static NSString *conectReuse = @"connectedCell";
 - (void)setupTopNav
 {
     [self addNavWithTitle:@"手环" backButton:YES shareButton:NO];
-    CGFloat buttonY = 20;
+    CGFloat buttonY = StatusBarHeight;
     CGFloat buttonW = 50;
     CGFloat buttonH = 44;
     CGFloat buttonX = CurrentDeviceWidth - buttonW - 3;
@@ -180,7 +180,7 @@ static NSString *conectReuse = @"connectedCell";
    
     CGFloat imageViewW = 22*WidthProportion;
     CGFloat imageViewH = 22*WidthProportion;
-    CGFloat imageViewY = (44-imageViewH)-imageViewH/2+20;
+    CGFloat imageViewY = (44-imageViewH)-imageViewH/2+StatusBarHeight;
     CGFloat imageViewX = CurrentDeviceWidth - imageViewW - 15*WidthProportion;
     
     imageView.frame = CGRectMake(imageViewX, imageViewY, imageViewW,imageViewH);

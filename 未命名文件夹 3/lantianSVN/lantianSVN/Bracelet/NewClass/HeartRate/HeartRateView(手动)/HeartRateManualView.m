@@ -91,7 +91,7 @@
     [self addSubview:self.targetBtn];
 //    self.targetBtn.layer.borderColor = kMainColor.CGColor;
 //    self.targetBtn.layer.borderWidth = 1;
-    self.targetBtn.layer.cornerRadius = 17*kDY;
+    self.targetBtn.layer.cornerRadius = 17*kX;
     [self.targetBtn setBackgroundColor:[UIColor whiteColor]];
     [self.targetBtn setTitle:[NSString stringWithFormat:@"开始测量"] forState:UIControlStateNormal];
     [self.targetBtn setTitle:NSLocalizedString(@"结束测量",nil) forState:UIControlStateSelected];

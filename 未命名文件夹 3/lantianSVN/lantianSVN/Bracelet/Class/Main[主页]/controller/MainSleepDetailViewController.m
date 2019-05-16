@@ -132,7 +132,7 @@
         [segment addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
         [segment setSelectedSegmentIndex:0];
         segment.tintColor = kMainColor;
-        segment.sd_layout.xIs(20).topSpaceToView(self.view, 18+64)
+        segment.sd_layout.xIs(20).topSpaceToView(self.view, 18+SafeAreaTopHeight)
         .widthIs(300 * kX)
         .heightIs(35);
         _segment = segment;
@@ -151,7 +151,7 @@
         //        [button addTarget:self action:@selector(dataTypeChanged:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         button.sd_layout.rightSpaceToView(self.view, 6 * kX)
-        .topSpaceToView(self.view, 15+64)
+        .topSpaceToView(self.view, 15+SafeAreaTopHeight)
         .widthIs(44)
         .heightIs(44);
         _typeButton = button;
@@ -165,10 +165,10 @@
     {
         WeekBackView *view = [[WeekBackView alloc] init];
         [self.view addSubview:view];
-        view.sd_layout.topSpaceToView(self.view, 64 + 64)
+        view.sd_layout.topSpaceToView(self.view, 64 + SafeAreaTopHeight)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .heightIs(ScreenH - 64 - 64);
+        .heightIs(ScreenH - 64 - SafeAreaTopHeight);
         _stepChartBackView = view;
     }
     return _stepChartBackView;

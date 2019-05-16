@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -80,7 +79,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的设备" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJv-Gj-BS5">
-                    <rect key="frame" x="153" y="31" width="70" height="21"/>
+                    <rect key="frame" x="152.5" y="31" width="70" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="RPf-AD-PKW"/>
                     </constraints>
@@ -102,7 +101,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找手环" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zt-KX-eHy">
-                    <rect key="frame" x="54" y="324.5" width="49" height="12"/>
+                    <rect key="frame" x="54" y="323.5" width="49" height="13"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -131,7 +130,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="恢复出厂设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIZ-iM-irU">
-                    <rect key="frame" x="54" y="383.5" width="98" height="12"/>
+                    <rect key="frame" x="54" y="382.5" width="98" height="13"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -160,7 +159,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清除本地数据" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vf2-kt-9tX">
-                    <rect key="frame" x="54" y="442.5" width="98" height="12"/>
+                    <rect key="frame" x="54" y="441.5" width="98" height="13"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -222,14 +221,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="问号.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yb5-HD-j6n">
-                    <rect key="frame" x="348" y="182.5" width="17" height="17"/>
+                    <rect key="frame" x="348" y="183" width="17" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="amC-pS-L4U"/>
                         <constraint firstAttribute="width" constant="17" id="dxL-CP-S4B"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jok-Uy-8Dn">
-                    <rect key="frame" x="332" y="166.5" width="50" height="50"/>
+                    <rect key="frame" x="331.5" y="166.5" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="18c-Ef-WnW"/>
                         <constraint firstAttribute="width" constant="50" id="J56-sw-ktY"/>
@@ -396,12 +395,12 @@
         </view>
     </objects>
     <resources>
-        <image name="back" width="7" height="15"/>
+        <image name="back" width="7.5" height="15"/>
         <image name="寻找设备.png" width="20" height="30"/>
         <image name="恢复出厂设置.png" width="20" height="30"/>
         <image name="清除本地数据.png" width="20" height="30"/>
         <image name="蓝底.png" width="375" height="236"/>
         <image name="设备未连接.png" width="128" height="128"/>
-        <image name="问号.png" width="16" height="16"/>
+        <image name="问号.png" width="16.5" height="16.5"/>
     </resources>
 </document>

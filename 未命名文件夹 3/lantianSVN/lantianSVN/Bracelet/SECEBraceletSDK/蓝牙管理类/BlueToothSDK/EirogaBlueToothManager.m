@@ -674,7 +674,7 @@
                 int heart = [heartArray[i] intValue];
                 if (heart > 0)
                 {
-                    int time = timeSeconds + i * 2 * 60;
+                    int time = timeSeconds + i * 60;
                     if (time > lastTime)
                     {
                         NSDictionary *dic = @{@"time":intToString(time),@"rate":intToString(heart)};
@@ -688,7 +688,7 @@
                 int step = [stepArray[i] intValue];
                 if (step > 0)
                 {
-                    int time = timeSeconds + i * 2 * 60;
+                    int time = timeSeconds + i * 60;
                     NSDictionary *dic = @{@"time":intToString(time),@"step":intToString(step)};
                     [valueArray1 addObject:dic];
                 }
@@ -750,7 +750,7 @@
         int lastTime = [[Common sleepTime] intValue];
         for (int i = 0 ; i < sleepArray.count; i ++)
         {
-            int time = startTime + i * 10 * 60;
+            int time = startTime + i * 1 * 60;
             int sq = 0;
             int state = [sleepArray[i] intValue];
             if (state == 18)

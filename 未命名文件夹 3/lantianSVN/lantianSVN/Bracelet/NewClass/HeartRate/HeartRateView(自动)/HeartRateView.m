@@ -191,10 +191,6 @@
 - (void)reloadData;
 {
     
-    [[PZBlueToothManager sharedInstance] getHistoryDataWithYeah:2019 Month:5 Day:13 andHour:14 DataBlock:^(historyDataHourModel *model) {
-        NSLog(@"%@",model);
-    }];
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeartRate" object:nil];
     [self.backScrollView.mj_header endRefreshing];
     

@@ -49,6 +49,10 @@
 
 @property (copy, nonatomic) BlueToothManager *blueToothManager;
 
+
+//历史数据分段传输
+@property (nonatomic, strong) NSMutableData *historyData;
+
 @end
 
 @implementation PZBlueToothManager
@@ -477,6 +481,7 @@
         }
             break;
         default:
+            [self recieveHistoryData:Dat];
             break;
     }
 }
@@ -599,85 +604,63 @@
     {
         return;
     }
+    //判断有没有年月
     Byte *transDat = (Byte *)[data bytes];
-    int year = transDat[2] + 2000;
-    int mouth = transDat[3];
-    int day = transDat[4];
-    int hour = transDat[5];
-    int calmHR = transDat[6];
-    int len = transDat[7];
-    NSMutableArray *stateArray = [[NSMutableArray alloc] init];
-    NSMutableArray *heartArray = [[NSMutableArray alloc] init];
-    NSMutableArray *BPHArray = [[NSMutableArray alloc] init];
-    NSMutableArray *BPLArray = [[NSMutableArray alloc] init];
-    NSMutableArray *stepArray = [[NSMutableArray alloc] init];
-    int steps = 0;
-    
-    if (len == 42)
-    {
-        for (int i = 0 ; i < len/7; i ++)
-        {
-            int status = transDat[8 + i * 7];
-            int step = [self combineDataWithAddr:transDat + (9 + i * 7 ) andLength:3];
-            int hr = transDat[12 + i * 7];
-            int BPL = transDat[13 + i * 7];
-            int BPH = transDat[14 + i *7];
-            steps += step;
-            [stepArray addObject:[NSString stringWithFormat:@"%d",step]];
-            [stateArray addObject:[NSString stringWithFormat:@"%d",status]];
-            for (int i = 0; i < 3; i ++)
-            {
-                [heartArray addObject:@"0"];
-            }
-            [heartArray addObject:[NSString stringWithFormat:@"%d",hr]];
-            [BPHArray addObject:[NSString stringWithFormat:@"%d",BPH]];
-            [BPLArray addObject:[NSString stringWithFormat:@"%d",BPL]];
+    if (transDat[0] == 0x02 && transDat[1] == 0x19) {
+        //第一段数据
+        [self.historyData setLength:0];
+    }
+    [self.historyData appendData:data];
+    //判断有没有之前没有上传的数据
+    if (self.historyData.length == 187) {
+        
+        Byte *hisTransDat = (Byte *)[self.historyData bytes];
+        int currentYear = hisTransDat[2] + 2000;
+        int currentMonth = hisTransDat[3];
+        int currentDay = hisTransDat[4];
+        int currentHour = hisTransDat[5];
+        int currentCalmHR = hisTransDat[6];
+        if (hisTransDat[5] == 0xFF) {
+            //当天无数据
+            NSLog(@"无数据");
+            return;
         }
-    }else if (len == 67)
-    {
-        for (int i = 0 ; i < len/10; i ++)
-        {
-            int status = transDat[8 + i * 10];
-            int step = [self combineDataWithAddr:transDat + (9 + i * 10 ) andLength:3];
-            int hr1 = transDat[12 + i*10];
-            int hr2 = transDat[13 + i*10];
-            int hr3 = transDat[14 + i*10];
-            int hr4 = transDat[15 + i*10];
-
-            int BPL = transDat[16 + i * 10];
-            int BPH = transDat[17 + i *10];
+        
+        NSMutableArray *stepArray = [NSMutableArray array];
+        NSMutableArray *stateArray = [NSMutableArray array];
+        NSMutableArray *heartArray = [NSMutableArray array];
+        
+        int steps = 0;
+        for (int i = 0; i < 60; i++) {
+            int status = hisTransDat[9+i*3];
+            int step = hisTransDat[8+i*3];
+            int hr1 = hisTransDat[7+i*3];
             steps += step;
             [stepArray addObject:[NSString stringWithFormat:@"%d",step]];
             [stateArray addObject:[NSString stringWithFormat:@"%d",status]];
-            
             [heartArray addObject:[NSString stringWithFormat:@"%d",hr1]];
-            [heartArray addObject:[NSString stringWithFormat:@"%d",hr2]];
-            [heartArray addObject:[NSString stringWithFormat:@"%d",hr3]];
-            [heartArray addObject:[NSString stringWithFormat:@"%d",hr4]];
-
-            
-            [BPHArray addObject:[NSString stringWithFormat:@"%d",BPH]];
-            [BPLArray addObject:[NSString stringWithFormat:@"%d",BPL]];
         }
+        
+        
+        historyDataHourModel *hourModel = [[historyDataHourModel alloc] init];
+        hourModel.yeah = currentYear;
+        hourModel.month = currentMonth;
+        hourModel.day = currentDay;
+        hourModel.hour = currentHour;
+        hourModel.calmHR = currentCalmHR;
+        hourModel.totalSteps = steps;
+        hourModel.stepArray = stepArray;
+        hourModel.stateArray = stateArray;
+        hourModel.heartArray = heartArray;
+        hourModel.BPHArray = @[];
+        hourModel.BPLArray = @[];
+        if (self.historyHourModelBlock) {
+            self.historyHourModelBlock(hourModel);
+        }
+        //清除数据
+        [self.historyData setLength:0];
     }
-
     
-    historyDataHourModel *hourModel = [[historyDataHourModel alloc] init];
-    hourModel.yeah = year;
-    hourModel.month = mouth;
-    hourModel.day = day;
-    hourModel.hour = hour;
-    hourModel.calmHR = calmHR;
-    hourModel.totalSteps = steps;
-    hourModel.stepArray = stepArray;
-    hourModel.stateArray = stateArray;
-    hourModel.heartArray = heartArray;
-    hourModel.BPHArray = BPHArray;
-    hourModel.BPLArray = BPLArray;
-    if (self.historyHourModelBlock)
-    {
-        self.historyHourModelBlock(hourModel);
-    }
 }
 
 #pragma mark -- 收到离线数据历史数据等
@@ -758,6 +741,13 @@
 {
 
     return [BlueToothManager getInstance];
+}
+
+- (NSMutableData *)historyData{
+    if (!_historyData) {
+        _historyData = [NSMutableData data];
+    }
+    return _historyData;
 }
 
 @end

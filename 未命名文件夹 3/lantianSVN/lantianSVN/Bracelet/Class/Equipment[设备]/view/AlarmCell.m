@@ -31,6 +31,9 @@
 @property (nonatomic, weak) UIButton *deleteBtn;
 
 @property (nonatomic, weak) UISwitch *alarmSwitch;
+
+@property (nonatomic, weak) UILabel *line;
+
 @end
 
 @implementation AlarmCell
@@ -58,7 +61,7 @@
     {
         UISwitch *sc = [[UISwitch alloc] init];
 //        sc.tintColor = [UIColor whiteColor];
-        sc.onTintColor = kmainLightColor;
+        sc.onTintColor = kMainColor;
         [sc addTarget:self action:@selector(swithValueChanged:) forControlEvents:UIControlEventValueChanged];
         
         [self.cellContentView addSubview:sc];
@@ -72,7 +75,7 @@
     if (!_cellContentView)
     {
         UIView *v = [[UIView alloc] init];
-        v.backgroundColor = kmainBackgroundColor;
+//        v.backgroundColor = kmainBackgroundColor;
         [self.contentView addSubview:v];
         
         _cellContentView = v;
@@ -87,8 +90,8 @@
     {
         UILabel *timeLabel = [[UILabel alloc] init];
         timeLabel.text = @"00:00";
-        timeLabel.textColor = [UIColor whiteColor];
-        timeLabel.font = [UIFont systemFontOfSize:28];
+        timeLabel.textColor = [UIColor blackColor];
+        timeLabel.font = [UIFont systemFontOfSize:25];
         [self.cellContentView addSubview:timeLabel];
         
         _timeLabel = timeLabel;
@@ -102,7 +105,7 @@
     if (!_cycleLabel)
     {
         UILabel *cycleLabel = [[UILabel alloc] init];
-        cycleLabel.textColor = [UIColor whiteColor];
+        cycleLabel.textColor = [UIColor blackColor];
         cycleLabel.font = [UIFont systemFontOfSize:12];
         [self.cellContentView addSubview:cycleLabel];
         
@@ -110,6 +113,17 @@
     }
     
     return _cycleLabel;
+}
+
+- (UILabel *)line{
+    if (!_line) {
+        UILabel *line = [[UILabel alloc] init];
+        line = [[UILabel alloc] init];
+        line.backgroundColor = KCOLOR(201, 201, 201);
+        [self.cellContentView addSubview:line];
+        _line = line;
+    }
+    return _line;
 }
 
 #pragma mark - 初始化
@@ -326,7 +340,8 @@
     
     [self.timeLabel sizeToFit];
     self.timeLabel.frame = CGRectMake(15, 0, self.timeLabel.width, self.cellContentView.frame.size.height);
-
+    
+    self.line.frame = CGRectMake(0, self.cellContentView.height-1, self.cellContentView.width, 1);
     
     self.cycleLabel.frame = CGRectMake(self.timeLabel.maxX + 15, 0, 200, self.cellContentView.frame.size.height);
     self.cycleLabel.sd_layout.bottomSpaceToView(self.cellContentView, 10 * kX)

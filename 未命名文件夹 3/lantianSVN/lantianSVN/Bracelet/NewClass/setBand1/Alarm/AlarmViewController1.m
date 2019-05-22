@@ -224,7 +224,7 @@ static NSString *reuseID = @"alarmCell";
     }];
     
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = kmainBackgroundColor;
+//    cell.backgroundColor = kmainBackgroundColor;
     cell.model = self.alarmArray[indexPath.row];
     return cell;
 }

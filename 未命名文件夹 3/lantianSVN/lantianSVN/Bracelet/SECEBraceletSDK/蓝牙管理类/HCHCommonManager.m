@@ -78,7 +78,7 @@ static HCHCommonManager * instance=nil;
 {
     NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return @{@"data":jsonString,@"userid":USERID};
+    return @{@"data":jsonString,@"userid":USERID,@"token":TOKEN,@"device":@""};
 }
 
 - (void)userInfoModelChanged

@@ -151,7 +151,7 @@ static MoreView *instance = nil;
     }else if (button == self.sosBtn){//sos
         SOSView *sos = [SOSView initSOSView];
         [sos show];
-        __weak MoreView *weakSelf;
+        __weak MoreView *weakSelf = self;
         sos.sosOKBlock = ^{
             if (!weakSelf.locationBtn.selected) {
                 [self makeToast:@"请先打开定位" duration:1.5 position:CSToastPositionCenter];

@@ -21,6 +21,7 @@
                 <outlet property="resetDetailLabel" destination="xHg-8v-3Be" id="i3h-tU-hrw"/>
                 <outlet property="resetLabel" destination="PIZ-iM-irU" id="q6E-UZ-Q6g"/>
                 <outlet property="searchBtn" destination="gyJ-nE-UWk" id="VcB-iv-Cla"/>
+                <outlet property="searchTop" destination="FgH-ob-PUN" id="cbn-Q6-yhO"/>
                 <outlet property="searchView" destination="Pwr-46-Wqo" id="G1G-Ge-bhf"/>
                 <outlet property="searchViewTopView" destination="nNa-uz-Rdi" id="uc7-m6-A6i"/>
                 <outlet property="sousuoTitle" destination="xyb-PX-xml" id="DWg-PT-ifj"/>
@@ -341,7 +342,6 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nNa-uz-Rdi">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="2LM-2K-oYR"/>
                         <constraint firstAttribute="height" constant="64" id="FgH-ob-PUN"/>
                     </constraints>
                 </imageView>

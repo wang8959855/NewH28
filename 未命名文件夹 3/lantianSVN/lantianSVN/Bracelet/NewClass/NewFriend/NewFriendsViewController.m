@@ -134,14 +134,14 @@
 //获取好友列表
 - (void)getFriendList{
     [self.dataSource removeAllObjects];
-    [self addActityIndicatorInView:self.view labelText:@"正在获取好友列表" detailLabel:@"正在获取好友列表"];
+    [self.view makeToastActivity];
     [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
     NSString *uploadUrl = [NSString stringWithFormat:@"%@/?token=%@",GETFRIENDLIST,TOKEN];
     [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:uploadUrl fileUrl:nil params:@{@"userid":USERID} Block:^(id responseObject, NSError *error) {
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loginTimeOut) object:nil];
         
-        [self removeActityIndicatorFromView:self.view];
+        [self.view hideToastActivity];
         if (error)
         {
             [self addActityTextInView:self.view text:NSLocalizedString(@"网络连接错误", nil) deleyTime:1.5f];
@@ -163,7 +163,7 @@
 
 - (void)deleteInfo:(NSInteger)row{
     NSDictionary *dic = self.dataSource[row];
-    [self addActityIndicatorInView:self.view labelText:@"正在删除好友" detailLabel:@"正在删除好友"];
+    [self.view makeToastActivity];
     [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
     NSString *uploadUrl = [NSString stringWithFormat:@"%@/?token=%@",DELETEFRIEND,TOKEN];
     
@@ -173,7 +173,7 @@
     [manager POST:uploadUrl parameters:@{@"userid":USERID,@"friendid":dic[@"friendid"]} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     } progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self removeActityIndicatorFromView:self.view];
+        [self.view hideToastActivity];
         int code = [[responseObject objectForKey:@"code"] intValue];
         NSString *message = [responseObject objectForKey:@"message"];
         if (code == 0) {
@@ -184,7 +184,7 @@
             [self addActityTextInView:self.view text:NSLocalizedString(message, nil)  deleyTime:1.5f];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self removeActityIndicatorFromView:self.view];
+        [self.view hideToastActivity];
         [self addActityTextInView:self.view text:NSLocalizedString(@"网络连接错误", nil) deleyTime:1.5f];
     }];
 }
@@ -229,14 +229,14 @@
 
 //添加好友
 - (void)addFriendWithId:(NSString *)friendId{
-    [self addActityIndicatorInView:self.view labelText:@"正在添加好友" detailLabel:@"正在添加好友"];
+    [self.view makeToastActivity];
     [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
     NSString *uploadUrl = [NSString stringWithFormat:@"%@/?token=%@",ADDFRIEND,TOKEN];
     [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:uploadUrl fileUrl:nil params:@{@"userid":USERID,@"friendid":friendId} Block:^(id responseObject, NSError *error) {
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loginTimeOut) object:nil];
         
-        [self removeActityIndicatorFromView:self.view];
+        [self.view hideToastActivity];
         if (error)
         {
             [self addActityTextInView:self.view text:NSLocalizedString(@"网络连接错误", nil) deleyTime:1.5f];

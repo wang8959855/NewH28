@@ -422,7 +422,6 @@
                 if (userDataArray.count == 0)
                 {
                     [self getHistoryDataWithTimeSecondsFromBracelet:timeSeconds andHour:0];
-                    return;
                 }else
                 {
                     userDataModel *dataModel = userDataArray[0];
@@ -476,11 +475,11 @@
             sportModel *sport = [sportModel new];
             NSMutableArray *array144 = [[NSMutableArray alloc] init];
             NSMutableArray *array24 = [[NSMutableArray alloc] init];
-            for (int i = 0; i < 144; i ++)
+            for (int i = 0; i < 14400; i ++)
             {
                 [array144 addObject:@"0"];
             }
-            for (int i = 0 ; i < 24; i ++)
+            for (int i = 0 ; i < 14400; i ++)
             {
                 [array24 addObject:@"0"];
             }
@@ -490,20 +489,17 @@
             [sport.BPLArray addObjectsFromArray:array144];
             
             [sport.heartArray addObjectsFromArray:array144];
-            [sport.heartArray addObjectsFromArray:array144];
-            [sport.heartArray addObjectsFromArray:array144];
-            [sport.heartArray addObjectsFromArray:array144];
             
             [sport.calmHRArray addObjectsFromArray:array24];
             
-            [sport.statuArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.stateArray];
-            [sport.stepArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.totalSteps]];
-            [sport.BPHArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPHArray];
-            [sport.BPLArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPLArray];
-            [sport.heartArray replaceObjectsInRange:NSMakeRange(hour * 24, 24) withObjectsFromArray:model.heartArray];
+            [sport.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stateArray];
+            [sport.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stepArray];
+//            [sport.BPHArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPHArray];
+//            [sport.BPLArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPLArray];
+            [sport.heartArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.heartArray];
             [sport.calmHRArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.calmHR]];
             dataModel.totalSteps = 0;
-            for (int i = 0; i < 24; i ++)
+            for (int i = 0; i < 60; i ++)
             {
                 dataModel.totalSteps += [sport.stepArray[i] intValue];
             }
@@ -516,23 +512,19 @@
             
             if (dataModel.lastUpdate <= hour)
             {
-                int cha = hour-sportM.statuArray.count/6;
-                int cha1 = hour-sportM.BPLArray.count/6;
-                int cha2 = hour-sportM.BPHArray.count/6;
-                int cha3 = hour-sportM.heartArray.count/24;
-                
                 if (sportM.statuArray.count != 0) {
-                    [sportM.statuArray replaceObjectsInRange:NSMakeRange((hour-cha-1) * 6, 6) withObjectsFromArray:model.stateArray];
+                    [sportM.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stateArray];
                 }
-                [sportM.stepArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.totalSteps]];
-                if (sportM.BPHArray.count != 0) {
-                    [sportM.BPHArray replaceObjectsInRange:NSMakeRange((hour-cha1-1) * 6, 6) withObjectsFromArray:model.BPHArray];
-                }
-                if (sportM.BPLArray.count != 0) {
-                    [sportM.BPLArray replaceObjectsInRange:NSMakeRange((hour-cha2-1) * 6, 6) withObjectsFromArray:model.BPLArray];
-                }
+                [sportM.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stepArray];
+//                [sportM.stepArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.totalSteps]];
+//                if (sportM.BPHArray.count != 0) {
+//                    [sportM.BPHArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPHArray];
+//                }
+//                if (sportM.BPLArray.count != 0) {
+//                    [sportM.BPLArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPLArray];
+//                }
                 if (sportM.heartArray.count != 0) {
-                    [sportM.heartArray replaceObjectsInRange:NSMakeRange((hour-cha3-1) * 24, 24) withObjectsFromArray:model.heartArray];
+                    [sportM.heartArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.heartArray];
                 }
                 [sportM.calmHRArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.calmHR]];
                 dataModel.lastUpdate = hour;
@@ -697,7 +689,7 @@
             {
                 NSDictionary *jsonDic = @{@"deviceId":kHCH.mac,@"openid":kHCH.mac,@"rate":valueArray,@"type":kHCH.type,@"version":kHCH.version,@"step":valueArray1};
                 NSDictionary *param = [kHCH changeToParamWithDic:jsonDic];
-                NSString *url = [NSString stringWithFormat:@"%@/?token=%@",HEARTRATEUPDATE,TOKEN];
+                NSString *url = [NSString stringWithFormat:@"%@",HEARTRATEUPDATE];
                 [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:param Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {
                     if (responseObject)
                     {
@@ -852,7 +844,12 @@
             [self.locationManager requestLocationWithReGeocode:YES withNetworkState:NO completionBlock:^(BMKLocation * _Nullable location, BMKLocationNetworkState state, NSError * _Nullable error) {
                 weakSelf.uploadNum = 0;
                 if (location.rgcData) {
-                    NSString *address = [NSString stringWithFormat:@"%@%@%@",location.rgcData.province,location.rgcData.city,location.rgcData.district];
+                    NSString *address = @"";
+                    if ([location.rgcData.province isEqualToString:location.rgcData.city]) {
+                        address = [NSString stringWithFormat:@"%@%@",location.rgcData.city,location.rgcData.district];
+                    }else{
+                        address = [NSString stringWithFormat:@"%@%@%@",location.rgcData.province,location.rgcData.city,location.rgcData.district];
+                    }
                     [weakSelf requestUploadAddress:address lng:location.location.coordinate.longitude lat:location.location.coordinate.latitude environment:location.rgcData.locationDescribe];
                 }else{
                     [weakSelf requestUploadAddress:@"" lng:location.location.coordinate.longitude lat:location.location.coordinate.latitude environment:@""];

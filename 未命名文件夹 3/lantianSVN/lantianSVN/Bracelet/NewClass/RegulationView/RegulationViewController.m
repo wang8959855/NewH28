@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
 
 @end
 
@@ -23,6 +24,7 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://rulong.lantianfangzhou.com//wechat2/healthadjust.html?UserID=%@&token=%@",USERID,TOKEN]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
+    self.topHeight.constant = SafeAreaTopHeight;
 }
 
 - (void)didReceiveMemoryWarning {

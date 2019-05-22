@@ -20,45 +20,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bracelet/SECEBraceletSDK/&#x84dd;&#x7259;&#x7ba1;&#x7406;&#x7c7b;/BlueToothSDK/EirogaBlueToothManager.m"
-            timestampString = "579693373.48744"
+            timestampString = "580187802.510896"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
-            landmarkName = "-uploadHistoryHeartDataWithTimeSeconds:"
+            startingLineNumber = "771"
+            endingLineNumber = "771"
+            landmarkName = "-uploadSleepDataWithTimeSeconds:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[EirogaBlueToothManager uploadHistoryHeartDataWithTimeSeconds:]_block_invoke"
-                  moduleName = "Bracelet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Downloads/NewH28/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9%203/lantianSVN/lantianSVN/Bracelet/SECEBraceletSDK/%E8%93%9D%E7%89%99%E7%AE%A1%E7%90%86%E7%B1%BB/BlueToothSDK/EirogaBlueToothManager.m"
-                  timestampString = "579693373.748666"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "701"
-                  endingLineNumber = "701"
-                  offsetFromSymbolStart = "2504">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[EirogaBlueToothManager uploadHistoryHeartDataWithTimeSeconds:]_block_invoke_2"
-                  moduleName = "Bracelet"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Downloads/NewH28/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9%203/lantianSVN/lantianSVN/Bracelet/SECEBraceletSDK/%E8%93%9D%E7%89%99%E7%AE%A1%E7%90%86%E7%B1%BB/BlueToothSDK/EirogaBlueToothManager.m"
-                  timestampString = "579693373.751761"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "702"
-                  endingLineNumber = "702"
-                  offsetFromSymbolStart = "120">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bracelet/SECEBraceletSDK/&#x84dd;&#x7259;&#x7ba1;&#x7406;&#x7c7b;/BlueToothSDK/EirogaBlueToothManager.m"
+            timestampString = "580187802.511032"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "768"
+            endingLineNumber = "768"
+            landmarkName = "-uploadSleepDataWithTimeSeconds:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

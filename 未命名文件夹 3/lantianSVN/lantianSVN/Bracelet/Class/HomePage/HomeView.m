@@ -530,6 +530,10 @@ static NSString *reuseID  = @"CELL";
 -(void)viewWillRefresh {
 //        adaLog(@"  = = = = = =  不断的请求");
     
+    if ([[EirogaBlueToothManager sharedInstance] isconnected]) {
+        self.bleLabel.text = NSLocalizedString(@"已连接", nil);
+    }
+    
     [[PZBlueToothManager sharedInstance] getHardBatteryInformation:^(int number) {
         if ([EirogaBlueToothManager sharedInstance].isconnected)
         {

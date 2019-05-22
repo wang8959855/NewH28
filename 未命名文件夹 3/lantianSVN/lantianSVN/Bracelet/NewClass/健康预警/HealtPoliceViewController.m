@@ -16,7 +16,7 @@
 static NSString *listCell = @"policeCell";
 static NSString *header = @"header";
 
-@interface HealtPoliceViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>{
+@interface HealtPoliceViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,WKNavigationDelegate>{
     NSArray *_titleArr;
     NSArray *_imageArr;
 }
@@ -43,6 +43,7 @@ static NSString *header = @"header";
 }
 
 - (void)reloadWebView{
+    [[UIApplication sharedApplication].keyWindow makeToastActivity];
     //测试
     NSString *root = @"http://test07.lantianfangzhou.com/report/current";
     //生产
@@ -54,7 +55,7 @@ static NSString *header = @"header";
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [[UIApplication sharedApplication].keyWindow makeToastActivity];
     // Do any additional setup after loading the view from its nib.
     [self addnavTittle:@"健康报告" RSSIImageView:YES shareButton:YES];
 //    [self setSubViews];
@@ -81,6 +82,7 @@ static NSString *header = @"header";
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@/%@/0",root,self.sxiao,USERID,TOKEN]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
+    self.webView.navigationDelegate = self;
     [self.view addSubview:self.webView];
     
     
@@ -98,6 +100,13 @@ static NSString *header = @"header";
     guide.index = 0;
     guide.imageArr = @[@"repot1",@"repot2",@"repot3",@"repot4",@"repot5"];
     [self.navigationController pushViewController:guide animated:YES];
+}
+
+#pragma mark - WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    if (!webView.isLoading) {
+        [[UIApplication sharedApplication].keyWindow hideToastActivity];
+    }
 }
 
 - (void)setSubViews{

@@ -15,10 +15,15 @@
 @interface SheBeiViewController ()<DeviceTypeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>//BlueToothScanDelegate,
 
 @property (nonatomic,assign) BOOL isChange;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchTop;
+
+
 @end
 
 static NSString *cellReuse = @"Cell";
 static NSString *conectReuse = @"connectedCell";
+
 
 
 @implementation SheBeiViewController
@@ -108,6 +113,7 @@ static NSString *conectReuse = @"connectedCell";
 - (void)setupView
 {
     [self setupTopNav];
+    self.searchTop.constant = SafeAreaTopHeight;
     self.deviceTableView.mj_header = [self getRefreshHeader];
     [self.deviceTableView registerNib:[UINib nibWithNibName:@"SheBeiCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     

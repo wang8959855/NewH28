@@ -7,6 +7,7 @@
 //
 
 #import "XXNavigationController.h"
+#import "RhythmViewController.h"
 
 @interface XXNavigationController ()
 
@@ -35,8 +36,11 @@
     
     if (self.viewControllers.count > 0)
     {
-        //隐藏tabbar
-        viewController.hidesBottomBarWhenPushed = YES;
+        if (![viewController isKindOfClass:[RhythmViewController class]]) {
+            //隐藏tabbar
+            viewController.hidesBottomBarWhenPushed = YES;            
+        }
+        
         //设置不透明
         self.navigationBar.translucent = NO;
         

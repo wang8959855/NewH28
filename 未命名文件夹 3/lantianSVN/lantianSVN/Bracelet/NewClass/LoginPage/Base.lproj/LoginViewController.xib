@@ -28,7 +28,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mad-BK-jK9">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="Neg-rb-5QC">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Neg-rb-5QC">
                             <rect key="frame" x="142.5" y="85" width="90" height="90"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="90" id="Qlh-H4-sgX"/>
@@ -244,7 +244,7 @@
     <resources>
         <image name="Password" width="37" height="37"/>
         <image name="card" width="621" height="420"/>
-        <image name="icon" width="180" height="180"/>
+        <image name="logo" width="171" height="171"/>
         <image name="number" width="37" height="37"/>
     </resources>
 </document>

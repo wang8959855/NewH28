@@ -146,7 +146,7 @@ static MoreView *instance = nil;
     if (button == self.jielvBtn) {//节律
         [self rotateAction:nil];
         RhythmViewController *rhy = [RhythmViewController new];
-        rhy.hidesBottomBarWhenPushed = YES;
+//        rhy.hidesBottomBarWhenPushed = NO;
         [[self findCurrentViewController].navigationController pushViewController:rhy animated:YES];
     }else if (button == self.sosBtn){//sos
         SOSView *sos = [SOSView initSOSView];

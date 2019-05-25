@@ -73,6 +73,7 @@
     navView.backgroundColor = [UIColor whiteColor];
     navView.frame = CGRectMake(0, StatusBarHeight, ScreenW, 44);
     [self.view addSubview:navView];
+    navView.tag = 1005;
     
     UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight, ScreenW, 1)];
     line.backgroundColor = KCOLOR(222, 222, 222);

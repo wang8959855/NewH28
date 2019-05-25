@@ -97,7 +97,7 @@
     self.circle = [[NightCircleView alloc] init];
     [self.scrollView addSubview:self.circle];
     self.circle.frame = CGRectMake(0, 0, MIN(203 * kX, 203 * kDY), MIN(203 * kX, 203 * kDY));
-    self.circle.center = CGPointMake(CurrentDeviceWidth / 2, SafeAreaTopHeight+42+20+40 * kDY + self.circle.height/2.);
+    self.circle.center = CGPointMake(CurrentDeviceWidth / 2, SafeAreaTopHeight+42+20+20 * kDY + self.circle.height/2.);
     self.circle.backgroundColor = [UIColor clearColor];
     
     self.circle.minValue = 0;
@@ -390,7 +390,7 @@
         view.layer.borderColor = kMainColor.CGColor;
         view.layer.borderWidth = 0.5f;
         view.backgroundColor = [UIColor whiteColor];
-        view.frame = CGRectMake(10, self.view.height - 338*kDY + 100, ScreenWidth-20 , 200);
+        view.frame = CGRectMake(10, self.view.height - 338*kDY + 80, ScreenWidth-20 , 200);
         view.layer.cornerRadius = 8;
         view.layer.masksToBounds = YES;
         [self.scrollView addSubview:view];

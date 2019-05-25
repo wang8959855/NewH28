@@ -310,6 +310,11 @@
                 _fatigueLabel.textColor = kMainColor;
                 _fatigueLabel.text = @"--%";
                 [view addSubview:_fatigueLabel];
+                
+                _spo2Image = [[UIImageView alloc] initWithFrame:CGRectMake(view.width/2+27, _fatigueLabel.centerY-8, 9, 16)];
+                _spo2Image.image = [UIImage imageNamed:@"downSpo2"];
+                [view addSubview:_spo2Image];
+                
             }
                 break;
             case 2:
@@ -639,6 +644,12 @@
                     xuetang = @"";
                 }else{
                     xuetang = [NSString stringWithFormat:@"%.1f",[responseObject[@"data"][@"xuetang"] floatValue]];
+                }
+                
+                if (spo2 >= 95) {
+                    self.spo2Image.image = [UIImage imageNamed:@"upSpo2"];
+                }else{
+                    self.spo2Image.image = [UIImage imageNamed:@"downSpo2"];
                 }
                 
                 if ([[EirogaBlueToothManager sharedInstance] isconnected]) {

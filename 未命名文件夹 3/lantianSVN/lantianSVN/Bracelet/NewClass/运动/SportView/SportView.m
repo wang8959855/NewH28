@@ -96,7 +96,7 @@
         UIView *view = [[UIView alloc] init];
         view.backgroundColor = [UIColor clearColor];
         view.frame = CGRectMake((8 + i % 2 * 181) *kX,
-                                self.backScrollView.height - (29 * kDY)- (100 + 3)*kDY * (i/2 + 1)-30,
+                                self.backScrollView.height - (29 * kDY)- (100 + 3)*kDY * (i/2 + 1)-50,
                                 178 * kX+10,
                                 100*kDY);
         view.layer.cornerRadius = 5;
@@ -182,24 +182,10 @@
         
     }
     
-    //    设置目标按钮
-    self.targetBtn = [[UIButton alloc] init];
-    self.targetBtn.size = CGSizeMake(170*kX, 35*kDY);
-    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.backScrollView.height - 286*kDY);
-    [self.backScrollView addSubview:self.targetBtn];
-//    self.targetBtn.layer.borderColor = kMainColor.CGColor;
-//    self.targetBtn.layer.borderWidth = 1;
-    self.targetBtn.layer.cornerRadius = 8*kDY;
-    [self.targetBtn setImage:[UIImage imageNamed:@"target1"] forState:UIControlStateNormal];
-    [self.targetBtn setAttributedTitle:[self makeAttributedStringWithnumBer:[XXUserInformation userSportTarget] Unit:@"(目标步数)" WithFont:18] forState:UIControlStateNormal];
-    [self.targetBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.targetBtn.titleLabel.textColor = allColorWhite;
-    [self.targetBtn addTarget:self action:@selector(targetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
     self.circle = [[LMGaugeView1 alloc] init];
     [self.backScrollView addSubview:self.circle];
     self.circle.frame = CGRectMake(0, 0, MIN(203 * kX, 203 * kDY), MIN(203 * kX, 203 * kDY));
-    self.circle.center = CGPointMake(CurrentDeviceWidth / 2, 40 * kDY + self.circle.height/2.);
+    self.circle.center = CGPointMake(CurrentDeviceWidth / 2, 20 * kDY + self.circle.height/2.);
     self.circle.backgroundColor = [UIColor clearColor];
     
     self.circle.minValue = 0;
@@ -219,6 +205,22 @@
     [detailButton addTarget:self action:@selector(detailButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.backScrollView addSubview:detailButton];
     self.backScrollView.mj_header = [self getRefreshHeader];
+    
+    
+    //    设置目标按钮
+    self.targetBtn = [[UIButton alloc] init];
+    self.targetBtn.size = CGSizeMake(170*kX, 35*kDY);
+    self.targetBtn.center = CGPointMake(CurrentDeviceWidth/2., self.circle.bottom+30);
+    [self.backScrollView addSubview:self.targetBtn];
+    //    self.targetBtn.layer.borderColor = kMainColor.CGColor;
+    //    self.targetBtn.layer.borderWidth = 1;
+    self.targetBtn.layer.cornerRadius = 8*kDY;
+    [self.targetBtn setImage:[UIImage imageNamed:@"target1"] forState:UIControlStateNormal];
+    [self.targetBtn setAttributedTitle:[self makeAttributedStringWithnumBer:[XXUserInformation userSportTarget] Unit:@"(目标步数)" WithFont:18] forState:UIControlStateNormal];
+    [self.targetBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.targetBtn.titleLabel.textColor = allColorWhite;
+    [self.targetBtn addTarget:self action:@selector(targetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (MJRefreshNormalHeader *)getRefreshHeader{

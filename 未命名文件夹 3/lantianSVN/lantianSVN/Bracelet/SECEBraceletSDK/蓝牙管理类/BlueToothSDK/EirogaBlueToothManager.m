@@ -493,7 +493,7 @@
             [sport.calmHRArray addObjectsFromArray:array24];
             
             [sport.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stateArray];
-            [sport.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stepArray];
+            [sport.stepArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stepArray];
 //            [sport.BPHArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPHArray];
 //            [sport.BPLArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPLArray];
             [sport.heartArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.heartArray];
@@ -515,7 +515,7 @@
                 if (sportM.statuArray.count != 0) {
                     [sportM.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stateArray];
                 }
-                [sportM.statuArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stepArray];
+                [sportM.stepArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.stepArray];
 //                [sportM.stepArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.totalSteps]];
 //                if (sportM.BPHArray.count != 0) {
 //                    [sportM.BPHArray replaceObjectsInRange:NSMakeRange(hour * 6, 6) withObjectsFromArray:model.BPHArray];
@@ -536,7 +536,7 @@
               recieveHour = 24;
             }
             dataModel.totalSteps = 0;
-            for (int i = 0; i < 24; i ++)
+            for (int i = 0; i < 14400; i ++)
             {
                 dataModel.totalSteps += [sportM.stepArray[i] intValue];
             }

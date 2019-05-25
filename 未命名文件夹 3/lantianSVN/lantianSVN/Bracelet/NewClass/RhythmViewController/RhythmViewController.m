@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self addNavWithTitle:@"节律" backButton:YES shareButton:YES];
+    [self addnavTittle:@"节律" RSSIImageView:YES shareButton:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         NSString *value = [[NSUserDefaults standardUserDefaults] stringForKey:@"kBleBoundPeripheralIdentifierString"];
@@ -49,7 +49,7 @@
     UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:guideButton];
     guideButton.frame = CGRectMake(CurrentDeviceWidth - 45 - 30, StatusBarHeight + 12, 20, 20);
-    [guideButton setImage:[UIImage imageNamed:@"zy-black"] forState:UIControlStateNormal];
+    [guideButton setImage:[UIImage imageNamed:@"zy"] forState:UIControlStateNormal];
     [guideButton addTarget:self action:@selector(guideAction) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -57,6 +57,7 @@
 //指引
 - (void)guideAction{
     GuideLinesViewController *guide = [GuideLinesViewController new];
+    guide.hidesBottomBarWhenPushed = YES;
     guide.index = 0;
     guide.imageArr = @[@"jielv1",@"jielv2",@"jielv3"];
     [self.navigationController pushViewController:guide animated:YES];

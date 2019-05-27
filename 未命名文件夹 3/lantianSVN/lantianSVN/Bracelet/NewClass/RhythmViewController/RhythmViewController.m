@@ -35,6 +35,13 @@
     });
     self.view.backgroundColor = KCOLOR(45, 128, 251);
     [self setupView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backHome) name:@"jieLvBackHome" object:nil];
+    
+}
+
+- (void)backHome{
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 -(void)setupView{

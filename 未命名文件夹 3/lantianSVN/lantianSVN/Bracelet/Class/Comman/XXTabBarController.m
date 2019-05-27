@@ -159,6 +159,7 @@
     }else{
         self.lastIndex = tabBarController.selectedIndex;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jieLvBackHome" object:nil];
 }
 
 @end

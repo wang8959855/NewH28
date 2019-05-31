@@ -98,7 +98,7 @@ static NSString *header = @"header";
 - (void)guideAction{
     GuideLinesViewController *guide = [GuideLinesViewController new];
     guide.index = 0;
-    guide.imageArr = @[@"repot1",@"repot2",@"repot3",@"repot4",@"repot5"];
+    guide.imageArr = @[@"report1",@"report2",@"report3",@"report4",@"report5"];
     [self.navigationController pushViewController:guide animated:YES];
 }
 

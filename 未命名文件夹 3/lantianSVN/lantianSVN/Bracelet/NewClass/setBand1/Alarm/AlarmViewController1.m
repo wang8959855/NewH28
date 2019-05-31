@@ -306,6 +306,9 @@ static NSString *reuseID = @"alarmCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    EditAlarmViewController *editVC = [[EditAlarmViewController alloc]init];
+    editVC.alarmModel = self.alarmArray[indexPath.row];
+    [self.vc.navigationController pushViewController:editVC animated:YES];
 }
 
 - (NSMutableArray *)alarmIDArray

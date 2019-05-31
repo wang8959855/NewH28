@@ -343,7 +343,7 @@
     
     self.line.frame = CGRectMake(0, self.cellContentView.height-1, self.cellContentView.width, 1);
     
-    self.cycleLabel.frame = CGRectMake(self.timeLabel.maxX + 15, 0, 200, self.cellContentView.frame.size.height);
+    self.cycleLabel.frame = CGRectMake(self.timeLabel.maxX + 20, 0, 200, self.cellContentView.frame.size.height);
     self.cycleLabel.sd_layout.bottomSpaceToView(self.cellContentView, 10 * kX)
     .leftSpaceToView(self.cellContentView, 80 * kX)
     .widthIs(self.cellContentView.width - 80 * kX)

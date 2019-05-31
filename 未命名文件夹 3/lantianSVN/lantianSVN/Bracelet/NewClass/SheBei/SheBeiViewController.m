@@ -141,7 +141,7 @@ static NSString *conectReuse = @"connectedCell";
     UIView *topView = [[UIView alloc] init];
     topView.backgroundColor = [UIColor blackColor];
     [_searchViewTopView addSubview:topView];
-    topView.frame = CGRectMake(0, 0, CurrentDeviceWidth, 20);
+    topView.frame = CGRectMake(0, 0, CurrentDeviceWidth, StatusBarHeight);
 
 }
 
@@ -198,10 +198,10 @@ static NSString *conectReuse = @"connectedCell";
 }
 - (void)deviceType:(UIButton *)button
 {
-    DeviceTypeViewController *deveceType = [[DeviceTypeViewController alloc]init];
-    deveceType.navigationController.navigationBar.hidden = YES;
-    deveceType.delegate = self;
-    [self.navigationController pushViewController:deveceType animated:YES];
+//    DeviceTypeViewController *deveceType = [[DeviceTypeViewController alloc]init];
+//    deveceType.navigationController.navigationBar.hidden = YES;
+//    deveceType.delegate = self;
+//    [self.navigationController pushViewController:deveceType animated:YES];
 }
 -(void)refreshHead
 {
@@ -561,14 +561,23 @@ static NSString *conectReuse = @"connectedCell";
     if (_deviceArray && _deviceArray.count != 0) {
         PerModel *model =  _deviceArray[indexPath.row];
         CBPeripheral *peripheral = model.per;
-        cell.titleLabel.text = peripheral.name;
+        
+        if ([model.mac isEqual:[NSNull null]]) {
+            model.mac = @"";
+        }
+        if ([peripheral.name isEqual:[NSNull null]]) {
+            cell.titleLabel.text = @"";
+        }else{
+            cell.titleLabel.text = peripheral.name;
+        }
+        
         cell.macLabel.text = [self macWithMac:model.mac];
         //adaLog(@"PerModel - %@",model);
     }
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
 }
@@ -580,6 +589,7 @@ static NSString *conectReuse = @"connectedCell";
     }
     [self addActityIndicatorInView:self.view labelText:NSLocalizedString(@"正在连接",nil) detailLabel:nil];
     PerModel *model = self.deviceArray[indexPath.row];
+    
     [[PZBlueToothManager sharedInstance] connectWithUUID:model.per.identifier.UUIDString perName:model.perName Mac:model.mac];
     _deviceName.text = model.mac;
     kHCH.mac = model.mac;

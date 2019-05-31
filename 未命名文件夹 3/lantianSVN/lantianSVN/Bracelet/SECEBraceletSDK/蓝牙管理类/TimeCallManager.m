@@ -401,6 +401,16 @@ static TimeCallManager * instance=nil;
     return dateStr;
 }
 
+- (NSString *)getCurrnetWeek {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    NSArray *weekdayAry = [NSArray arrayWithObjects:@"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
+    [dateFormat setShortWeekdaySymbols:weekdayAry];
+    [dateFormat setDateFormat:@"eee"];
+    NSDate *date = [NSDate date];
+    NSString *srting = [dateFormat stringFromDate:date];
+    return srting;
+}
+
 - (NSString *)changeToYYYYMMDDStringWithTimeSeconds:(int)timeSeconds
 {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeSeconds];

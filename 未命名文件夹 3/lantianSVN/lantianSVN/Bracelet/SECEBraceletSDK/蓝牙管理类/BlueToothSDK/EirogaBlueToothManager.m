@@ -573,9 +573,9 @@
         dispatch_sync(queue, ^{
             [weakSelf uploadSleepDataWithTimeSeconds:timeSeconds];
         });
-        dispatch_sync(queue, ^{
-            [weakSelf uploadSportDataWithTimeSeconds:timeSeconds];
-        });
+//        dispatch_sync(queue, ^{
+//            [weakSelf uploadSportDataWithTimeSeconds:timeSeconds];
+//        });
         dispatch_sync(queue, ^{
             [weakSelf uploadHistoryHeartDataWithTimeSeconds:timeSeconds];
         });

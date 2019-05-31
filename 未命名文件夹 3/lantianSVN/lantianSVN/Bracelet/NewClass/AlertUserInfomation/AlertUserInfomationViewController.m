@@ -576,6 +576,10 @@ static NSString *AUISaveID = @"AUISaveID";
                      [self addActityTextInView:self.view text:NSLocalizedString(@"修改成功", nil) deleyTime:1.5f];
                  }
                  
+                 [[NSUserDefaults standardUserDefaults] setObject:self.uploadInfoDic[@"systolicP"] forKey:@"setheight"];
+                 [[NSUserDefaults standardUserDefaults] setObject:self.uploadInfoDic[@"diastolicP"] forKey:@"setlow"];
+                 [[NSUserDefaults standardUserDefaults] setObject:self.uploadInfoDic[@"Glu"] forKey:@"setspo2"];
+                 
                  if ([url isEqualToString:ALERTNICKNAME]) {
                      [[HCHCommonManager getInstance] setUserNickWith:responseObject[@"data"][@"nickname"]];
                      [self reloadTableViewSection:0 row:0];

@@ -80,6 +80,9 @@
 
 - (NSTimeInterval )getWeekTimeFistDay;
 
+//获取今天是周几
+- (NSString *)getCurrnetWeek;
+
 //1月的MMM
 - (NSString *)getFirstMonthMMM;
 

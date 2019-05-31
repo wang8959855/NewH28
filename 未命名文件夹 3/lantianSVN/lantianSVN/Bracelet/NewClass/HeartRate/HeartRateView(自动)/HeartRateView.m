@@ -635,8 +635,13 @@
                 NSArray *xueyangArr = [xueyang componentsSeparatedByString:@"."];
                 
                 int spo2 = 0;
-                if (xueyaArr.count == 2) {
+                if (xueyangArr.count == 2) {
                     spo2 = [xueyangArr[1] intValue];
+                }
+                
+                int xueya2 = 0;
+                if (xueyaArr.count == 2) {
+                    xueya2 = [xueyaArr[1] intValue];
                 }
                 
                 NSString *xuetang;
@@ -646,14 +651,14 @@
                     xuetang = [NSString stringWithFormat:@"%.1f",[responseObject[@"data"][@"xuetang"] floatValue]];
                 }
                 
-                if (spo2 >= 95) {
+                if ([responseObject[@"data"][@"sp_will"] isEqualToString:@"up"]) {
                     self.spo2Image.image = [UIImage imageNamed:@"upSpo2"];
                 }else{
                     self.spo2Image.image = [UIImage imageNamed:@"downSpo2"];
                 }
                 
                 if ([[EirogaBlueToothManager sharedInstance] isconnected]) {
-                    [[PZBlueToothManager sharedInstance] sendUserBph:[xueyaArr[0] intValue] bpl:[xueyaArr[1] intValue] glu:[xuetang intValue] spo1:[xueyangArr[0] intValue] spo2:spo2];
+                    [[PZBlueToothManager sharedInstance] sendUserBph:[xueyaArr[0] intValue] bpl:xueya2 glu:[xuetang intValue] spo1:[xueyangArr[0] intValue] spo2:spo2];
                 }
                 
             } else {

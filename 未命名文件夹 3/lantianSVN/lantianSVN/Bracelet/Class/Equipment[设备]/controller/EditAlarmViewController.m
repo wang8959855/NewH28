@@ -189,6 +189,18 @@
     self.alarmModel.minute = _minuteString.intValue;
     self.alarmModel.state = 1;
     
+    if (self.alarmModel.repeats == 0) {
+        //给当日
+        NSString *week = [[TimeCallManager getInstance] getCurrnetWeek];
+        NSArray * array = @[@"周一",@"周二",@"周三",@"周四",@"周五",@"周六",@"周日"];
+        
+        for (int i = 1; i < 8; i++) {
+            if ([array[i-1] isEqualToString:week]) {
+                self.alarmModel.repeats = 0x01 << i;
+            }
+        }
+    }
+    
     [[PZBlueToothManager sharedInstance] setAlarmWithAlarmID:self.alarmModel.idNum State:self.alarmModel.state Hour:self.alarmModel.hour Minute:self.alarmModel.minute Repeat:self.alarmModel.repeats];
     
     [[PZBlueToothManager sharedInstance] setAlarmNameWithAlarmID:self.alarmModel.idNum Name:_nameTF.text];

@@ -338,7 +338,7 @@
     [picker setBackgroundColor:kmainBackgroundColor];
     [picker setupCenterViewColor:kmainBackgroundColor];
     [backView addSubview:picker];
-    picker.sd_layout.bottomEqualToView(backView)
+    picker.sd_layout.bottomSpaceToView(backView, SafeAreaBottomHeight)
     .leftEqualToView(backView)
     .rightEqualToView(backView)
     .heightIs(254 * kX);

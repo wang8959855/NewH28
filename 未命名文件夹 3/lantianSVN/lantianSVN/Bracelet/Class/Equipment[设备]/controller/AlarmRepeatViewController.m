@@ -30,7 +30,7 @@
     [sureButton sizeToFit];
     [sureButton addTarget:self action:@selector(clickSure) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sureButton];
-    sureButton.frame = CGRectMake(ScreenW - sureButton.width - 20, 7 + 20, sureButton.width, 30);
+    sureButton.frame = CGRectMake(ScreenW - sureButton.width - 20, 7 + StatusBarHeight, sureButton.width, 30);
     
     NSArray *weekArray = @[NSLocalizedString(@"周一",nil),
                        NSLocalizedString(@"周二",nil),

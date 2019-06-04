@@ -52,7 +52,7 @@ void uncaughtExceptionHandler(NSException*exception){
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    
     [[UITabBar appearance] setTranslucent:NO];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

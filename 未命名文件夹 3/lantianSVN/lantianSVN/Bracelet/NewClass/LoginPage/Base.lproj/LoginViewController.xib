@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="areaNum" destination="iuP-dG-aJj" id="BcJ-LY-tXY"/>
                 <outlet property="loginBtn" destination="mKm-z4-7C4" id="5mT-cB-ZPE"/>
                 <outlet property="nameTF" destination="aT7-V3-s5o" id="Udv-AX-aYh"/>
                 <outlet property="passWordTF" destination="X9X-mq-Lwq" id="SCY-7r-wbB"/>
@@ -100,7 +101,7 @@
                             <rect key="frame" x="26" y="40" width="323" height="50"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aT7-V3-s5o">
-                                    <rect key="frame" x="41" y="0.0" width="282" height="50"/>
+                                    <rect key="frame" x="76" y="0.0" width="247" height="50"/>
                                     <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done"/>
@@ -115,16 +116,30 @@
                                         <constraint firstAttribute="height" constant="23" id="grj-by-kwe"/>
                                     </constraints>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuP-dG-aJj">
+                                    <rect key="frame" x="31" y="0.0" width="45" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="+86">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="selectAreaNumAction:" destination="-1" eventType="touchUpInside" id="Xpu-0s-5SD"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstItem="iuP-dG-aJj" firstAttribute="leading" secondItem="vog-qg-vhy" secondAttribute="trailing" id="4df-ZR-evZ"/>
                                 <constraint firstAttribute="trailing" secondItem="aT7-V3-s5o" secondAttribute="trailing" id="5wQ-ay-qun"/>
                                 <constraint firstAttribute="bottom" secondItem="aT7-V3-s5o" secondAttribute="bottom" id="BQH-Yf-xFU"/>
                                 <constraint firstItem="vog-qg-vhy" firstAttribute="centerY" secondItem="1rN-w7-ri0" secondAttribute="centerY" id="MrZ-9U-YCj"/>
+                                <constraint firstItem="aT7-V3-s5o" firstAttribute="leading" secondItem="iuP-dG-aJj" secondAttribute="trailing" id="PMf-Z4-1NP"/>
                                 <constraint firstItem="aT7-V3-s5o" firstAttribute="top" secondItem="1rN-w7-ri0" secondAttribute="top" id="RSe-ti-0w4"/>
-                                <constraint firstItem="aT7-V3-s5o" firstAttribute="leading" secondItem="vog-qg-vhy" secondAttribute="trailing" constant="10" id="XWH-lY-K2D"/>
+                                <constraint firstAttribute="bottom" secondItem="iuP-dG-aJj" secondAttribute="bottom" id="UAl-7J-oLq"/>
+                                <constraint firstItem="aT7-V3-s5o" firstAttribute="leading" secondItem="vog-qg-vhy" secondAttribute="trailing" constant="45" id="XWH-lY-K2D"/>
                                 <constraint firstItem="vog-qg-vhy" firstAttribute="leading" secondItem="1rN-w7-ri0" secondAttribute="leading" constant="8" id="acj-RI-he3"/>
                                 <constraint firstAttribute="height" constant="50" id="cTS-VI-rYK"/>
+                                <constraint firstItem="iuP-dG-aJj" firstAttribute="top" secondItem="1rN-w7-ri0" secondAttribute="top" id="n3g-Ih-mit"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>

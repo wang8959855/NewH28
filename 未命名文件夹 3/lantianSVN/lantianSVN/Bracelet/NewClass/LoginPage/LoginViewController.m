@@ -13,6 +13,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "PSDrawerManager.h"
 #import "EditPersonalInformationOneViewController.h"
+#import "SlectAreaNumberViewController.h"
 
 @interface LoginViewController ()
 {
@@ -22,6 +23,9 @@
 
 //倒计时
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (weak, nonatomic) IBOutlet UIButton *areaNum;
+@property (nonatomic, copy) NSString *area;
 
 @end
 
@@ -44,6 +48,7 @@
     [self setXibLabel];
     self.navigationController.navigationBar.hidden = YES;
     
+    self.area = @"86";
     self.versionLabel.text = showAppVersion;
     
     [_loginBtn setTitle:NSLocalizedString(@"登录", nil) forState:UIControlStateNormal];
@@ -101,6 +106,16 @@
     [self addActityTextInView:self.view text:NSLocalizedString(@"服务器异常", nil)  deleyTime:1.5f];
 }
 #pragma mark - TF事件
+- (IBAction)selectAreaNumAction:(UIButton *)sender {
+    SlectAreaNumberViewController *select = [SlectAreaNumberViewController new];
+    [self.navigationController pushViewController:select animated:YES];
+    kWEAKSELF;
+    select.backAreaNumBlock = ^(NSString * _Nonnull areaNum) {
+        weakSelf.area = areaNum;
+        [weakSelf.areaNum setTitle:[NSString stringWithFormat:@"+%@",areaNum] forState:UIControlStateNormal];
+    };
+}
+
 //   点击return按钮
 - (IBAction)didEndEdit:(UITextField *)sender
 {
@@ -120,10 +135,13 @@
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginCache"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            NSDictionary *loginDic = [NSDictionary dictionaryWithObjectsAndKeys:_nameTF.text,@"tel",_passWordTF.text,@"code", nil];
+            NSString *phone = [NSString stringWithFormat:@"%@_%@",self.area,_nameTF.text];
+            
+            NSDictionary *loginDic = [NSDictionary dictionaryWithObjectsAndKeys:phone,@"tel",_passWordTF.text,@"code", nil];
             [self addActityIndicatorInView:self.view labelText:NSLocalizedString(@"正在登录", nil) detailLabel:NSLocalizedString(@"正在登录", nil)];
             [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
 //            adaLog(@"  - - - - -开始登录");
+            
             NSString *url = [NSString stringWithFormat:@"%@",LOGIN];
             [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:loginDic Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
              {
@@ -218,8 +236,9 @@
         [self addActityIndicatorInView:self.view labelText:NSLocalizedString(@"正在获取验证码", nil) detailLabel:NSLocalizedString(@"正在获取验证码", nil)];
         [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
         
+        NSString *phone = [NSString stringWithFormat:@"%@_%@",self.area,_nameTF.text];
         NSString *url = [NSString stringWithFormat:@"%@",LOGINSEND];
-        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:@{@"tel":_nameTF.text} Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
+        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:@{@"tel":phone} Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
          {
              
              //                 adaLog(@"  - - - - -开始登录返回");

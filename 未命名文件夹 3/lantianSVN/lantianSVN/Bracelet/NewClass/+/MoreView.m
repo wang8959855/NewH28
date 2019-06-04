@@ -10,9 +10,12 @@
 #import "SOSView.h"
 #import "RhythmViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import <BMKLocationKit/BMKLocationManager.h>
+#import <BMKLocationkit/BMKLocationComponent.h>
+#import <BMKLocationKit/BMKLocationAuth.h>
 
 static MoreView *instance = nil;
-@interface MoreView ()<CLLocationManagerDelegate>
+@interface MoreView ()<BMKLocationManagerDelegate,BMKLocationAuthDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) UIButton *rotateBtn;
 
@@ -33,8 +36,9 @@ static MoreView *instance = nil;
 //宽度
 @property (nonatomic, assign) CGFloat viewWidth;
 
-@property (strong,nonatomic) CLLocationManager* locationManager;
+@property (strong,nonatomic) BMKLocationManager* locationManager;
 
+@property (nonatomic, strong) CLLocationManager *locationManager1;
 
 @end
 
@@ -71,10 +75,26 @@ static MoreView *instance = nil;
 
 - (void)setSubViews{
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = 100.0f;
+    self.locationManager1 = [[CLLocationManager alloc] init];
+    self.locationManager1.delegate = self;
+    
+    //初始化实例
+    [[BMKLocationAuth sharedInstance] checkPermisionWithKey:@"T1yaP1z2gQECDxQ3n1VWKqMaAEvgoL07" authDelegate:self];
+    _locationManager = [[BMKLocationManager alloc] init];
+    //设置delegate
+    _locationManager.delegate = self;
+    //设置是否允许后台定位
+    _locationManager.allowsBackgroundLocationUpdates = YES;
+    //设置返回位置的坐标系类型
+    _locationManager.coordinateType = BMKLocationCoordinateTypeBMK09LL;
+    //设置距离过滤参数
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    //设置预期精度参数
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    //设置位置获取超时时间
+    _locationManager.locationTimeout = 10;
+    //设置获取地址信息超时时间
+    _locationManager.reGeocodeTimeout = 10;
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
@@ -157,6 +177,7 @@ static MoreView *instance = nil;
                 [self makeToast:@"请先打开定位" duration:1.5 position:CSToastPositionCenter];
                 return;
             }
+            [self makeToastActivity];
             [weakSelf startLocation];
         };
     }else if (button == self.locationBtn){//定位
@@ -209,56 +230,37 @@ static MoreView *instance = nil;
 
 //开始定位
 - (void)startLocation{
-    
-    [self makeToastActivity:CSToastPositionCenter];
-    
-    if ([[[UIDevice currentDevice]systemVersion]doubleValue] >8.0){
-        
-        [self.locationManager requestWhenInUseAuthorization];
-        
-    }
-    
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        
-        _locationManager.allowsBackgroundLocationUpdates =YES;
-        
-    }
-    
-    [self.locationManager startUpdatingLocation];
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    CLLocation *newLocation = locations[0];
-    CLLocationCoordinate2D oldCoordinate = newLocation.coordinate;
-    
-    NSLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
-    
-    [manager stopUpdatingLocation];
-    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError * _Nullable error) {
-        CLPlacemark *place = placemarks.firstObject;
-        NSLog(@"name,%@",place.name);                      // 位置名
-        NSLog(@"thoroughfare,%@",place.thoroughfare);      // 街道
-        NSLog(@"subThoroughfare,%@",place.subThoroughfare);// 子街道
-        NSLog(@"locality,%@",place.locality);              // 市
-        NSLog(@"subLocality,%@",place.subLocality);        // 区
-        NSLog(@"country,%@",place.country);                // 国家
-        if (!place.locality || place.locality.length == 0) {
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if ([CLLocationManager locationServicesEnabled] &&
+        (status == kCLAuthorizationStatusAuthorizedWhenInUse
+         || status == kCLAuthorizationStatusAuthorizedAlways)) {
+            //定位功能可用，开始定位
+            kWEAKSELF
+            [self.locationManager requestLocationWithReGeocode:YES withNetworkState:NO completionBlock:^(BMKLocation * _Nullable location, BMKLocationNetworkState state, NSError * _Nullable error) {
+                if (location.rgcData) {
+                    NSString *address = @"";
+                    if ([location.rgcData.province isEqualToString:location.rgcData.city]) {
+                        address = [NSString stringWithFormat:@"%@%@",location.rgcData.city,location.rgcData.district];
+                    }else{
+                        address = [NSString stringWithFormat:@"%@%@%@",location.rgcData.province,location.rgcData.city,location.rgcData.district];
+                    }
+                    [weakSelf requestSOSAddress:address lng:location.location.coordinate.longitude lat:location.location.coordinate.latitude environment:location.rgcData.locationDescribe];
+                }else{
+                    [weakSelf requestSOSAddress:@"" lng:location.location.coordinate.longitude lat:location.location.coordinate.latitude environment:@""];
+                }
+                [weakSelf.locationManager stopUpdatingLocation];
+            }];
+        }else{
             //定位失败
             [self hideToastActivity];
             [self makeToast:@"定位失败" duration:1.5 position:CSToastPositionCenter];
-            return;
         }
-        [self requestSOSAddress:[NSString stringWithFormat:@"%@%@%@%@",place.country,place.locality,place.subLocality,place.name] lng:oldCoordinate.longitude lat:oldCoordinate.latitude environment:place.name];
-    }];
 }
 
 //点击sos
-- (void)requestSOSAddress:(NSString *)address lng:(float)lng lat:(float)lat environment:(NSString *)environment{
-    NSString *url = [NSString stringWithFormat:@"%@/%@",CLICKSOS,TOKEN];
-    NSDictionary *para = @{@"UserID":USERID,@"address":address,@"lng":@(lng),@"lat":@(lat),@"environment":environment};
+- (void)requestSOSAddress:(NSString *)address lng:(double)lng lat:(double)lat environment:(NSString *)environment{
+    NSString *url = [NSString stringWithFormat:@"%@",CLICKSOS];
+    NSDictionary *para = @{@"userid":USERID,@"address":address,@"lng":@(lng),@"lat":@(lat),@"environment":environment,@"token":TOKEN};
     [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:para Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {
         [self hideToastActivity];
         int code = [responseObject[@"code"] intValue];

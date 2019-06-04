@@ -612,6 +612,18 @@
 }
 
 - (void)getHomeData{
+    
+    HistoryDataModel *historyModel = [HistoryDataModel new];
+    [historyModel writeDateYearWithTimeSeconds:1559577600 completion:^(userDataModel *dataModel) {
+        if (dataModel){
+            sportModel *sportM = [NSKeyedUnarchiver unarchiveObjectWithData:dataModel.userData];
+            NSArray *heartArray = sportM.heartArray;
+            NSArray *stepArray = sportM.stepArray;
+        }
+    }];
+
+    
+    
     [self makeToastActivity];
     NSString *uploadUrl = [NSString stringWithFormat:@"%@",HOMEDATA];
     [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:uploadUrl ParametersDictionary:@{@"userid":USERID,@"device":@"h28_",@"token":TOKEN} Block:^(id responseObject, NSError *error, NSURLSessionDataTask *task) {

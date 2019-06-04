@@ -399,7 +399,6 @@
         if (nowHour >= hour)
         {
             [self getHistoryDataWithTimeSecondsFromBracelet:timeSeconds andHour:hour];
-            
             return;
         }else
         {
@@ -421,7 +420,8 @@
                 
                 if (userDataArray.count == 0)
                 {
-                    [self getHistoryDataWithTimeSecondsFromBracelet:timeSeconds andHour:0];
+//                    [self getHistoryDataWithTimeSecondsFromBracelet:timeSeconds+KONEDAYSECONDS andHour:0];
+//                    return; 
                 }else
                 {
                     userDataModel *dataModel = userDataArray[0];
@@ -475,11 +475,11 @@
             sportModel *sport = [sportModel new];
             NSMutableArray *array144 = [[NSMutableArray alloc] init];
             NSMutableArray *array24 = [[NSMutableArray alloc] init];
-            for (int i = 0; i < 14400; i ++)
+            for (int i = 0; i < 1440; i ++)
             {
                 [array144 addObject:@"0"];
             }
-            for (int i = 0 ; i < 14400; i ++)
+            for (int i = 0 ; i < 1440; i ++)
             {
                 [array24 addObject:@"0"];
             }
@@ -499,13 +499,13 @@
             [sport.heartArray replaceObjectsInRange:NSMakeRange(hour * 60, 60) withObjectsFromArray:model.heartArray];
             [sport.calmHRArray replaceObjectAtIndex:hour withObject:[NSString stringWithFormat:@"%d",model.calmHR]];
             dataModel.totalSteps = 0;
-            for (int i = 0; i < 60; i ++)
+            for (int i = 0; i < 1440; i ++)
             {
                 dataModel.totalSteps += [sport.stepArray[i] intValue];
             }
             dataModel.userData = [NSKeyedArchiver archivedDataWithRootObject:sport];
             [WHC_ModelSqlite insert:dataModel];
-            [weakSelf getHistoryDataWithTimeSeconds:timeSeconds andHour:hour];
+            [weakSelf getHistoryDataWithTimeSeconds:timeSeconds andHour:model.hour];
         }else{
             userDataModel *dataModel = modelArray[0];
             sportModel *sportM = [NSKeyedUnarchiver unarchiveObjectWithData:dataModel.userData];
@@ -536,7 +536,7 @@
               recieveHour = 24;
             }
             dataModel.totalSteps = 0;
-            for (int i = 0; i < 14400; i ++)
+            for (int i = 0; i < 1440; i ++)
             {
                 dataModel.totalSteps += [sportM.stepArray[i] intValue];
             }

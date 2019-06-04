@@ -129,6 +129,9 @@
 		1833BC462125A9AC00ED4E4B /* SMTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833BC3E2125A9AC00ED4E4B /* SMTabBar.m */; };
 		1833BC472125A9AC00ED4E4B /* SMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833BC412125A9AC00ED4E4B /* SMDetailViewController.m */; };
 		1833BC482125A9AC00ED4E4B /* SMTabbedSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833BC422125A9AC00ED4E4B /* SMTabbedSplitViewController.m */; };
+		183787FD22A65CB9004036CB /* SlectAreaNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183787FB22A65CB9004036CB /* SlectAreaNumberViewController.m */; };
+		183787FE22A65CB9004036CB /* SlectAreaNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183787FC22A65CB9004036CB /* SlectAreaNumberViewController.xib */; };
+		1837880022A65F57004036CB /* chineseCountryJson.txt in Resources */ = {isa = PBXBuildFile; fileRef = 183787FF22A65F57004036CB /* chineseCountryJson.txt */; };
 		183A7BAF2119D32500F98016 /* PSDrawerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A7BAB2119D32500F98016 /* PSDrawerManager.m */; };
 		183A7BB02119D32500F98016 /* UIView+leoAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A7BAC2119D32500F98016 /* UIView+leoAdd.m */; };
 		183A7BB62119D41600F98016 /* AutocompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A7BB22119D41600F98016 /* AutocompletionTableView.m */; };
@@ -742,6 +745,10 @@
 		1833BC402125A9AC00ED4E4B /* SMDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDetailViewController.h; sourceTree = "<group>"; };
 		1833BC412125A9AC00ED4E4B /* SMDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDetailViewController.m; sourceTree = "<group>"; };
 		1833BC422125A9AC00ED4E4B /* SMTabbedSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTabbedSplitViewController.m; sourceTree = "<group>"; };
+		183787FA22A65CB9004036CB /* SlectAreaNumberViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlectAreaNumberViewController.h; sourceTree = "<group>"; };
+		183787FB22A65CB9004036CB /* SlectAreaNumberViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlectAreaNumberViewController.m; sourceTree = "<group>"; };
+		183787FC22A65CB9004036CB /* SlectAreaNumberViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlectAreaNumberViewController.xib; sourceTree = "<group>"; };
+		183787FF22A65F57004036CB /* chineseCountryJson.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chineseCountryJson.txt; sourceTree = "<group>"; };
 		183A7BAB2119D32500F98016 /* PSDrawerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDrawerManager.m; sourceTree = "<group>"; };
 		183A7BAC2119D32500F98016 /* UIView+leoAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+leoAdd.m"; sourceTree = "<group>"; };
 		183A7BAD2119D32500F98016 /* PSDrawerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDrawerManager.h; sourceTree = "<group>"; };
@@ -1681,6 +1688,9 @@
 				1809F53A212A6693005EDABA /* RgistViewController.h */,
 				1809F53B212A6693005EDABA /* RgistViewController.m */,
 				1809F539212A6693005EDABA /* RgistViewController.xib */,
+				183787FA22A65CB9004036CB /* SlectAreaNumberViewController.h */,
+				183787FB22A65CB9004036CB /* SlectAreaNumberViewController.m */,
+				183787FC22A65CB9004036CB /* SlectAreaNumberViewController.xib */,
 			);
 			path = RigestPage;
 			sourceTree = "<group>";
@@ -2700,6 +2710,7 @@
 		3B6A0D081C3B687D00FB76D0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				183787FF22A65F57004036CB /* chineseCountryJson.txt */,
 				3B27FE1A1C8548D600DAB43D /* Images.xcassets */,
 				3B71F0341C3DFDAD009E54F8 /* Guide */,
 				185D861C211DC267006B7E00 /* image */,
@@ -4250,6 +4261,7 @@
 				18D1C6D3225ECD180023F76F /* VoiceCell.xib in Resources */,
 				1809F67D212C3E42005EDABA /* 设备已连接@2x.png in Resources */,
 				185D8636211DC267006B7E00 /* qrcode_scan_btn_myqrcode_nor@2x.png in Resources */,
+				1837880022A65F57004036CB /* chineseCountryJson.txt in Resources */,
 				1892ACC0212E8EC600C03432 /* AUIHeaderCell.xib in Resources */,
 				1805FFD8213026A500CC919D /* FriendDetailViewController.xib in Resources */,
 				185D8646211DC267006B7E00 /* qrcode_scan_bar@2x.png in Resources */,
@@ -4261,6 +4273,7 @@
 				1809F68A212C3E42005EDABA /* beCareful@3x.png in Resources */,
 				1809F690212C3E42005EDABA /* beCareful.png in Resources */,
 				1809F579212AA082005EDABA /* LoginViewController.xib in Resources */,
+				183787FE22A65CB9004036CB /* SlectAreaNumberViewController.xib in Resources */,
 				18D1C6D0225ECD180023F76F /* RobotSwitchView.xib in Resources */,
 				185D863A211DC267006B7E00 /* qr_bottom_right@3x.png in Resources */,
 				1809F662212C3E42005EDABA /* 组-2.png in Resources */,
@@ -4651,6 +4664,7 @@
 				BCDE59891ED01E00005E8A5A /* EditPhoneViewController.m in Sources */,
 				1805FFD7213026A500CC919D /* FriendDetailViewController.m in Sources */,
 				BC7DAE951E64145000876151 /* ZFLineChart.m in Sources */,
+				183787FD22A65CB9004036CB /* SlectAreaNumberViewController.m in Sources */,
 				18AD4A9F21527EC10018A3CB /* HeartRateSetViewController1.m in Sources */,
 				1820DE62216B4B0300C66F0C /* SheBeiCell.m in Sources */,
 				BC6E350F1E987B76008A0203 /* NSData+ImageContentType.m in Sources */,

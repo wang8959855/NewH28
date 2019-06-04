@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bracelet/SECEBraceletSDK/&#x84dd;&#x7259;&#x7ba1;&#x7406;&#x7c7b;/BlueToothSDK/EirogaBlueToothManager.m"
-            timestampString = "580187802.510896"
+            timestampString = "581331951.731854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "771"
@@ -36,11 +36,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bracelet/SECEBraceletSDK/&#x84dd;&#x7259;&#x7ba1;&#x7406;&#x7c7b;/BlueToothSDK/EirogaBlueToothManager.m"
-            timestampString = "580187802.511032"
+            timestampString = "581331951.73195"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "768"
             endingLineNumber = "768"
+            landmarkName = "-uploadSleepDataWithTimeSeconds:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bracelet/SECEBraceletSDK/&#x84dd;&#x7259;&#x7ba1;&#x7406;&#x7c7b;/BlueToothSDK/EirogaBlueToothManager.m"
+            timestampString = "581331951.732025"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "742"
+            endingLineNumber = "742"
             landmarkName = "-uploadSleepDataWithTimeSeconds:"
             landmarkType = "7">
          </BreakpointContent>

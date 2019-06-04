@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "EditPersonalInformationOneViewController.h"
 #import "PSDrawerManager.h"
+#import "SlectAreaNumberViewController.h"
 
 @interface RgistViewController ()
 {
@@ -19,6 +20,10 @@
 
 //倒计时
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (weak, nonatomic) IBOutlet UIButton *areaNum;
+@property (nonatomic, copy) NSString *area;
+
 
 @end
 
@@ -35,11 +40,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.area = @"86";
     [self setXibLabel];
     self.versionLabel.text = showAppVersion;
     // Do any additional setup after loading the view from its nib.
 //    [self setButtonWithButton:_nextBtn andTitle:NSLocalizedString(@"下一步", nil)];
     [_userNameTF addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (IBAction)selectAreaNumAction:(UIButton *)sender {
+    SlectAreaNumberViewController *select = [SlectAreaNumberViewController new];
+    [self.navigationController pushViewController:select animated:YES];
+    kWEAKSELF;
+    select.backAreaNumBlock = ^(NSString * _Nonnull areaNum) {
+        weakSelf.area = areaNum;
+        [weakSelf.areaNum setTitle:[NSString stringWithFormat:@"+%@",areaNum] forState:UIControlStateNormal];
+    };
 }
 
 - (void)textFieldValueChanged:(UITextField *)textField{
@@ -83,8 +99,9 @@
         
             NSString *url = [NSString stringWithFormat:@"%@",REGISTER];
             
+            NSString *phone = [NSString stringWithFormat:@"%@_%@",self.area,_userNameTF.text];
             kWEAKSELF;
-            [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:url fileUrl:nil params:@{@"tel":_userNameTF.text,@"code":_passWordTF.text} Block:^(id responseObject, NSError *error) {
+            [[AFAppDotNetAPIClient sharedClient] globalmultiPartUploadWithUrl:url fileUrl:nil params:@{@"tel":phone,@"code":_passWordTF.text} Block:^(id responseObject, NSError *error) {
                 
                 //adaLog(@"responseObject[msg] - %@",responseObject[@"msg"]);
                 //adaLog(@"responseObject - %@",responseObject);
@@ -141,8 +158,11 @@
         [self addActityIndicatorInView:self.view labelText:NSLocalizedString(@"正在获取验证码", nil) detailLabel:NSLocalizedString(@"正在获取验证码", nil)];
         [self performSelector:@selector(loginTimeOut) withObject:nil afterDelay:60.f];
         
+        
+        NSString *phone = [NSString stringWithFormat:@"%@_%@",self.area,_userNameTF.text];
+        
         NSString *url = [NSString stringWithFormat:@"%@",REGISTERSEND];
-        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:@{@"tel":_userNameTF.text} Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
+        [[AFAppDotNetAPIClient sharedClient] globalRequestWithRequestSerializerType:nil ResponseSerializeType:nil RequestType:NSAFRequest_POST RequestURL:url ParametersDictionary:@{@"tel":phone} Block:^(id responseObject, NSError *error,NSURLSessionDataTask* task)
          {
              
              //                 adaLog(@"  - - - - -开始登录返回");

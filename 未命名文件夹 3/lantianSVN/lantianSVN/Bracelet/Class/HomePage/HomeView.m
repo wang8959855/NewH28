@@ -530,25 +530,48 @@ static NSString *reuseID  = @"CELL";
 -(void)viewWillRefresh {
 //        adaLog(@"  = = = = = =  不断的请求");
     
-    if ([[EirogaBlueToothManager sharedInstance] isconnected]) {
-        self.bleLabel.text = NSLocalizedString(@"已连接", nil);
+    if (![[EirogaBlueToothManager sharedInstance] isconnected])
+    {
+        for (UIView *view in self.subviews)
+        {
+            if (view.tag == 50)
+            {
+                view.alpha = 0.5;
+            }
+            _bleLabel.text = NSLocalizedString(@"未连接", nil);
+            _eleLabel.text = @"x";
+            self.bleImageView.image = [UIImage imageNamed:@"bluetooth"];
+            [self setUimageViewWith:20];
+        }
+    }else{
+        for (UIView *view in self.subviews)
+        {
+            if (view.tag == 50)
+            {
+                view.alpha = 1;
+            }
+        }
+        _bleLabel.text = NSLocalizedString(@"已连接", nil);
+        _eleLabel.text = [NSString stringWithFormat:@"%d%%",[HCHCommonManager getInstance].curPower];
+        self.bleImageView.image = [UIImage imageNamed:@"bluetooth-"];
+        [self setUimageViewWith:[HCHCommonManager getInstance].curPower];
     }
     
-    [[PZBlueToothManager sharedInstance] getHardBatteryInformation:^(int number) {
-        if ([EirogaBlueToothManager sharedInstance].isconnected)
-        {
-            for (UIView *view in self.subviews)
-            {
-                if (view.tag == 50)
-                {
-                    view.alpha = 1;
-                }
-            }
-            self.eleLabel.text = [NSString stringWithFormat:@"%d%%",number];
-            self.bleLabel.text = NSLocalizedString(@"已连接", nil);
-            [HCHCommonManager getInstance].curPower = number;
-        }
-    }];
+//    [[PZBlueToothManager sharedInstance] getHardBatteryInformation:^(int number) {
+//        if ([EirogaBlueToothManager sharedInstance].isconnected)
+//        {
+//            for (UIView *view in self.subviews)
+//            {
+//                if (view.tag == 50)
+//                {
+//                    view.alpha = 1;
+//                }
+//            }
+//            self.eleLabel.text = [NSString stringWithFormat:@"%d%%",number];
+//            self.bleLabel.text = NSLocalizedString(@"已连接", nil);
+//            [HCHCommonManager getInstance].curPower = number;
+//        }
+//    }];
 //    if (!([HCHCommonManager getInstance].userInfoDictionAry[@"nick"] == [NSNull null]))
 //    {
 //        _userNameLabel.text = [HCHCommonManager getInstance].userInfoDictionAry[@"nick"];

@@ -117,10 +117,16 @@
     jiedu.image = [UIImage imageNamed:@"jiedu"];
     [view addSubview:jiedu];
     
-    UILabel *jieduLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 100, 20)];
+    UILabel *jieduLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 75, 20)];
     jieduLabel.text = @"心律检测";
     jieduLabel.font = Font_Bold_String(13);
     [view addSubview:jieduLabel];
+    
+    UILabel *detail = [UILabel new];
+    detail.text = @"(测量结果在报告-心律检测查看)";
+    detail.font = [UIFont systemFontOfSize:13];
+    detail.frame = CGRectMake(jieduLabel.right+5, jieduLabel.centerY-10, 200, 20);
+    [view addSubview:detail];
     
     UILabel *tixing = [[UILabel alloc] initWithFrame:CGRectMake(20, jieduLabel.bottom, view.width-40, view.height-30)];
     [view addSubview:tixing];

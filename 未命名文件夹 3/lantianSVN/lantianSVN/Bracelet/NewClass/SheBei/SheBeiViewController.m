@@ -130,6 +130,15 @@ static NSString *conectReuse = @"connectedCell";
             _deviceName.text = kHCH.mac;
             _stateLabel.text = peripheral.name;
             [self bindDevice:@"h28_"];
+            
+            //打开开关
+            [[PZBlueToothManager sharedInstance] setLiftHandStateWithState:YES];
+            
+            NotifyModel *model = [NotifyModel new];
+            model.CallState = YES;
+            model.SMSState = YES;
+            [[PZBlueToothManager sharedInstance] setNotifyWithNotifyModel:model];
+            
         }else{
             [self addActityTextInView:self.view text:NSLocalizedString(@"设备已断开", nil) deleyTime:1.5f];
             [_searchBtn setTitle:NSLocalizedString(@"搜索设备",nil) forState:UIControlStateNormal];
@@ -547,7 +556,6 @@ static NSString *conectReuse = @"connectedCell";
     
 }
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _deviceArray.count;
@@ -566,6 +574,15 @@ static NSString *conectReuse = @"connectedCell";
             model.mac = @"";
         }
         if ([peripheral.name isEqual:[NSNull null]]) {
+            cell.titleLabel.text = @"";
+        }else{
+            cell.titleLabel.text = peripheral.name;
+        }
+        
+        if (model.mac == nil) {
+            model.mac = @"";
+        }
+        if (peripheral.name == nil) {
             cell.titleLabel.text = @"";
         }else{
             cell.titleLabel.text = peripheral.name;
@@ -635,7 +652,7 @@ static NSString *conectReuse = @"connectedCell";
     {
         mac = [mac uppercaseString];
         NSMutableString * mutString;
-        if (mac.length > 6)
+        if (mac.length > 12)
         {
             mutString = [[NSMutableString alloc] initWithString:[mac substringWithRange:NSMakeRange(mac.length - 12, 12)]];
         }else
@@ -643,9 +660,10 @@ static NSString *conectReuse = @"connectedCell";
             mutString = [[NSMutableString alloc] initWithString:mac];
         }
         
-        for (int i = 1; i < 6 ; i ++)
+        NSInteger index = mutString.length;
+        for (int i = 1; i < index/2 ; i++)
         {
-            [mutString insertString:@":" atIndex:12 - 2 * i];
+            [mutString insertString:@":" atIndex:index - 2 * i];
         }
         return  mutString;
     }

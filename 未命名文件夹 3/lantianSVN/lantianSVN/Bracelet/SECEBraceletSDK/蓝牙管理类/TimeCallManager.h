@@ -88,4 +88,7 @@
 
 - (NSString *)changeToYYYYMMDDStringWithTimeSeconds:(int)timeSeconds;
 
+/** 获取当前时区的时间 */
+- (NSString *)getCurrentAreaTime;
+
 @end

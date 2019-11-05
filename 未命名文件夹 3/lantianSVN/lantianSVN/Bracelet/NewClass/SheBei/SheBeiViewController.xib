@@ -28,6 +28,8 @@
                 <outlet property="stateImageView" destination="eld-DM-b2i" id="71z-Ls-NuS"/>
                 <outlet property="stateLabel" destination="V9B-HV-DEe" id="kVh-oV-tKb"/>
                 <outlet property="titleLabel" destination="sJv-Gj-BS5" id="fDC-hC-sN2"/>
+                <outlet property="topHeight" destination="TWz-rJ-2Tz" id="otK-g1-Vdw"/>
+                <outlet property="topHeight1" destination="FgH-ob-PUN" id="9Fe-XQ-wYR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zhaoshouhuanDetailLabel" destination="p3A-sC-Yln" id="QBN-Ud-Y3a"/>
                 <outlet property="zhaoshouhuanLabel" destination="6Zt-KX-eHy" id="CEI-dN-GTl"/>
@@ -53,7 +55,6 @@
                     <color key="backgroundColor" red="0.32549019610000002" green="0.76862745099999996" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="TWz-rJ-2Tz"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="piA-hg-S4a"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjK-As-etq">

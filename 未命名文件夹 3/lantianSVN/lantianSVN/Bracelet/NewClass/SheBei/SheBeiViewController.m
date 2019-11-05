@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchTop;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight1;
 
 @end
 
@@ -50,6 +52,8 @@ static NSString *conectReuse = @"connectedCell";
     [self setupView];
     [self refreshConnectView];
     //    [self setupConstraint];
+    self.topHeight.constant = SafeAreaTopHeight;
+    self.topHeight1.constant = SafeAreaTopHeight;
     
     UIButton *guideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:guideButton];
